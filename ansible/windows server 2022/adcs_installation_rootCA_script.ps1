@@ -1,3 +1,8 @@
+# make sure to edit these values before launching the script!
+
+$root_ca_ip = "192.168.1.1"
+$intermediate_ca_ip = "192.168.1.2"
+
 # bypass Windows Powershell security controls
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
@@ -33,10 +38,12 @@ $params = @{
 }
 Install-AdcsCertificationAuthority @params
 
-# add AIA
-Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri 
+# add AIA - to be tested
+Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate_ca_ip/certdata/<ServerDNSName><CaName><CertificateName>"
 
-# add CRL
+# add CRL - to be tested
+# adds 2 options of video
+Add-CACRLDistributionPoint -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -AddToCertificateCdp
 
 # publish CRL - to be tested
 Certutil -CRL
