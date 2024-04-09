@@ -16,3 +16,12 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 }
 
 # Installing AD CS for the PKI
+$params = @{
+    CAType              = StandaloneRootCa
+    CryptoProviderName  = "ECDSA_P521#Microsoft Software Key Storage Provider"
+    HashAlgorithmName   = SHA512
+    ValidityPeriod      = Years
+    ValidityPeriodUnits = 3
+}
+Install-AdcsCertificationAuthority @params
+
