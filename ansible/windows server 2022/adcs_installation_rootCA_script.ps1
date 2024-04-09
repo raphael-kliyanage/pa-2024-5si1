@@ -21,10 +21,11 @@ Add-WindowsFeature Adcs-Cert-Authority -IncludeManagementTools
 
 # configuring as StandaloneRootCA
 $params = @{
-    CAType              = StandaloneRootCa
-    CryptoProviderName  = "ECDSA_P521#Microsoft Software Key Storage Provider"
-    HashAlgorithmName   = SHA512
-    ValidityPeriod      = Years
+    CAType              = "StandaloneRootCa"
+    CryptoProviderName  = "RSA#Microsoft Software Key Storage Provider"
+    KeyLength           = 4096
+    HashAlgorithmName   = "SHA512"
+    ValidityPeriod      = "Years"
     ValidityPeriodUnits = 3
 }
 Install-AdcsCertificationAuthority @params
