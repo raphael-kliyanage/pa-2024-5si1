@@ -15,7 +15,11 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
     Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
 }
 
-# Installing AD CS for the PKI
+### Installing AD CS for the PKI
+# adding windows' features
+Add-WindowsFeature Adcs-Cert-Authority -IncludeManagementTools
+
+# configuring as StandaloneRootCA
 $params = @{
     CAType              = StandaloneRootCa
     CryptoProviderName  = "ECDSA_P521#Microsoft Software Key Storage Provider"
