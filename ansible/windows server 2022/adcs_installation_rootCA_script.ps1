@@ -1,3 +1,4 @@
+# bypass Windows Powershell security controls
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 # Install the OpenSSH Server
@@ -32,3 +33,10 @@ $params = @{
 }
 Install-AdcsCertificationAuthority @params
 
+# add AIA
+Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri 
+
+# add CRL
+
+# publish CRL - to be tested
+Certutil -CRL
