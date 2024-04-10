@@ -37,7 +37,10 @@ CertUtil -CRL
     - move every "interesting" files on the desktop
     - print a message 
 #>
-	
-Copy-Item -Path "C:\Windows\System32\CertSrv\CertEnroll\$env:computername_$env:computername-CA.crt" -Destination "$current_path\$env:computername_$env:computername-CA.crt"
+
+$crt_file_name = $env:computername
+$crt_file_name += "_$env:computername"
+
+Copy-Item -Path "C:\Windows\System32\CertSrv\CertEnroll\$crt_file_name-CA.crt" -Destination "$current_path\$env:computername_$env:computername-CA.crt"
 Copy-Item -Path "C:\Windows\System32\CertSrv\CertEnroll\$env:computername-CA.crl" -Destination "$current_path\$env:computername-CA.crl"
 Get-ChildItem -Path "Cert:\LocalMachine\My" | Where{$_.Subject -match "$env:computername-CA"} | Export-Certificate -Type cer -FilePath "$current_path\root-ca_public_key.cer"
