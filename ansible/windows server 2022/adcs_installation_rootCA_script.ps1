@@ -43,7 +43,7 @@ Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate
 
 # add CRL - to be tested
 # adds 2 options of video
-Add-CACRLDistributionPoint -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -AddToCertificateCdp
+Add-CACRLDistributionPoint -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -AddToCertificateCdp -AddToCrlCdp
 
 # publish CRL - to be tested
 Certutil -CRL
