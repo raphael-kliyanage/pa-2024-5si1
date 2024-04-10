@@ -35,4 +35,4 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 }
 
 # Renaming PC
-Rename-Computer -ComputerName $env:COMPUTERNAME -NewName -Restart
+Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $computer_name -Restart
