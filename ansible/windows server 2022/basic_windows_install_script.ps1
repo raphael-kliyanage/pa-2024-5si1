@@ -1,6 +1,6 @@
 ### Edit these values to match your desired configuration
 $computer_name = "ROOT-CA"
-$ip_addr = "192.168.1.1"
+$ip_addr = "192.168.1.44"
 $cidr = 24
 $gateway = "192.168.1.1"
 $dns = "1.1.1.1,1.0.0.1"
@@ -9,9 +9,14 @@ $dns = "1.1.1.1,1.0.0.1"
 # get interface name
 $interface_name = (Get-NetAdapter).InterfaceAlias
 
-# configuring IPv4
+# Remove the static ip
+Remove-NetIPAddress -InterfaceAlias $interface_name
+# Remove the default gateway
+Remove-NetRoute -InterfaceAlias $interface_name
+
+# configuring new static IPv4
 New-NetIPAddress -InterfaceAlias $interface_name -AddressFamily IPv4 -IPAddress $ip_addr -PrefixLength $cidr -DefaultGateway $gateway -Verbose
-# configuring DNS for IPv4
+# configuring new stattic DNS for IPv4
 Set-DnsClientServerAddress -InterfaceAlias $interface_name -ServerAddresses $dns
 
 # IPv6
