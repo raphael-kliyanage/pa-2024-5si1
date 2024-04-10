@@ -38,12 +38,11 @@ $params = @{
 }
 Install-AdcsCertificationAuthority @params
 
-# add AIA - to be tested
+# add AIA
 Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate_ca_ip/certdata/<ServerDNSName><CaName><CertificateName>"
 
-# add CRL - to be tested
-# adds 2 options of video
-Add-CACRLDistributionPoint -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -AddToCertificateCdp -AddToCrlCdp
+# add CRL
+Add-CACRLDistributionPoint -AddToCertificateCdp -AddToFreshestCrl -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl"
 
-# publish CRL - to be tested
+# publish CRL
 Certutil -CRL
