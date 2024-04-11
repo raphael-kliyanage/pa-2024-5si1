@@ -21,11 +21,17 @@ Install-AdcsCertificationAuthority -CAType EnterpriseSubordinateCa -KeyLength 40
 Install-AdcsWebEnrollment -Force
 
 ### Transferring the certificates remotely
+# creating certdata directory
+New-Item -Path "C:\inetpub\wwwroot" -Name "certdata" -ItemType "directory"
 # Revocation list
-$cert_file_name = $root_ca_computer_name
-$cert_file_name += "_$root_ca_computer_name"
-scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\$cert_file_name-CA.crt" C:\Users\$root_ca_username\Downloads\
+scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\$root_ca_computer_name`_$root_ca_computer_name-CA.crt" C:\inetpub\wwwroot\certdata
 # Root certificate
-scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\$root_ca_computer_name-CA.crl" C:\Users\$root_ca_username\Downloads\
+scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\$root_ca_computer_name-CA.crl" C:\inetpub\wwwroot\certdata
 # Root certificate with public key
 scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\root-ca_public_key.cer" C:\Users\$root_ca_username\Downloads\
+
+$params = @{
+    FilePath = "C:\Users\$root_ca_username\Downloads\"
+    CertStoreLocation = 'Cert:\LocalMachine\Root'
+}
+Import-Certificate @params
