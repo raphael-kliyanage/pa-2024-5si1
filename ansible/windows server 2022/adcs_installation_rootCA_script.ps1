@@ -3,6 +3,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ### make sure to edit these values before launching the script!
 $intermediate_ca_ip = "192.168.1.2"
+
+# get current path
 $current_path = $pwd | Select -ExpandProperty Path
 
 ### Installing AD CS for the PKI
