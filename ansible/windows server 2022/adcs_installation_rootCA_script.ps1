@@ -2,7 +2,7 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ### make sure to edit these values before launching the script!
-$intermediate_ca_ip = "192.168.1.2"
+$intermediate_ca_ip = "192.168.1.60"
 
 # get current path
 $current_path = $pwd | Select -ExpandProperty Path
@@ -43,6 +43,6 @@ CertUtil -CRL
 $crt_file_name = $env:computername
 $crt_file_name += "_$env:computername"
 
-Copy-Item -Path "C:\Windows\System32\CertSrv\CertEnroll\$crt_file_name-CA.crt" -Destination "$current_path\$env:computername_$env:computername-CA.crt"
-Copy-Item -Path "C:\Windows\System32\CertSrv\CertEnroll\$env:computername-CA.crl" -Destination "$current_path\$env:computername-CA.crl"
+#Copy-Item -Path "C:\Windows\System32\CertSrv\CertEnroll\$crt_file_name-CA.crt" -Destination "$current_path\$crt_file_name-CA.crt"
+#Copy-Item -Path "C:\Windows\System32\CertSrv\CertEnroll\$env:computername-CA.crl" -Destination "$current_path\$env:computername-CA.crl"
 Get-ChildItem -Path "Cert:\LocalMachine\My" | Where{$_.Subject -match "$env:computername-CA"} | Export-Certificate -Type cer -FilePath "$current_path\root-ca_public_key.cer"
