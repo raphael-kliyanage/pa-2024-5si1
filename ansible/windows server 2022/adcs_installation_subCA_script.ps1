@@ -31,7 +31,7 @@ scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System3
 scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\root-ca_public_key.cer" C:\Users\$root_ca_username\Downloads\
 
 $params = @{
-    FilePath = "C:\Users\$root_ca_username\Downloads\"
+    FilePath = "C:\Users\$root_ca_username\Downloads\root-ca_public_key.cer"
     CertStoreLocation = 'Cert:\LocalMachine\Root'
 }
 Import-Certificate @params
