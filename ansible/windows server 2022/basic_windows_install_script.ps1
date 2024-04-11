@@ -10,26 +10,26 @@ $dns = "1.1.1.1,1.0.0.1"
 $interface_name = (Get-NetAdapter).InterfaceAlias
 
 # Remove the static ip
-Remove-NetIPAddress -InterfaceAlias $interface_name
+Remove-NetIPAddress -InterfaceAlias $interface_name -Confirm:$false
 # Remove the default gateway
-Remove-NetRoute -InterfaceAlias $interface_name
+Remove-NetRoute -InterfaceAlias $interface_name - -Confirm:$false
 
 # configuring new static IPv4
-New-NetIPAddress -InterfaceAlias $interface_name -AddressFamily IPv4 -IPAddress $ip_addr -PrefixLength $cidr -DefaultGateway $gateway -Verbose
+New-NetIPAddress -InterfaceAlias $interface_name -AddressFamily IPv4 -IPAddress $ip_addr -PrefixLength $cidr -DefaultGateway $gateway -Confirm:$false -Verbose
 # configuring new stattic DNS for IPv4
-Set-DnsClientServerAddress -InterfaceAlias $interface_name -ServerAddresses $dns
+Set-DnsClientServerAddress -InterfaceAlias $interface_name -ServerAddresses $dns -Confirm:$false
 
 # IPv6
-Disable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6
+Disable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6 -Confirm:$false
 
 ### Install the OpenSSH Server for administration purposes
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 -Confirm:$false
 
 # Start the sshd service
-Start-Service sshd
+Start-Service sshd -Confirm:$false
 
 # OPTIONAL but recommended:
-Set-Service -Name sshd -StartupType 'Automatic'
+Set-Service -Name sshd -StartupType 'Automatic' -Confirm:$false
 
 # Confirm the Firewall rule is configured. It should be created automatically by setup. Run the following to verify
 if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
