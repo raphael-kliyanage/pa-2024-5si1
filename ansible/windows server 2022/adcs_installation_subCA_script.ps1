@@ -35,3 +35,14 @@ $params = @{
     CertStoreLocation = 'Cert:\LocalMachine\Root'
 }
 Import-Certificate @params
+
+### sending .req file to RootCA for approval (to generate .p7b)
+# storing into variables the .req file to adapt to your context
+$domain = "$env:USERDNSDOMAIN".ToLower()
+$netbios = (gwmi Win32_NTDomain).DomainName.ToLower()
+
+# copy remotely to the root CA via scp
+scp -r "C:\$env:computername.$domain`_$netbios-$env:computername-CA.req" "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\"
+
+Read-Host "Install the certificate request on the RootCA. After installation, press any key to continue..."
+
