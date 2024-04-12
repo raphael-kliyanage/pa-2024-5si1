@@ -40,7 +40,7 @@ Get-ChildItem -Path "Cert:\LocalMachine\My" | Where{$_.Subject -match "$env:comp
 Read-Host "Wait until the subordinate send its request certificate to the Root CA. Press any keys to continue..."
 
 ### issuing subCA's certificate request
-certreq -config "$env:computername\$env:computername-CA" -submit "C:\Users\$env:username\Downloads\$intermediate_ca_hostname.$domain`_$intermediate_ca_hostname-$netbios-$intermediate_ca_hostname-CA.req"
+certreq -config "$env:computername\$env:computername-CA" -submit "C:\Users\$env:username\Downloads\$intermediate_ca_hostname.$domain`_$netbios-$intermediate_ca_hostname-CA.req"
 # ask to the user to enter the id of the request
 $request_id = Read-Host "What is the request ID?"
 
