@@ -5,7 +5,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 $intermediate_ca_ip = "192.168.1.60"
 $intermediate_ca_hostname = "INTER-CA"
 $domain = "thisisanerror.org"
-$netbios = ""
+$netbios = "thisisanerror"
 
 # get current path
 $current_path = $pwd | Select -ExpandProperty Path
@@ -40,5 +40,14 @@ Get-ChildItem -Path "Cert:\LocalMachine\My" | Where{$_.Subject -match "$env:comp
 Read-Host "Wait until the subordinate send its request certificate to the Root CA. Press any keys to continue..."
 
 ### issuing subCA's certificate request
+certreq -config "$env:computername\$env:computername-CA" -submit "C:\Users\$env:username\Downloads\$intermediate_ca_hostname.$domain`_$netbios-$netbios-$env:computername-CA.req"
+# ask to the user to enter the id of the request
+$request_id = Read-Host "What is the request ID?"
+
+# issuing certificate with the user provided ID (displayed on prompt)
+certutil -resubmit $request_id
 
 ### generate and transfer .p7b
+certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id certchainfileout "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
+
+Read-Host "Installation Done! Press any keys to continue..."
