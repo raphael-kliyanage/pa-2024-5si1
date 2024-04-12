@@ -1,4 +1,4 @@
-# Name           : Script_Install_AD_DNS.ps1
+# Name          : Script_Install_AD_DNS.ps1
 # Description   : Install AD & DNS
 # Param 1       :
 # Param 2       :
