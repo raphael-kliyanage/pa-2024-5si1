@@ -3,6 +3,9 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ### make sure to edit these values before launching the script!
 $intermediate_ca_ip = "192.168.1.60"
+$intermediate_ca_hostname = "INTER-CA"
+$domain = "thisisanerror.org"
+$netbios = ""
 
 # get current path
 $current_path = $pwd | Select -ExpandProperty Path
@@ -33,3 +36,9 @@ CertUtil -CRL
 
 ### Export ROOT-CA with the public key (will be exported to the Subordinate CA via scp)
 Get-ChildItem -Path "Cert:\LocalMachine\My" | Where{$_.Subject -match "$env:computername-CA"} | Export-Certificate -Type cer -FilePath "$current_path\root-ca_public_key.cer"
+
+Read-Host "Wait until the subordinate send its request certificate to the Root CA. Press any keys to continue..."
+
+### issuing subCA's certificate request
+
+### generate and transfer .p7b
