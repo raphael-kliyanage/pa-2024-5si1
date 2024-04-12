@@ -46,3 +46,6 @@ scp -r "C:\$env:computername.$domain`_$netbios-$env:computername-CA.req" "$root_
 
 Read-Host "Install the certificate request on the RootCA. After installation, press any key to continue..."
 
+### installing .p7B
+
+### activating service
