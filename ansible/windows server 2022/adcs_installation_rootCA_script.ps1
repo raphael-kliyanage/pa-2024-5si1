@@ -9,13 +9,13 @@ $current_path = $pwd | Select -ExpandProperty Path
 
 ### Installing AD CS for the PKI
 # adding windows' features
-Add-WindowsFeature Adcs-Cert-Authority -IncludeManagementTools -Confirm:$false
+Add-WindowsFeature Adcs-Cert-Authority -IncludeManagementTools -Force
 
 # configuring as StandaloneRootCA
 $params = @{
     CAType              = "StandaloneRootCa"
     CryptoProviderName  = "ECDSA_P521#Microsoft Software Key Storage Provider"
-    #KeyLength           = 4096
+    KeyLength           = 4096
     HashAlgorithmName   = "SHA256"
     ValidityPeriod      = "Years"
     ValidityPeriodUnits = 3
