@@ -24,14 +24,16 @@ Install-AdcsCertificationAuthority @params -Force
 
 ### add AIA
 # Warning: an error will be displayed but you can ignore it, otherwise, the revokation server will be considered "offline"
-Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate_ca_ip/CertEnroll/<ServerDNSName>_<CaName><CertificateName>.crt" -Confirm:$false
-
-#Read-Host "Uncheck AIA option then press any keys to continue..."
+Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate_ca_ip/certdata/<ServerDNSName><CaName><CertificateName>" -Confirm:$false
+Start-Sleep -Seconds 5
 
 # add CRL
-Add-CACRLDistributionPoint -AddToCertificateCdp -AddToFreshestCrl -Uri "http://$intermediate_ca_ip/CertEnroll/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -Confirm:$false
+Start-Sleep -Seconds 5
+Add-CACRLDistributionPoint -AddToCertificateCdp -AddToFreshestCrl -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -Confirm:$false
 
 # publish CRL
+echo "Waiting 20 seconds..."
+Start-Sleep -Seconds 20
 CertUtil -CRL
 
 ### Export ROOT-CA with the public key (will be exported to the Subordinate CA via scp)
