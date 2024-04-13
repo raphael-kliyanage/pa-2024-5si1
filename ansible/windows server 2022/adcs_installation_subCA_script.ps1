@@ -5,8 +5,8 @@ $root_ca_computer_name = "ROOT-CA"
 
 ### Installing AD CS for the PKI
 # adding windows' features
-Add-WindowsFeature Adcs-Cert-Authority -IncludeManagementTools -Confirm:$false
-Add-WindowsFeature Adcs-Web-Enrollment -Confirm:$false
+Add-WindowsFeature Adcs-Cert-Authority -IncludeManagementTools
+Add-WindowsFeature Adcs-Web-Enrollment
 
 # configuring as EnterpriseSubordinateCa
 $params = @{
@@ -25,8 +25,7 @@ Install-AdcsWebEnrollment -Force
 # creating certdata directory
 New-Item -Path "C:\inetpub\wwwroot" -Name "certdata" -ItemType "directory"
 # Import ROOT-CA's Revocation list and Certificate
-scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\certdata\*.*" C:\inetpub\wwwroot\certdata\
-scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\*.*" C:\Windows\System32\CertSrv\certdata\
+scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\*.*" C:\inetpub\wwwroot\certdata\
 
 # Root certificate with public key
 scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\root-ca_public_key.cer" C:\Users\$root_ca_username\Downloads\
