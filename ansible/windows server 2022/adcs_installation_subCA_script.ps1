@@ -22,11 +22,11 @@ Install-AdcsCertificationAuthority @params -Force
 Install-AdcsWebEnrollment -Force
 
 ### Transferring the certificates remotely
-# creating CertEnroll directory
-New-Item -Path "C:\inetpub\wwwroot" -Name "CertEnroll" -ItemType "directory"
+# creating certdata directory
+New-Item -Path "C:\inetpub\wwwroot" -Name "certdata" -ItemType "directory"
 # Import ROOT-CA's Revocation list and Certificate
-scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\*.*" C:\inetpub\wwwroot\CertEnroll\
-scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\*.*" C:\Windows\System32\CertSrv\CertEnroll\
+scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\certdata\*.*" C:\inetpub\wwwroot\certdata\
+scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\*.*" C:\Windows\System32\CertSrv\certdata\
 
 # Root certificate with public key
 scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\root-ca_public_key.cer" C:\Users\$root_ca_username\Downloads\
@@ -50,6 +50,8 @@ Read-Host "Install the certificate request on the RootCA. After installation, pr
 ### installing .p7B
 # download .p7b from subordinate CA
 scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\RootCAwithIssuer.p7b" "C:\Users\$env:username\Downloads\"
+echo "Waiting 2 seconds..."
+Start-Sleep -Seconds 2
 certutil.exe -installCert "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
 
 ### activating service
