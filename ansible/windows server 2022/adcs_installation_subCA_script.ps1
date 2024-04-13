@@ -1,13 +1,7 @@
-# bypass Windows Powershell security controls
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
 ### Please edit these values before executing the script
 $root_ca_ip = "192.168.1.44"
 $root_ca_username = "Administrateur"
 $root_ca_computer_name = "ROOT-CA"
-
-# get current path
-#$current_path = $pwd | Select -ExpandProperty Path
 
 ### Installing AD CS for the PKI
 # adding windows' features
@@ -23,10 +17,9 @@ Install-AdcsWebEnrollment -Force
 ### Transferring the certificates remotely
 # creating certdata directory
 New-Item -Path "C:\inetpub\wwwroot" -Name "certdata" -ItemType "directory"
-# Revocation list
+# Import ROOT-CA's Revocation list and Certificate
 scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\*.*" C:\inetpub\wwwroot\certdata\
-# Root certificate
-#scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Windows\System32\CertSrv\CertEnroll\$root_ca_computer_name-CA.crl" C:\inetpub\wwwroot\certdata\
+
 # Root certificate with public key
 scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\root-ca_public_key.cer" C:\Users\$root_ca_username\Downloads\
 
@@ -48,10 +41,10 @@ Read-Host "Install the certificate request on the RootCA. After installation, pr
 
 ### installing .p7B
 # download .p7b from subordinate CA
-scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\RootCAwithIssuer.p7b" "C:\Users\$env:username\Downloads\"
-certutil.exe -installCert "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
+#scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\RootCAwithIssuer.p7b" "C:\Users\$env:username\Downloads\"
+#certutil.exe -installCert "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
 
 ### activating service
-Start-Service -Name "CertSvc"
+#Start-Service -Name "CertSvc"
 
 Read-Host "Installation Done! Press any keys to continue..."
