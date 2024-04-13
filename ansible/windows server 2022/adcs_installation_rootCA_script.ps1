@@ -24,7 +24,9 @@ Install-AdcsCertificationAuthority @params -Force
 
 ### add AIA
 # Warning: an error will be displayed but you can ignore it, otherwise, the revokation server will be considered "offline"
-Add-CAAuthorityInformationAccess -Uri "http://$intermediate_ca_ip/certdata/<ServerDNSName><CaName><CertificateName>" -Confirm:$false
+Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate_ca_ip/certdata/<ServerDNSName><CaName><CertificateName>" -Confirm:$false
+
+Read-Host "Uncheck AIA option then press any keys to continue..."
 
 # add CRL
 Add-CACRLDistributionPoint -AddToCertificateCdp -AddToFreshestCrl -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -Confirm:$false
