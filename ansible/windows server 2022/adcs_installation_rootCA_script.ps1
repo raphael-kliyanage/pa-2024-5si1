@@ -1,6 +1,3 @@
-# bypass Windows Powershell security controls
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
 ### make sure to edit these values before launching the script!
 $intermediate_ca_ip = "192.168.1.60"
 $intermediate_ca_hostname = "INTER-CA"
@@ -12,18 +9,18 @@ $current_path = $pwd | Select -ExpandProperty Path
 
 ### Installing AD CS for the PKI
 # adding windows' features
-Add-WindowsFeature Adcs-Cert-Authority -IncludeManagementTools
+Add-WindowsFeature Adcs-Cert-Authority -IncludeManagementTools -Confirm:$false
 
 # configuring as StandaloneRootCA
 $params = @{
     CAType              = "StandaloneRootCa"
-    CryptoProviderName  = "RSA#Microsoft Software Key Storage Provider"
-    KeyLength           = 4096
-    HashAlgorithmName   = "SHA512"
+    CryptoProviderName  = "ECDSA_P521#Microsoft Software Key Storage Provider"
+    #KeyLength           = 4096
+    HashAlgorithmName   = "SHA256"
     ValidityPeriod      = "Years"
     ValidityPeriodUnits = 3
 }
-Install-AdcsCertificationAuthority @params
+Install-AdcsCertificationAuthority @params -Force
 
 # add AIA
 Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate_ca_ip/certdata/<ServerDNSName><CaName><CertificateName>"
@@ -48,6 +45,6 @@ $request_id = Read-Host "What is the request ID?"
 certutil -resubmit $request_id
 
 ### generate and transfer .p7b
-certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
+#certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
 
 Read-Host "Installation Done! Press any keys to continue..."
