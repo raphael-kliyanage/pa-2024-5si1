@@ -48,6 +48,6 @@ $request_id = Read-Host "What is the request ID?"
 certutil -resubmit $request_id
 
 ### generate and transfer .p7b
-certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
+#certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
 
 Read-Host "Installation Done! Press any keys to continue..."

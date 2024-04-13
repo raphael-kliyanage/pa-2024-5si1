@@ -41,10 +41,10 @@ Read-Host "Install the certificate request on the RootCA. After installation, pr
 
 ### installing .p7B
 # download .p7b from subordinate CA
-scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\RootCAwithIssuer.p7b" "C:\Users\$env:username\Downloads\"
-certutil.exe -installCert "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
+#scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\RootCAwithIssuer.p7b" "C:\Users\$env:username\Downloads\"
+#certutil.exe -installCert "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
 
 ### activating service
-Start-Service -Name "CertSvc"
+#Start-Service -Name "CertSvc"
 
 Read-Host "Installation Done! Press any keys to continue..."
