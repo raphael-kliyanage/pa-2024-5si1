@@ -24,12 +24,12 @@ Install-AdcsCertificationAuthority @params -Force
 
 ### add AIA
 # Warning: an error will be displayed but you can ignore it, otherwise, the revokation server will be considered "offline"
-Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate_ca_ip/certdata/<ServerDNSName><CaName><CertificateName>" -Confirm:$false
+Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate_ca_ip/CertEnroll/<ServerDNSName>_<CaName><CertificateName>.crt" -Confirm:$false
 
-Read-Host "Uncheck AIA option then press any keys to continue..."
+#Read-Host "Uncheck AIA option then press any keys to continue..."
 
 # add CRL
-Add-CACRLDistributionPoint -AddToCertificateCdp -AddToFreshestCrl -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -Confirm:$false
+Add-CACRLDistributionPoint -AddToCertificateCdp -AddToFreshestCrl -Uri "http://$intermediate_ca_ip/CertEnroll/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -Confirm:$false
 
 # publish CRL
 CertUtil -CRL
@@ -48,6 +48,6 @@ $request_id = Read-Host "What is the request ID?"
 certutil -resubmit $request_id
 
 ### generate and transfer .p7b
-#certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
+certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
 
 Read-Host "Installation Done! Press any keys to continue..."
