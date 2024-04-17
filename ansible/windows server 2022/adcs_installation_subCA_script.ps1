@@ -59,7 +59,7 @@ $key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 Write-Host "Installing ROOT Certificate..."
 scp -r "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\RootCAwithIssuer.p7b" "C:\Users\$env:username\Downloads\"
 Start-Sleep -Seconds 1
-certutil.exe -installCert "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b" -Confirm:$false
+certutil.exe -installCert "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
 
 ### activating service
 Write-Host "Starting Certificate ..."
