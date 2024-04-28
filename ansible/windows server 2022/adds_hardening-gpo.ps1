@@ -18,15 +18,12 @@ Enable-ADOptionalFeature 'Recycle Bin Feature' -Scope ForestOrConfigurationSet -
 Get-ADGroupMember -Identity "Schema Admins" | Select-Object Name, SamAccountName
  
 #Remove users from Groups
+Write-Host "Emptying `"Schema Admins`" rights..."
 $user_rights = "Schema Admins"
 foreach ($access_right in $user_rights) {
     Get-ADGroupMember -Identity $access_right | %{Remove-ADGroupMember -Identity $access_right -Member $_ -Confirm:$false}
 }
 
 # Protecting all OUs from accidental deletion
+Write-Host "Protecting all OUs from accidental deletion..."
 Get-ADOrganizationalUnit -filter {name -like "*"} -Properties ProtectedFromAccidentalDeletion | where {$_.ProtectedFromAccidentalDeletion -eq $false} | Set-ADOrganizationalUnit -ProtectedFromAccidentalDeletion $true
-
-### Trusts harding
-# for a future release
-
-### Anomalies analysis remediation/hardening
