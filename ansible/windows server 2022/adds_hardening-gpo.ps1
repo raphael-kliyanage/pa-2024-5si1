@@ -6,8 +6,8 @@ $ad_domain = "quinteflush.org"
 
 ## Importing new GPOs to replace current ones
 Write-Host "Importing GPOs..."
-Import-GPO -BackupGpoName 'Default Domain Policy' -TargetName 'Default Domain Policy' -path '.\gpo'
-Import-GPO -BackupGpoName 'Default Domain Controllers Policy' -TargetName 'Default Domain Controllers Policy' -path '.\gpo'
+Import-GPO -BackupGpoName 'Default Domain Policy' -TargetName 'Default Domain Policy' -path '.\gpo' -CreateIfNeeded:$true -Confirm:$false
+Import-GPO -BackupGpoName 'Default Domain Controllers Policy' -TargetName 'Default Domain Controllers Policy' -path '.\gpo' -CreateIfNeeded:$true -Confirm:$false
 
 # importing AD Powershell module
 Import-module ActiveDirectory
@@ -17,7 +17,7 @@ Import-module ActiveDirectory
 
 ### Privileged Accounts hardening - ANSSI
 # enabling recycle bin
-Enable-ADOptionalFeature 'Recycle Bin Feature' -Scope ForestOrConfigurationSet -Target $ad_domain
+Enable-ADOptionalFeature 'Recycle Bin Feature' -Scope ForestOrConfigurationSet -Target $ad_domain -Confirm:$false
 
 # Getting all the users with "Schema Admins" right roles
 #Get-ADGroupMember -Identity "Schema Admins" | Select-Object Name, SamAccountName
