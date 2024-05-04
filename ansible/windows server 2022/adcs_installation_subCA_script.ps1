@@ -44,14 +44,14 @@ Import-Certificate @params -Confirm:$false
 ### sending .req file to RootCA for approval (to generate .p7b)
 # storing into variables the .req file to adapt to your context
 $domain = "$env:USERDNSDOMAIN".ToLower()
-$netbios = (gwmi Win32_NTDomain).DomainName.ToLower()
+$netbios = (Get-WmiObject Win32_NTDomain).DomainName.ToLower()
 
 # copy remotely to the root CA via scp
 Write-Host "Sending Certificate Request to ROOT-CA..."
 scp -r "C:\$env:computername.$domain`_$netbios-$env:computername-CA.req" "$root_ca_computer_name\$root_ca_username@$root_ca_ip`:C:\Users\$root_ca_username\Downloads\"
 
 Write-Host "Install the certificate request on the RootCA. After installation, press any key to continue..." -ForegroundColor Black -BackgroundColor White
-$key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+$host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 ### installing .p7B
 # download .p7b from subordinate CA
@@ -65,4 +65,4 @@ Write-Host "Starting Certificate ..."
 Start-Service -Name "CertSvc"
 
 Write-Host "Installation Done! Press any keys to continue..." -ForegroundColor Black -BackgroundColor White
-$key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+$host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
