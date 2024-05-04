@@ -1,5 +1,4 @@
 ### Please edit these values before executing the script
-# guide: https://www.youtube.com/watch?v=7hoQcEqIUYE
 
 $ad_domain = "quinteflush.org"
 

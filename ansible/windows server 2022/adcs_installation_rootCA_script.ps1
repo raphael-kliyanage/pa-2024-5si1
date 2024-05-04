@@ -1,8 +1,8 @@
 ### make sure to edit these values before launching the script!
 $intermediate_ca_ip = "192.168.1.60"
-$intermediate_ca_hostname = "INTER-CA"
-$domain = "thisisanerror.org"
-$netbios = "thisisanerror"
+$intermediate_ca_hostname = "SRV-WIN-SIGN"
+$domain = "quinteflush.org"
+$netbios = "quinteflush"
 
 # get current path
 $current_path = $pwd | Select -ExpandProperty Path

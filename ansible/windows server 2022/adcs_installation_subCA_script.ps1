@@ -1,7 +1,7 @@
 ### Please edit these values before executing the script
 $root_ca_ip = "192.168.1.44"
 $root_ca_username = "Administrateur"
-$root_ca_computer_name = "ROOT-CA"
+$root_ca_computer_name = "SRV-WIN-ROOT"
 
 ### Installing AD CS for the PKI
 # adding windows' features
@@ -18,7 +18,6 @@ $params = @{
     HashAlgorithmName   = "SHA256"
 }
 Install-AdcsCertificationAuthority @params -Force
-#Install-AdcsCertificationAuthority -CAType EnterpriseSubordinateCa -KeyLength 4096 -Confirm:$false
 
 # Install Certification Authority Web Enrollment
 Write-Host "Installing Web Enrollment..."
