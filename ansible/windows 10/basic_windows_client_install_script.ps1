@@ -1,5 +1,6 @@
+set-executionpolicy remotesigned
 ### Edit these values to match your desired configuration
-$computer_name = "CLT-WIN-0001"
+$new_computer_name = "CLT-WIN-0001"
 $domain = "quinteflush.org"
 $dns = "1.1.1.1,1.0.0.1"
 
@@ -13,8 +14,5 @@ Set-DnsClientServerAddress -InterfaceAlias $interface_name -ServerAddresses $dns
 # IPv6
 Disable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6 -Confirm:$false
 
-# Renaming PC
-Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $computer_name
-
-# joining a domain
-Add-Computer -DomainName $domain -Restart
+# joining a domain and rename computer in one go
+Add-Computer -DomainName $domain -ComputerName $env:COMPUTERNAME -NewName $new_computer_name -Restart
