@@ -8,7 +8,6 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 ### Edit these values to match your desired configuration
 $computer_name = "CLT-WIN-000"
 $domain = "quinteflush.org"
-$netbios = "QUINTEFLUSH\"
 # adjust the DNS record only and keep the D.N.S.1,D.N.S.2 format
 # make sure the primary DNS is your Domain Controller's IP address
 $dns = "192.168.1.53,1.0.0.1"
