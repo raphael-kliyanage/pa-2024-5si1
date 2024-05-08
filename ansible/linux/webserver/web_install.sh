@@ -1,6 +1,6 @@
 #!/bin/bash
-$dns1 = "192.168.1.53"
-$dns2 = "1.1.1.1"
+dns1="192.168.1.53"
+dns2="1.1.1.1"
 
 ### configure ip address
 # backing up original configuration file for network
