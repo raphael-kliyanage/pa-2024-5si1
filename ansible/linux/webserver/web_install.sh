@@ -14,5 +14,9 @@ mv /etc/resolv.conf /etc/resolv.conf.bak
 echo "nameserver $dns1" > /etc/resolv.conf # overwriting previous DNS servers
 echo "nameserver $dns2" >> /etc/resolv.conf # add dns 2 at eof without overwriting
 
+# applying network changes by restarting service
+systemctl restart networking
+
+sleep 5
 # updating system packages
 apt update && apt dist-upgrade -y
