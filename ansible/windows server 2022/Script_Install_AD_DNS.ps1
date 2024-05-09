@@ -14,7 +14,6 @@
 # Parameters
 $domainName = "quinteflush.org"
 $domainNetBIOSName = "QUINTEFLUSH"
-#$domainAdminPassword = ConvertTo-SecureString "changeme123." -AsPlainText -Force
 $mode = "WinThreshold"
 $credential = Get-Credential -Message "Entrez le mot de passe de l'administrateur du domaine"
 
