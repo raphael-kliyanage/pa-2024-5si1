@@ -7,7 +7,7 @@
 #
 # Author        : Mathis THOUVENIN, Raphaël KATHALUWA-LIYANAGE, Lyronn LEVY
 # Changelog     :
-# Version       : 0.6
+# Version       : 0.7
 #
 #
 
@@ -15,13 +15,12 @@
 $domainName = "quinteflush.org"
 $domainNetBIOSName = "QUINTEFLUSH"
 $mode = "WinThreshold"
-$credential = Get-Credential -Message "Entrez le mot de passe de l'administrateur du domaine"
 
 # Install AD DS and DNS roles
 Install-WindowsFeature -Name AD-Domain-Services,DNS -IncludeManagementTools
 
 # Promoting the server to domain controller
-Install-ADDSForest -DomainName $domainName -DomainNetBIOSName $domainNetBIOSName -ForestMode $mode -DomainMode $mode -Credential $credential -Force:$true -CreateDnsDelegation:$false -DatabasePath "C:\Windows\NTDS" -LogPath "C:\Windows\NTDS" -SysvolPath "C:\Windows\SYSVOL" -NoRebootOnCompletion:$false
+Install-ADDSForest -DomainName $domainName -DomainNetBIOSName $domainNetBIOSName -ForestMode $mode -DomainMode $mode -Force:$true -CreateDnsDelegation:$false -DatabasePath "C:\Windows\NTDS" -LogPath "C:\Windows\NTDS" -SysvolPath "C:\Windows\SYSVOL" -NoRebootOnCompletion:$false
 
 # Configuring DNS parameters
 $dnsServerAddress = "127.0.0.1"
