@@ -1,7 +1,7 @@
 # Annual project ESGI 5SI1 2024
 
 Each year, the **ESGI** school ask students to create in **group**, any project related to **Cybersecurity**.
-This year - for a fifth and final year of studies - the project consists of a **Purple Team exercice**.
+This year - for our fifth and final year of studies - the project consists of a **Purple Team exercice**.
 
 We host a **vulnerable environnement** and conduct an **APT attack** on it. The **Blue team** should detect and limit the impact as much as possible, with the help of the **hardening configuration** and **defense tools** (e.g. EDR, AV...). A **forensic analysis** will be conducted to assess the impact, retrace the origin of the attack and propose remediation actions.
 
