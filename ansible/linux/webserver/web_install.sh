@@ -1,4 +1,7 @@
 #!/bin/bash
+### please modify the following parameters before launching
+# the script
+ip="192.168.1.97/24"
 dns1="192.168.1.53"
 dns2="1.1.1.1"
 
@@ -7,7 +10,7 @@ dns2="1.1.1.1"
 mv /etc/network/interfaces /etc/network/interfaces.bak
 # replace dhcp to static
 sed "s/dhcp/static/g" /etc/network/interfaces | tee -a /etc/network/interfaces
-echo "  address 192.168.1.97/24" >> /etc/network/interfaces
+echo "  address $ip" >> /etc/network/interfaces
 echo "  gateway 192.168.1.1" >> /etc/network/interfaces
 # backing up original DNS server
 mv /etc/resolv.conf /etc/resolv.conf.bak
