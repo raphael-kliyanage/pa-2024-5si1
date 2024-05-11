@@ -10,7 +10,7 @@ dns2="1.1.1.1"
 ### configure ip address
 # backing up original configuration file for network
 echo "Backing up original configuration file for network..."
-mv /etc/network/interfaces /etc/network/interfaces.bak
+cp /etc/network/interfaces /etc/network/interfaces.bak
 # replace dhcp to static
 echo "Configuring static ip address..."
 sed -i "s/dhcp/static/g" /etc/network/interfaces
