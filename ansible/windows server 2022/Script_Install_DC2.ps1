@@ -7,19 +7,20 @@
 #
 # Author        : Mathis THOUVENIN, Raphaël KATHALUWA-LIYANAGE, Lyronn LEVY
 # Changelog     :
-# Version       : 0.4
+# Version       : 0.5
 #
 #
 
 # Parameters
 $domainName = "quinteflush.org"
-$credential = Get-credential -Message "Entrez le mot de passe de l'administrateur du domaine"
+$domainAdmin = "Administrateur"
+$adminPassword = Read-Host -Prompt "Entrez le mot de passe de l'administrateur du domaine" -AsSecureString
 
 # Name of the existing domain controller
 $existingDC = "AD-BRUH2.quinteflush.org" 
 
 # IP address or DNS name of the existing domain controller
-$dnsServerAddress = "192.168.1.53" 
+$dnsServerAddress = "192.168.1.67" 
 
 # Install the Active Directory Domain Services role
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
@@ -28,7 +29,9 @@ Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses $dnsServerAddress
 
 # Join the existing domain
-Add-Computer -DomainName $domainName -Credential $credential -Restart
+Add-Computer -DomainName $domainName -Credential $domainAdmin -Restart
+
+Start-Sleep -Seconds 30
 
 # Promoting the server to domain controller
-Install-ADDSDomainController -DomainName $domainName -Credential $credential -InstallDns -Force -NoGlobalCatalog:$false -SiteName "Default-First-Site-Name" -Force:$true -CreateDnsDelegation:$false -Credential $domainAdmin -DatabasePath "C:\Windows\NTDS" -LogPath "C:\Windows\NTDS" -SysvolPath "C:\Windows\SYSVOL" -NoRebootOnCompletion -ExistingAccount:$true -ReplicationSourceDC $existingDC
+Install-ADDSDomainController -DomainName $domainName -Credential (New-Object System.Management.Automation.PSCredential($domainAdmin, $adminPassword)) -InstallDns -NoGlobalCatalog:$false -SiteName "Default-First-Site-Name" -Force:$true -CreateDnsDelegation:$false -DatabasePath "C:\Windows\NTDS" -LogPath "C:\Windows\NTDS" -SysvolPath "C:\Windows\SYSVOL" -NoRebootOnCompletion -ReplicationSourceDC $existingDC
