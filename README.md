@@ -14,6 +14,6 @@ Credits:
 
 # Directories
 
-`ansible`: scripts to automate the deployment of the vulnerable environnement
-`blue_team`: tools and scripts used to defend the environnement
-`red_team`: tools and scripts used to attack the environnement
+- `ansible`: scripts to automate the deployment of the vulnerable environnement
+- `blue_team`: tools and scripts used to defend the environnement
+- `red_team`: tools and scripts used to attack the environnement
