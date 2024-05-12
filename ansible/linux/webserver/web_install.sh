@@ -80,3 +80,7 @@ ufw allow 443/tcp
 ufw enable
 
 echo "Success! Please go to http://$ip to finalize the configuration"
+echo "Database Name:    wordpress_db"
+echo "Password:         $db_passwd"
+echo "Database Host:    localhost"
+echo "Table Prefix:     wp_"
