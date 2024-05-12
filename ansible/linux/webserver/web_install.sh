@@ -2,8 +2,8 @@
 ### please modify the following parameters before launching
 # the script
 ip="192.168.1.97"
-gateway="192.168.1.1"
 cidr="24"
+gateway="192.168.1.1"
 dns1="192.168.1.53"
 dns2="1.1.1.1"
 
@@ -43,18 +43,7 @@ mariadb -u root -e "
     GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
     FLUSH PRIVILEGES;"
 
-# mysql_secure_installation
-# Make sure that NOBODY can access the server without a password
-mysql -e "UPDATE mysql.user SET Password = PASSWORD('$db_passwd') WHERE User = 'root'"
-# Kill the anonymous users
-mysql -e "DROP USER ''@'localhost'"
-# Because our hostname varies we'll use some Bash magic here.
-mysql -e "DROP USER ''@'$(hostname)'"
-# Kill off the demo database
-mysql -e "DROP DATABASE test"
-# Make our changes take effect
-mysql -e "FLUSH PRIVILEGES"
-# Any subsequent tries to run queries this way will get access denied because lack of usr/pwd param
+mysql_secure_installation
 
 wget https://wordpress.org/latest.zip
 unzip latest.zip
