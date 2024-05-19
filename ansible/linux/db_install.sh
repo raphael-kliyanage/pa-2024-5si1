@@ -35,15 +35,22 @@ apt update && apt dist-upgrade -y
 # installing packages
 # ufw: host firewall for security
 # 
-apt install ufw mariadb-server php-mysql -y
-# take inspiration from jay delacroix
+apt install ufw mariadb-server -y
+# change binding address to listen on a wider scope
+mysql_secure_installation
+sed -i "s/127.0.0.1/$ip/g" /etc/mysql/mariadb.conf.d/50-server.cnf
+
+systemctl stop mysql
+sleep 2
+systemctl start mysql
+sleep 2
+
 read -p "Choose your wordpress database password:   " db_passwd
 mariadb -u root -e "
     CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+    GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd'
     GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@$ip IDENTIFIED BY '$db_passwd';
     FLUSH PRIVILEGES;"
-
-mysql_secure_installation
 
 # configure ufw
 ufw allow 22/tcp
