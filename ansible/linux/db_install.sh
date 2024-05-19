@@ -35,7 +35,7 @@ apt update && apt dist-upgrade -y
 # installing packages
 # ufw: host firewall for security
 # 
-apt install ufw mariadb-server -y
+apt install ufw mariadb-server php-mysql -y
 # take inspiration from jay delacroix
 read -p "Choose your wordpress database password:   " db_passwd
 mariadb -u root -e "

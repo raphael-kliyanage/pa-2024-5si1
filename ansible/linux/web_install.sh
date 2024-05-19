@@ -35,7 +35,7 @@ apt update && apt dist-upgrade -y
 # installing packages
 # ufw: host firewall for security
 # 
-apt install ufw apache2 unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
+apt install ufw apache2 unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip -y
 # take inspiration from jay delacroix
 #read -p "Choose your wordpress database password:   " db_passwd
 #mariadb -u root -e "
