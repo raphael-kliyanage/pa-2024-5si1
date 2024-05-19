@@ -35,15 +35,15 @@ apt update && apt dist-upgrade -y
 # installing packages
 # ufw: host firewall for security
 # 
-apt install ufw apache2 mariadb-server unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
+apt install ufw apache2 unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
 # take inspiration from jay delacroix
-read -p "Choose your wordpress database password:   " db_passwd
-mariadb -u root -e "
-    CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-    GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
-    FLUSH PRIVILEGES;"
-
-mysql_secure_installation
+#read -p "Choose your wordpress database password:   " db_passwd
+#mariadb -u root -e "
+#    CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+#    GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
+#    FLUSH PRIVILEGES;"
+#
+#mysql_secure_installation
 
 wget https://wordpress.org/latest.zip
 unzip latest.zip
@@ -74,13 +74,13 @@ systemctl restart apache2
 
 # configure ufw
 ufw allow 22/tcp
-ufw allow 3306/tcp
 ufw allow 80/tcp
 ufw allow 443/tcp
 ufw enable
 
 echo "Success! Please go to http://$ip to finalize the configuration"
 echo "Database Name:    wordpress_db"
+echo "Username:         wordpress_user"
 echo "Password:         $db_passwd"
-echo "Database Host:    localhost"
+echo "Database Host:    192.168.1.38"
 echo "Table Prefix:     wp_"

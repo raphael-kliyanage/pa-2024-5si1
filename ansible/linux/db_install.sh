@@ -40,7 +40,7 @@ apt install ufw mariadb-server -y
 read -p "Choose your wordpress database password:   " db_passwd
 mariadb -u root -e "
     CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-    GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
+    GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@$ip IDENTIFIED BY '$db_passwd';
     FLUSH PRIVILEGES;"
 
 mysql_secure_installation
