@@ -1,7 +1,7 @@
 #!/bin/bash
 ### please modify the following parameters before launching
 # the script
-ip="192.168.1.98"
+ip="192.168.1.38"
 cidr="24"
 gateway="192.168.1.1"
 dns1="192.168.1.53"
