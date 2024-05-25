@@ -37,15 +37,15 @@ apt update && apt dist-upgrade -y
 # 
 apt install ufw apache2 mariadb-server unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
 # take inspiration from jay delacroix
-read -p "Choose your wordpress database password:   " db_passwd
-mariadb -u root -e "
-    CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-    GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
-    FLUSH PRIVILEGES;"
+#read -p "Choose your wordpress database password:   " db_passwd
+#mariadb -u root -e "
+#    CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+#    GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
+#    FLUSH PRIVILEGES;"
 
-mysql_secure_installation
-systemctl restart mariadb
-systemctl enable mariadb
+#mysql_secure_installation
+#systemctl restart mariadb
+#systemctl enable mariadb
 
 wget https://wordpress.org/latest.zip
 unzip latest.zip
