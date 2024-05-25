@@ -20,7 +20,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
 (1, 'DURADA', 'Ivica', '0614749658', 'adm0001', '$2y$10$lb/fZnuj0UX8fiV7cpDkCefTr0Zh2nCLhU12uFur8Z28OcJFmQ9Ve');
 INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
-(2, 'LUKA', 'Jadranka', '0615749679', '000001', '2y$10$Eh2doDdNET5Fl.1P7fHVS.8fLMjQsvpJBxAmey.DZj4U4FG0ikcne');
+(2, 'LUKA', 'Jadranka', '0615749679', '000001', '$2y$10$Eh2doDdNET5Fl.1P7fHVS.8fLMjQsvpJBxAmey.DZj4U4FG0ikcne');
 INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
 (3, 'BOZIDAR', 'Bojana', '0715840679', '000002', '$2y$10$vPNCWTZwPTF5Do4906uo7OGnNUeqFu.OxYJXTYeIOfstBUcZ/JS12');
 INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
