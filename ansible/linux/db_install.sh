@@ -52,11 +52,9 @@ mariadb -u root -e "
   DROP DATABASE IF EXISTS shop;
   CREATE DATABASE shop;"
 
-# selecting the shop database created
-mariadb -u root -e "USE shop;"
-
 # creating a user table to store the user's personal informations
 mariadb -u root -e "
+  USE shop;
   CREATE TABLE `user` (
     `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` text NOT NULL,
@@ -69,6 +67,7 @@ mariadb -u root -e "
 # inserting 15 fictional users
 # the password are hashed using bcrypt and with a random salt
 mariadb -u root -e "
+  USE shop;
   INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
     (1, 'DURADA', 'Ivica', '0614749658', 'adm0001', '\$2y\$10\$lb/fZnuj0UX8fiV7cpDkCefTr0Zh2nCLhU12uFur8Z28OcJFmQ9Ve');
   INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
