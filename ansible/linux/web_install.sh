@@ -44,6 +44,8 @@ mariadb -u root -e "
     FLUSH PRIVILEGES;"
 
 mysql_secure_installation
+systemctl restart mariadb
+systemctl enable mariadb
 
 wget https://wordpress.org/latest.zip
 unzip latest.zip
@@ -71,6 +73,7 @@ a2dissite 000-default.conf
 a2ensite wordpress.conf
 a2enmod rewrite
 systemctl restart apache2
+systemctl enable apache2
 
 # configure ufw
 ufw allow 22/tcp
@@ -84,3 +87,7 @@ echo "Database Name:    wordpress_db"
 echo "Password:         $db_passwd"
 echo "Database Host:    localhost"
 echo "Table Prefix:     wp_"
+
+# todo
+# add certificates
+# enable tls 1.3
