@@ -41,9 +41,15 @@ read -p "Choose your wordpress database password:   " db_passwd
 mariadb -u root -e "
     CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
     GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
+    GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@$ip IDENTIFIED BY '$db_passwd';
     FLUSH PRIVILEGES;"
 
 mysql_secure_installation
+
+# accept remote connection
+sed -i "s/127.0.0.1/$ip/g" /etc/mysql/mariadb.conf.d/50-server.cnf
+systemctl restart mariadb
+systemctl enable mariadb
 
 # configure ufw
 ufw allow 22/tcp
