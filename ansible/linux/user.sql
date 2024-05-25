@@ -1,5 +1,4 @@
 -- replacing the shop database to start from scratch
-
 DROP DATABASE IF EXISTS shop;
 CREATE DATABASE shop;
 
@@ -17,7 +16,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- inserting 15 fictional users
-
+-- the password are hashed using bcrypt and with a random salt
 INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
 (1, 'DURADA', 'Ivica', '0614749658', 'adm0001', '$2y$10$lb/fZnuj0UX8fiV7cpDkCefTr0Zh2nCLhU12uFur8Z28OcJFmQ9Ve');
 INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
@@ -48,4 +47,3 @@ INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`)
 (14, 'MAJA', 'Teodora', '0785840079', '000013', '$2y$10$lJgnBkiYXP77kNkSQ1HvbuuJq96Wc/RPBYmNGLHxxqC/jjBF7rwFu');
 INSERT INTO `user` (`id`, `name`, `first_name`, `phone`, `username`, `password`) VALUES
 (15, 'NEVENKA', 'Gavrilo', '0785840079', '000014', '$2y$10$z/PEt8BVCL9Gyt4xbwtKFujgD7zPqS93nnQ6PSet9AK6Ea0qB.tG2');
-
