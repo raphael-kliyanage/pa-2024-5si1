@@ -1,7 +1,8 @@
 #!/bin/bash
 ### please modify the following parameters before launching
 # the script
-ip="192.168.1.97"
+hostname="SRV-LNX-WEB"
+ip_local_server="192.168.1.97"
 cidr="24"
 gateway="192.168.1.1"
 dns1="192.168.1.53"
@@ -15,7 +16,7 @@ cp /etc/network/interfaces /etc/network/interfaces.bak
 echo "Configuring static ip address..."
 sed -i "s/dhcp/static/g" /etc/network/interfaces
 cat << EOF | tee -a /etc/network/interfaces
-  address $ip/$cidr
+  address $ip_local_server/$cidr
   gateway $gateway
 EOF
 # backing up original DNS server
@@ -27,6 +28,9 @@ nameserver $dns2
 EOF
 # applying network changes by restarting service
 systemctl restart networking
+
+# renaming local server's hostname
+echo $hostname > /etc/hostname
 
 sleep 5
 # updating system packages
@@ -59,23 +63,33 @@ cat << EOF | tee -a /etc/apache2/sites-available/wordpress.conf
 </VirtualHost>
 EOF
 
+# disable default apache2 "it works!" web page
 a2dissite 000-default.conf
+# enable wordpress website
 a2ensite wordpress.conf
 a2enmod rewrite
+# enable TLS
+a2enmod ssl
+
+# restart apache2 to apply configuration
+# enabling the apache2 service at startup
 systemctl restart apache2
 systemctl enable apache2
 
-# configure ufw
+# configure ufw and enabling
+# 22/tcp = ssh to securely login to the server
+# 80/tcp = http to browse the webpage on wordpress (to be disabled)
+# 443/tcp = https to securely browse the webpage on wordpress
 ufw allow 22/tcp
 ufw allow 80/tcp
 ufw allow 443/tcp
 ufw enable
 
-echo "Success! Please go to http://$ip to finalize the configuration"
-echo "Database Name:    wordpress_db"
-echo "Password:         $db_passwd"
-echo "Database Host:    localhost"
-echo "Table Prefix:     wp_"
+echo "Success! Please go to http://$ip_local_server to finalize the configuration"
+echo "Database Name:    \"wordpress_db\""
+echo "Password:         mariadb_password"
+echo "Database Host:    mariadb_ip"
+echo "Table Prefix:     \"wp_\""
 
 # todo
 # add certificates
