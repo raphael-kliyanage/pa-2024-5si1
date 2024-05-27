@@ -1,6 +1,7 @@
 #!/bin/bash
 ### please modify the following parameters before launching
 # the script
+hostname="SRV-LNX-SGBD"
 ip_local_server="192.168.1.98"
 ip_remote_wordpress="192.168.1.97"
 cidr="24"
@@ -28,6 +29,9 @@ nameserver $dns2
 EOF
 # applying network changes by restarting service
 systemctl restart networking
+
+# renaming local server's hostname
+echo $hostname > /etc/hostname
 
 sleep 5
 # updating system packages
