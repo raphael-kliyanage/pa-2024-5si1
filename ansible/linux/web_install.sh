@@ -92,7 +92,7 @@ subjectAltName          = \$ENV::SAN
 EOF
 
 # creating certificate request
-SAN=DNS:www.$domain,SAN=DNS:$domain \
+SAN=DNS.1:www.$domain,DNS.2:$domain \
 	openssl req -new \
 	-config "/etc/apache2/tls/certificate_request.conf" \
 	-out /etc/apache2/tls/wordpress.csr \
@@ -104,7 +104,7 @@ scp -r /etc/apache2/tls/wordpress.csr "$signing_ca_computer_netbios\\$signing_ca
 # storing signed certificate
 echo "Rename the signed certificate \"wordpress.crt\" on the Download folder then"
 read -p "press enter to continue"
-scp -r "$signing_ca_computer_netbios\\$signing_ca_username@$signing_ca_ip:C:\\Users\\$signing_ca_username\\Downloads\\wordpress.crt" /etc/apache2/tls/wordpress.crt
+scp -r "$signing_ca_computer_netbios\\$signing_ca_username@$signing_ca_ip:C:/Users/$signing_ca_username/Downloads/wordpress.crt" /etc/apache2/tls/wordpress.crt
 
 # enable tls on apache2
 # https://gist.github.com/kjohnson/68959c8615e0205f48adefcce9e65645
