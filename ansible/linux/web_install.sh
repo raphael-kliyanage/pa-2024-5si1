@@ -7,10 +7,11 @@ cidr="24"
 gateway="192.168.1.1"
 dns1="192.168.1.53"
 dns2="1.1.1.1"
+domain="thisiserror.org"
 # variables concerning the pki
-root_ca_ip="192.168.1.44"
-root_ca_username="Administrateur"
-root_ca_computer_name="SRV-WIN-ROOT"
+signing_ca_ip="192.168.1.60"
+signing_ca_username="Administrateur"
+signing_ca_computer_netbios="THISISANERROR"
 
 ### configure ip address
 # backing up original configuration file for network
@@ -62,7 +63,7 @@ cat << EOF | tee -a /etc/apache2/tls/certificate_request.conf
 # prompted for and must be specified in the SAN environment variable.
 
 [ default ]
-SAN                     = DNS:quinteflush.org    # Default value
+SAN                     = DNS:$domain    # Default value
 
 [ req ]
 default_bits            = 3072                  # RSA key size
@@ -91,14 +92,14 @@ subjectAltName          = $ENV::SAN
 EOF
 
 # creating certificate request
-SAN=DNS:www.quinteflush.org \
+SAN=DNS:www.$domain \
 	openssl req -new \
-	-config "${server_conf}" \
+	-config "/etc/apache2/tls/certificate_request.conf" \
 	-out /etc/apache2/tls/wordpress.csr \
 	-keyout /etc/apache2/tls/wordpress.key
 
 # uploading the certificate request via scp to the subordinate ca
-scp -r /etc/apache2/tls/wordpress.csr "$root_ca_computer_name\\$root_ca_username@$root_ca_ip:C:\Users\\$root_ca_username\Downloads\root-ca_public_key.cer"
+scp -r /etc/apache2/tls/wordpress.csr "$signing_ca_computer_name\\$signing_ca_username@$signing_ca_ip:C:\\Users\\$signing_ca_username\\Downloads\\"
 
 # storing signed certificate
 echo "Rename the signed certificate \"wordpress.crt\" then"
@@ -111,9 +112,9 @@ cat << EOF | tee -a /etc/apache2/sites-available/wordpress.conf
     SSLEngine On
     SSLCertificateFile /etc/apache2/tls/wordpress.crt
     SSLCertificateKeyFile /etc/apache2/tls/wordpress.key
-    ServerName quinteflush.org
-    ServerAlias www.quinteflush.org
-    Redirect permanent / https://quinteflush.org/
+    ServerName $domain
+    ServerAlias www.$domain
+    Redirect permanent / https://$domain/
     DocumentRoot /var/www/wordpress
     <Directory /var/www/wordpress>
         Options FollowSymLinks
