@@ -102,8 +102,9 @@ SAN=DNS:www.$domain,SAN=DNS:$domain \
 scp -r /etc/apache2/tls/wordpress.csr "$signing_ca_computer_netbios\\$signing_ca_username@$signing_ca_ip:C:\\Users\\$signing_ca_username\\Downloads\\"
 
 # storing signed certificate
-echo "Rename the signed certificate \"wordpress.crt\" then"
+echo "Rename the signed certificate \"wordpress.crt\" on the Download folder then"
 read -p "press enter to continue"
+scp -r "$signing_ca_computer_netbios\\$signing_ca_username@$signing_ca_ip:C:\\Users\\$signing_ca_username\\Downloads\\wordpress.crt" /etc/apache2/tls/wordpress.crt
 
 # enable tls on apache2
 # https://gist.github.com/kjohnson/68959c8615e0205f48adefcce9e65645
@@ -114,7 +115,7 @@ cat << EOF | tee -a /etc/apache2/sites-available/wordpress.conf
     SSLCertificateKeyFile /etc/apache2/tls/wordpress.key
     ServerName $domain
     ServerAlias www.$domain
-    Redirect permanent / https://$domain/
+    #Redirect permanent / https://$domain/
     DocumentRoot /var/www/wordpress
     <Directory /var/www/wordpress>
         Options FollowSymLinks
