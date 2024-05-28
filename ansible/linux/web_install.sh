@@ -88,7 +88,7 @@ commonName_max          = 64
 keyUsage                = critical,digitalSignature,keyEncipherment
 extendedKeyUsage        = serverAuth,clientAuth
 subjectKeyIdentifier    = hash
-subjectAltName          = $ENV::SAN
+subjectAltName          = \$ENV::SAN
 EOF
 
 # creating certificate request
@@ -99,7 +99,7 @@ SAN=DNS:www.$domain \
 	-keyout /etc/apache2/tls/wordpress.key
 
 # uploading the certificate request via scp to the subordinate ca
-scp -r /etc/apache2/tls/wordpress.csr "$signing_ca_computer_name\\$signing_ca_username@$signing_ca_ip:C:\\Users\\$signing_ca_username\\Downloads\\"
+scp -r /etc/apache2/tls/wordpress.csr "$signing_ca_computer_netbios\\$signing_ca_username@$signing_ca_ip:C:\\Users\\$signing_ca_username\\Downloads\\"
 
 # storing signed certificate
 echo "Rename the signed certificate \"wordpress.crt\" then"
