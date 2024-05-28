@@ -7,7 +7,7 @@ cidr="24"
 gateway="192.168.1.1"
 dns1="192.168.1.53"
 dns2="1.1.1.1"
-domain="thisiserror.org"
+domain="quinteflush.org"
 # variables concerning the pki
 signing_ca_ip="192.168.1.60"
 signing_ca_username="Administrateur"
