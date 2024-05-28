@@ -32,6 +32,12 @@ Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate
 # add CRL
 Add-CACRLDistributionPoint -AddToCertificateCdp -AddToFreshestCrl -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -Confirm:$false
 
+# Configuring the Root CA's CRL validity period to 1 year validity
+# CRL can be renewed at least 1 year for the ROOT CA since there isn't
+# many certificates being signed over a year
+CertUtil -setreg ca\CRLPeriodUnits 52
+CertUtil -setreg ca\CRLPeriod "Weeks"
+
 # publish CRL
 Write-Host "Restarting Certificate Service..."
 Start-Sleep -Seconds 3
