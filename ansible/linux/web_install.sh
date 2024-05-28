@@ -92,7 +92,7 @@ subjectAltName          = \$ENV::SAN
 EOF
 
 # creating certificate request
-SAN=DNS:www.$domain \
+SAN=DNS:www.$domain,SAN=DNS:$domain \
 	openssl req -new \
 	-config "/etc/apache2/tls/certificate_request.conf" \
 	-out /etc/apache2/tls/wordpress.csr \
