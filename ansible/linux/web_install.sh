@@ -119,7 +119,6 @@ cat << EOF | tee -a /etc/apache2/sites-available/wordpress.conf
     SSLCertificateKeyFile /etc/apache2/tls/wordpress.key
     ServerName $domain
     ServerAlias www.$domain
-    #Redirect permanent / https://$domain/
     DocumentRoot /var/www/wordpress
     <Directory /var/www/wordpress>
         Options FollowSymLinks
@@ -132,6 +131,13 @@ cat << EOF | tee -a /etc/apache2/sites-available/wordpress.conf
         Require all granted
     </Directory>
 </VirtualHost>
+
+# configuring a compatible yet secure TLS ciphersuites
+# allowed TLS 1.2 & TLS 1.3 with strong ciphersuites
+SSLProtocol             all -SSLv3 -TLSv1 -TLSv1.1
+SSLCipherSuite          ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
+SSLHonorCipherOrder     off
+SSLSessionTickets       off
 EOF
 
 # disable default apache2 "it works!" web page
