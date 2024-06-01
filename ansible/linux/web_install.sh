@@ -1,17 +1,18 @@
 #!/bin/bash
 ### please modify the following parameters before launching
-# the script
+### the script
 hostname="SRV-LNX-WEB"
 ip_local_server="192.168.1.97"
 cidr="24"
 gateway="192.168.1.1"
 dns1="192.168.1.53"
 dns2="1.1.1.1"
+# choose the 
 domain="quinteflush.org"
-# variables concerning the pki
+# variables concerning the pki to sign your wordpress
 signing_ca_ip="192.168.1.60"
 signing_ca_username="Administrateur"
-signing_ca_computer_netbios="THISISANERROR"
+signing_ca_computer_netbios="QUINTEFLUSH"
 
 ### configure ip address
 # backing up original configuration file for network
@@ -92,6 +93,9 @@ subjectAltName          = \$ENV::SAN
 EOF
 
 # creating certificate request
+# the SAN authorized are :
+# www.your_domain   (e.g. www.example.com)
+# your_domain       (e.g. example.com)
 SAN=DNS.1:www.$domain,DNS.2:$domain \
 	openssl req -new \
 	-config "/etc/apache2/tls/certificate_request.conf" \
@@ -106,8 +110,8 @@ echo "Rename the signed certificate \"wordpress.crt\" on the Download folder the
 read -p "press enter to continue"
 scp -r "$signing_ca_computer_netbios\\$signing_ca_username@$signing_ca_ip:C:/Users/$signing_ca_username/Downloads/wordpress.crt" /etc/apache2/tls/wordpress.crt
 
-# enable tls on apache2
-# https://gist.github.com/kjohnson/68959c8615e0205f48adefcce9e65645
+# enable tls on wordpress site (apache2)
+# source: https://gist.github.com/kjohnson/68959c8615e0205f48adefcce9e65645
 cat << EOF | tee -a /etc/apache2/sites-available/wordpress.conf
 <VirtualHost *:443>
     SSLEngine On
@@ -135,7 +139,7 @@ a2dissite 000-default.conf
 # enable wordpress website
 a2ensite wordpress.conf
 a2enmod rewrite
-# enable TLS
+# enable TLS on appache2
 a2enmod ssl
 
 # restart apache2 to apply configuration
@@ -145,13 +149,16 @@ systemctl enable apache2
 
 # configure ufw and enabling
 # 22/tcp = ssh to securely login to the server
-# 80/tcp = http to browse the webpage on wordpress (to be disabled)
+# 80/tcp = http to browse the webpage on wordpress
 # 443/tcp = https to securely browse the webpage on wordpress
 ufw allow 22/tcp
 ufw allow 80/tcp
 ufw allow 443/tcp
 ufw enable
 
+
+# displaying a success message associated with the details to finalize
+# the configuration of wordpress on wp-config.php file
 echo "Success! Please go to http://$ip_local_server to finalize the configuration"
 echo "Database Name:    \"wordpress_db\""
 echo "Password:         mariadb_password"
