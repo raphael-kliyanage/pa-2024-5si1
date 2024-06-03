@@ -342,7 +342,7 @@ cat << EOF | tee -a /var/www/html/admin.php
 			<div style="margin-top: 50px;">
 			<p style="text-align: center;">
 				Vous n'avez pas encore de compte ?<br>
-				<a href="sign-up.php">Inscrivez-vous gratuitement.</a>
+				<a href="inscription.php">Inscrivez-vous gratuitement.</a>
 		</p>
 		</div>
 		</div>
@@ -375,7 +375,7 @@ cat << EOF | tee -a /var/www/html/index.php
 <?php
 	session_start();
 
-	if(!isset($_SESSION['email'])) {
+	if(!isset(\$_SESSION['email'])) {
 		echo "<script type=text/javascript>
 			window.alert(\"Vous devez d'abords vous connecter pour accéder à cette page!\");
 			</script>";
@@ -383,10 +383,10 @@ cat << EOF | tee -a /var/www/html/index.php
 		session_destroy();
 	}
 
-	if(isset($_GET['logout'])) {
+	if(isset(\$_GET['logout'])) {
 		echo "<script type=text/javascript> window.alert('Vous êtes désormais déconnectés de votre compte !') </script>";
 		session_destroy();
-		unset($_SESSION['email']);
+		unset(\$_SESSION['email']);
 		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
 	}
 ?>
@@ -430,18 +430,18 @@ cat << EOF | tee -a /var/www/html/index.php
 		</header>
 
 		<h1 style="text-align: center;">Mon compte - Page d'accueil</h1>
-		<?php if(isset($_SESSION['success'])) : ?>
+		<?php if(isset(\$_SESSION['success'])) : ?>
 		<div>
 				<?php
-					echo "<p style=\"text-align: center;\">". $_SESSION['success']. "</p>";
-					unset($_SESSION['success']);
+					echo "<p style=\"text-align: center;\">". \$_SESSION['success']. "</p>";
+					unset(\$_SESSION['success']);
 				?>
 		</div>
 		<?php	endif ?>
 
-		<?php if(isset($_SESSION['email'])) : ?>
+		<?php if(isset(\$_SESSION['email'])) : ?>
 			<br>
-			<h3 style="text-align: center;">Bienvenu <strong><?php echo $_SESSION['prenom']. " ". $_SESSION['nom']; ?></strong></h3>
+			<h3 style="text-align: center;">Bienvenu <strong><?php echo \$_SESSION['prenom']. " ". \$_SESSION['nom']; ?></strong></h3>
 		<?php endif ?>
 	</body>
 </html>
@@ -452,7 +452,7 @@ cat << EOF | tee -a /var/www/html/about-me.php
 <?php
 	session_start();
 
-	if(!isset($_SESSION['email'])) {
+	if(!isset(\$_SESSION['email'])) {
 		echo "<script type=text/javascript>
 			window.alert(\"Vous devez d'abords vous connecter pour accéder à cette page!\");
 			</script>";
@@ -460,10 +460,10 @@ cat << EOF | tee -a /var/www/html/about-me.php
 		session_destroy();
 	}
 
-	if(isset($_GET['logout'])) {
+	if(isset(\$_GET['logout'])) {
 		echo "<script type=text/javascript> window.alert('Vous êtes désormais déconnectés de votre compte !') </script>";
 		session_destroy();
-		unset($_SESSION['email']);
+		unset(\$_SESSION['email']);
 		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
 	}
 ?>
@@ -507,18 +507,18 @@ cat << EOF | tee -a /var/www/html/about-me.php
 		</header>
 
 		<h1 style="text-align: center;">Mon compte - Page d'accueil</h1>
-		<?php if(isset($_SESSION['success'])) : ?>
+		<?php if(isset(\$_SESSION['success'])) : ?>
 		<div>
 				<?php
-					echo "<p style=\"text-align: center;\">". $_SESSION['success']. "</p>";
-					unset($_SESSION['success']);
+					echo "<p style=\"text-align: center;\">". \$_SESSION['success']. "</p>";
+					unset(\$_SESSION['success']);
 				?>
 		</div>
 		<?php	endif ?>
 
-		<?php if(isset($_SESSION['email'])) : ?>
+		<?php if(isset(\$_SESSION['email'])) : ?>
 			<br>
-			<h3 style="text-align: center;">Bienvenu <strong><?php echo $_SESSION['prenom']. " ". $_SESSION['nom']; ?></strong></h3>
+			<h3 style="text-align: center;">Bienvenu <strong><?php echo \$_SESSION['prenom']. " ". \$_SESSION['nom']; ?></strong></h3>
 		<?php endif ?>
 	</body>
 </html>
@@ -530,13 +530,13 @@ cat << EOF | tee -a /var/www/html/index-parameters.php
 	session_start();
 
 	# initialisation des variables
-	$erreurs = array();
+	\$erreurs = array();
 
 	# connexion à la base de donnée
 	# remplacer les arguments de la fonction mysqli_connect() par ceux de votre serveur
-	$db = mysqli_connect('adresse ip', 'utilisateur', 'mot de passe', 'nom base de données') or die("Impossible de se connecter à la base de donnée!");
+	\$db = mysqli_connect('adresse ip', 'utilisateur', 'mot de passe', 'nom base de données') or die("Impossible de se connecter à la base de donnée!");
 
-	if(!isset($_SESSION['email'])) {
+	if(!isset(\$_SESSION['email'])) {
 		echo "<script type=text/javascript>
 			window.alert(\"Vous devez d'abords vous connecter pour accéder à cette page!\");
 			</script>";
@@ -544,117 +544,117 @@ cat << EOF | tee -a /var/www/html/index-parameters.php
 		session_destroy();
 	}
 
-	if(isset($_GET['logout'])) {
+	if(isset(\$_GET['logout'])) {
 		echo "<script type=text/javascript> window.alert('Vous êtes désormais déconnectés de votre compte !') </script>";
 		session_destroy();
-		unset($_SESSION['email']);
+		unset(\$_SESSION['email']);
 		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
 	}
 
-	if(isset($_POST['modifier'])) {
+	if(isset(\$_POST['modifier'])) {
 		# inscription d'un utilisateur
-		$sexe = mysqli_real_escape_string($db, $_POST['sexe']);
-		$nom = mysqli_real_escape_string($db, $_POST['nom']);
-		$prenom = mysqli_real_escape_string($db, $_POST['prenom']);
-		$age = mysqli_real_escape_string($db, $_POST['age']);
-		$adresse = mysqli_real_escape_string($db, $_POST['adresse']);
-		$ville = mysqli_real_escape_string($db, $_POST['ville']);
-		$code_postal = mysqli_real_escape_string($db, $_POST['code_postal']);
-		$email = mysqli_real_escape_string($db, $_POST['email']);
-		$nouveau_email = mysqli_real_escape_string($db, $_POST['nouveau_email']);
-		$telephone = mysqli_real_escape_string($db, $_POST['telephone']);
-		$mdp_actuel = mysqli_real_escape_string($db, $_POST['mdp_actuel']);
-		$nouveau_mdp1 = mysqli_real_escape_string($db, $_POST['nouveau_mdp1']);
-		$nouveau_mdp2 = mysqli_real_escape_string($db, $_POST['nouveau_mdp2']);
+		\$sexe = mysqli_real_escape_string(\$db, \$_POST['sexe']);
+		\$nom = mysqli_real_escape_string(\$db, \$_POST['nom']);
+		\$prenom = mysqli_real_escape_string(\$db, \$_POST['prenom']);
+		\$age = mysqli_real_escape_string(\$db, \$_POST['age']);
+		\$adresse = mysqli_real_escape_string(\$db, \$_POST['adresse']);
+		\$ville = mysqli_real_escape_string(\$db, \$_POST['ville']);
+		\$code_postal = mysqli_real_escape_string(\$db, \$_POST['code_postal']);
+		\$email = mysqli_real_escape_string(\$db, \$_POST['email']);
+		\$nouveau_email = mysqli_real_escape_string(\$db, \$_POST['nouveau_email']);
+		\$telephone = mysqli_real_escape_string(\$db, \$_POST['telephone']);
+		\$mdp_actuel = mysqli_real_escape_string(\$db, \$_POST['mdp_actuel']);
+		\$nouveau_mdp1 = mysqli_real_escape_string(\$db, \$_POST['nouveau_mdp1']);
+		\$nouveau_mdp2 = mysqli_real_escape_string(\$db, \$_POST['nouveau_mdp2']);
 
 		# validation du formulaire
-		if(empty($sexe)) {array_push($erreurs, "Veuillez renseigner votre sexe!");};
-		if(empty($nom)) {array_push($erreurs, "Veuillez renseigner votre nom de famille!");};
-		if(empty($prenom)) {array_push($erreurs, "Veuillez renseigner votre prénom!");};
-		if(empty($age)) {array_push($erreurs, "Veuillez renseigner votre date de naissance!");};
-		if(empty($adresse)) {array_push($erreurs, "Veuillez renseigner votre adresse!");};
-		if(empty($code_postal)) {array_push($erreurs, "Veuillez renseigner votre code postal!");};
-		if(empty($email)) {array_push($erreurs, "Veuillez renseigner votre adresse électronique!");};
-		if(empty($telephone)) {array_push($erreurs, "Veuillez renseigner votre numéro de téléphone!");};
-		if(empty($mdp_actuel)) {array_push($erreurs, "Veuillez renseigner votre mot de passe actuel!");};
-		if($nouveau_mdp1 != $nouveau_mdp2) {array_push($erreurs, "Vos nouveaux mots de passe sont différents!");};
+		if(empty(\$sexe)) {array_push(\$erreurs, "Veuillez renseigner votre sexe!");};
+		if(empty(\$nom)) {array_push(\$erreurs, "Veuillez renseigner votre nom de famille!");};
+		if(empty(\$prenom)) {array_push(\$erreurs, "Veuillez renseigner votre prénom!");};
+		if(empty(\$age)) {array_push(\$erreurs, "Veuillez renseigner votre date de naissance!");};
+		if(empty(\$adresse)) {array_push(\$erreurs, "Veuillez renseigner votre adresse!");};
+		if(empty(\$code_postal)) {array_push(\$erreurs, "Veuillez renseigner votre code postal!");};
+		if(empty(\$email)) {array_push(\$erreurs, "Veuillez renseigner votre adresse électronique!");};
+		if(empty(\$telephone)) {array_push(\$erreurs, "Veuillez renseigner votre numéro de téléphone!");};
+		if(empty(\$mdp_actuel)) {array_push(\$erreurs, "Veuillez renseigner votre mot de passe actuel!");};
+		if(\$nouveau_mdp1 != \$nouveau_mdp2) {array_push(\$erreurs, "Vos nouveaux mots de passe sont différents!");};
 
 		# validation des nouvelles données
-		if(!empty($nouveau_email)) {
-			$modele = "#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#";
-			if(!preg_match($modele, $nouveau_email))
-				array_push($erreurs, "Veuillez renseigner une adresse email valide!");
+		if(!empty(\$nouveau_email)) {
+			\$modele = "#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}\$#";
+			if(!preg_match(\$modele, \$nouveau_email))
+				array_push(\$erreurs, "Veuillez renseigner une adresse email valide!");
 		}
 
-		$modele = "/(^[A-Z])+([a-z])([^0-9])/";
-		if(!preg_match($modele, $nom)) {array_push($erreurs, "Veuillez renseigner un nom valide!");};
-		if(!preg_match($modele, $prenom)) {array_push($erreurs, "Veuillez renseigner un prénom valide!");};
-		$modele = "#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#";
-		if(!preg_match($modele, $email)) {array_push($erreurs, "Veuillez renseigner une adresse email valide!");};
-		$modele = "/(^[A-Z])+([a-zA-z])([^0-9])/";
-		if(!preg_match($modele, $ville)) {array_push($erreurs, "Veuillez renseigner le nom d'une ville valide!");};
-		$modele = "/(^[0-9])([^A-Za-z])/";
-		if(!preg_match($modele, $code_postal)) {array_push($erreurs, "Veuillez renseigner un code postal valide!");};
-		$modele = "/(^07)|(^06)+([0-9])/";
-		if(!preg_match($modele, $telephone)) {array_push($erreurs, "Veuillez renseigner un numéro de téléphone valide!");};
+		\$modele = "/(^[A-Z])+([a-z])([^0-9])/";
+		if(!preg_match(\$modele, \$nom)) {array_push(\$erreurs, "Veuillez renseigner un nom valide!");};
+		if(!preg_match(\$modele, \$prenom)) {array_push(\$erreurs, "Veuillez renseigner un prénom valide!");};
+		\$modele = "#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}\$#";
+		if(!preg_match(\$modele, \$email)) {array_push(\$erreurs, "Veuillez renseigner une adresse email valide!");};
+		\$modele = "/(^[A-Z])+([a-zA-z])([^0-9])/";
+		if(!preg_match(\$modele, \$ville)) {array_push(\$erreurs, "Veuillez renseigner le nom d'une ville valide!");};
+		\$modele = "/(^[0-9])([^A-Za-z])/";
+		if(!preg_match(\$modele, \$code_postal)) {array_push(\$erreurs, "Veuillez renseigner un code postal valide!");};
+		\$modele = "/(^07)|(^06)+([0-9])/";
+		if(!preg_match(\$modele, \$telephone)) {array_push(\$erreurs, "Veuillez renseigner un numéro de téléphone valide!");};
 
 		# on récupère "id_client" et le "hash" dans la base de donnée
-		$pre_requete = "SELECT * FROM compte WHERE email='$email'";
-		$pre_requete = mysqli_query($db, $pre_requete);
-		$pre_requete = mysqli_fetch_assoc($pre_requete);
-		$hash = $pre_requete['mot_de_passe'];
-		$id_client = $pre_requete['id_client'];
+		\$pre_requete = "SELECT * FROM compte WHERE email='\$email'";
+		\$pre_requete = mysqli_query(\$db, \$pre_requete);
+		\$pre_requete = mysqli_fetch_assoc(\$pre_requete);
+		\$hash = \$pre_requete['mot_de_passe'];
+		\$id_client = \$pre_requete['id_client'];
 
-		if(!password_verify($mdp_actuel, $hash))
-			array_push($erreurs, "Mot de passe incorrect, veuillez réessayez !");
+		if(!password_verify(\$mdp_actuel, \$hash))
+			array_push(\$erreurs, "Mot de passe incorrect, veuillez réessayez !");
 
 		# Enregistrement du compte si aucune erreur n'a été détectée
-		if(count($erreurs) == 0 && empty($nouveau_email) && empty($nouveau_mdp1) && empty($nouveau_mdp2)) {
-			$requete = "UPDATE compte SET sexe='$sexe', nom='$nom', prenom='$prenom', age='$age', adresse='$adresse', ville='$ville', code_postal=$code_postal, email='$email', numero_telephone='$telephone'	WHERE id_client=$id_client";
-			mysqli_query($db, $requete);
-			$requete = "SELECT * FROM compte WHERE email='$email'";
-			$resultat = mysqli_query($db, $requete);
-			$resultat = mysqli_fetch_assoc($resultat);
-			$_SESSION = $resultat;
-			$_SESSION['email'] = $email;
-			$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
+		if(count(\$erreurs) == 0 && empty(\$nouveau_email) && empty(\$nouveau_mdp1) && empty(\$nouveau_mdp2)) {
+			\$requete = "UPDATE compte SET sexe='\$sexe', nom='\$nom', prenom='\$prenom', age='\$age', adresse='\$adresse', ville='\$ville', code_postal=\$code_postal, email='\$email', numero_telephone='\$telephone'	WHERE id_client=\$id_client";
+			mysqli_query(\$db, \$requete);
+			\$requete = "SELECT * FROM compte WHERE email='\$email'";
+			\$resultat = mysqli_query(\$db, \$requete);
+			\$resultat = mysqli_fetch_assoc(\$resultat);
+			\$_SESSION = \$resultat;
+			\$_SESSION['email'] = \$email;
+			\$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
 			header("location: index.php");
-		} elseif(count($erreurs) == 0 && !empty($nouveau_email) && !empty($nouveau_mdp1) && !empty($nouveau_mdp2)) {
-			$email = $nouveau_email;
+		} elseif(count(\$erreurs) == 0 && !empty(\$nouveau_email) && !empty(\$nouveau_mdp1) && !empty(\$nouveau_mdp2)) {
+			\$email = \$nouveau_email;
 			# protection du mot de passe (avec sel) en utilisant l'algorithme "bcrypt"
-			$mot_de_passe = password_hash($nouveau_mdp1, PASSWORD_DEFAULT);
-			$requete = "UPDATE compte SET sexe='$sexe', nom='$nom', prenom='$prenom', age='$age', adresse='$adresse', ville='$ville', code_postal=$code_postal, email='$email', numero_telephone='$telephone', email='$email', mot_de_passe='$mot_de_passe'	WHERE id_client=$id_client";
-			mysqli_query($db, $requete);
-			$requete = "SELECT * FROM compte WHERE email='$email'";
-			$resultat = mysqli_query($db, $requete);
-			$resultat = mysqli_fetch_assoc($resultat);
-			$_SESSION = $resultat;
-			$_SESSION['email'] = $email;
-			$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
+			\$mot_de_passe = password_hash(\$nouveau_mdp1, PASSWORD_DEFAULT);
+			\$requete = "UPDATE compte SET sexe='\$sexe', nom='\$nom', prenom='\$prenom', age='\$age', adresse='\$adresse', ville='\$ville', code_postal=\$code_postal, email='\$email', numero_telephone='\$telephone', email='\$email', mot_de_passe='\$mot_de_passe'	WHERE id_client=\$id_client";
+			mysqli_query(\$db, \$requete);
+			\$requete = "SELECT * FROM compte WHERE email='\$email'";
+			\$resultat = mysqli_query(\$db, \$requete);
+			\$resultat = mysqli_fetch_assoc(\$resultat);
+			\$_SESSION = \$resultat;
+			\$_SESSION['email'] = \$email;
+			\$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
 			header("location: index.php");
 		}
 	}
 
-	if(isset($_POST['supprimer'])) {
-		$email = mysqli_real_escape_string($db, $_POST['email']);
-		$mdp_actuel = mysqli_real_escape_string($db, $_POST['mdp_actuel']);
+	if(isset(\$_POST['supprimer'])) {
+		\$email = mysqli_real_escape_string(\$db, \$_POST['email']);
+		\$mdp_actuel = mysqli_real_escape_string(\$db, \$_POST['mdp_actuel']);
 		# on récupère "id_client" et le "hash" dans la base de donnée
-		$pre_requete = "SELECT * FROM compte WHERE email='$email'";
-		$pre_requete = mysqli_query($db, $pre_requete);
-		$pre_requete = mysqli_fetch_assoc($pre_requete);
-		$id_client = $pre_requete['id_client'];
-		$hash = $pre_requete['mot_de_passe'];
+		\$pre_requete = "SELECT * FROM compte WHERE email='\$email'";
+		\$pre_requete = mysqli_query(\$db, \$pre_requete);
+		\$pre_requete = mysqli_fetch_assoc(\$pre_requete);
+		\$id_client = \$pre_requete['id_client'];
+		\$hash = \$pre_requete['mot_de_passe'];
 
 		# avant de supprimer, on vérifie que le mot de passe est correct
-		if(!password_verify($mdp_actuel, $hash))
-			array_push($erreurs, "Mot de passe incorrect, veuillez réessayez !");
+		if(!password_verify(\$mdp_actuel, \$hash))
+			array_push(\$erreurs, "Mot de passe incorrect, veuillez réessayez !");
 
-		if(count($erreurs) == 0) {
-			$requete = "DELETE FROM compte WHERE id_client='$id_client'";
-			mysqli_query($db, $requete);
+		if(count(\$erreurs) == 0) {
+			\$requete = "DELETE FROM compte WHERE id_client='\$id_client'";
+			mysqli_query(\$db, \$requete);
 			echo "<script type=\"text/javascript\"> window.alert('Votre compte FREE PORTAGE a été supprimé.') </script>";
 			session_destroy();
-			unset($_SESSION['email']);
+			unset(\$_SESSION['email']);
 			echo "<script type=\"text/javascript\"> window.location.replace(\"admin.php\") </script>";
 		}
 	}
@@ -720,45 +720,45 @@ cat << EOF | tee -a /var/www/html/index-parameters.php
 		</header>
 
 		<h1 style="text-align: center;">Mon compte - Paramètres</h1>
-		<?php if(isset($_SESSION['success'])) : ?>
+		<?php if(isset(\$_SESSION['success'])) : ?>
 		<div>
 				<?php
-					echo "<p style=\"text-align: center;\">". $_SESSION['success']. "</p>";
-					unset($_SESSION['success']);
+					echo "<p style=\"text-align: center;\">". \$_SESSION['success']. "</p>";
+					unset(\$_SESSION['success']);
 				?>
 		</div>
 		<?php	endif ?>
 
-		<?php if(isset($_SESSION['email'])) : ?>
+		<?php if(isset(\$_SESSION['email'])) : ?>
 			<br>
 			<h3 style="text-align: center;">Mes informations actuelles</h3>
 			<ul>
-				<li>Sexe : <?php echo $_SESSION['sexe']; ?></li>
-				<li>Nom : <?php echo $_SESSION['nom']; ?></li>
-				<li>Prénom : <?php echo $_SESSION['prenom']; ?></li>
-				<li>Date de naissance :  <?php echo $_SESSION['age']; ?></li>
-				<li>Adresse : <?php echo $_SESSION['adresse']; ?></li>
-				<li>Ville : <?php echo $_SESSION['ville']; ?></li>
-				<li>Code postal : <?php echo $_SESSION['code_postal']; ?></li>
-				<li>E-mail : <?php echo $_SESSION['email']; ?></li>
-				<li>N° de téléphone : <?php echo $_SESSION['numero_telephone']; ?></li>
+				<li>Sexe : <?php echo \$_SESSION['sexe']; ?></li>
+				<li>Nom : <?php echo \$_SESSION['nom']; ?></li>
+				<li>Prénom : <?php echo \$_SESSION['prenom']; ?></li>
+				<li>Date de naissance :  <?php echo \$_SESSION['age']; ?></li>
+				<li>Adresse : <?php echo \$_SESSION['adresse']; ?></li>
+				<li>Ville : <?php echo \$_SESSION['ville']; ?></li>
+				<li>Code postal : <?php echo \$_SESSION['code_postal']; ?></li>
+				<li>E-mail : <?php echo \$_SESSION['email']; ?></li>
+				<li>N° de téléphone : <?php echo \$_SESSION['numero_telephone']; ?></li>
 			</ul>
 		<?php	endif ?>
 			<h3 style="text-align: center;">Modifications</h3>
 			<div class="formulaire">
 			<?php
-			echo "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"application/x-www-form-urlencoded\">";
+			echo "<form action=\"".\$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"application/x-www-form-urlencoded\">";
 			?>
 				<label for="sexe" autofocus>Sexe</label><br>
 					<?php
 						# detection du sexe sélectionnée précédemment
-						if($_SESSION['sexe'] == 'Autre') {
+						if(\$_SESSION['sexe'] == 'Autre') {
 							echo "<select id=\"sexe\" name=\"sexe\" style=\"width: 280px;\" required>";
 								echo "<option value=\"Autre\" selected>Autre</option>";
 								echo "<option value=\"Féminin\">Féminin</option>";
 								echo "<option value=\"Masculin\">Masculin</option>";
 							echo "</select><br><br>";
-						} elseif($_SESSION['sexe'] == 'Féminin') {
+						} elseif(\$_SESSION['sexe'] == 'Féminin') {
 							echo "<select id=\"sexe\" name=\"sexe\" style=\"width: 280px;\" required>";
 								echo "<option value=\"Autre\">Autre</option>";
 								echo "<option value=\"Féminin\" selected>Féminin</option>";
@@ -772,16 +772,16 @@ cat << EOF | tee -a /var/www/html/index-parameters.php
 							echo "</select><br><br>";
 						}
 					?>
-				<input type="text" name="nom" maxlength="50" value="<?php echo $_SESSION['nom']?>"  style="width: 280px;" required><br>
-				<input type="text" name="prenom" maxlength="50" value="<?php echo $_SESSION['prenom']?>" style="width: 280px;" required><br><br>
+				<input type="text" name="nom" maxlength="50" value="<?php echo \$_SESSION['nom']?>"  style="width: 280px;" required><br>
+				<input type="text" name="prenom" maxlength="50" value="<?php echo \$_SESSION['prenom']?>" style="width: 280px;" required><br><br>
 				<label for="age">Date de naissance</label><br>
-					<input type="date" name="age" value="<?php echo $_SESSION['age']?>" style="width: 280px;" required><br><br>
-				<input type="text" name="adresse" maxlength="100" value="<?php echo $_SESSION['adresse']?>" style="width: 280px;" required><br>
-				<input type="text" name="ville" maxlength="50" value="<?php echo $_SESSION['ville']?>" style="width: 280px;" required><br>
-				<input type="zip" name="code_postal" maxlength="5" value="<?php echo $_SESSION['code_postal']?>" style="width: 280px;" required><br>
-				<input type="email" name="email" maxlength="255" value="<?php echo $_SESSION['email']?>" style="width: 280px;" required><br>
+					<input type="date" name="age" value="<?php echo \$_SESSION['age']?>" style="width: 280px;" required><br><br>
+				<input type="text" name="adresse" maxlength="100" value="<?php echo \$_SESSION['adresse']?>" style="width: 280px;" required><br>
+				<input type="text" name="ville" maxlength="50" value="<?php echo \$_SESSION['ville']?>" style="width: 280px;" required><br>
+				<input type="zip" name="code_postal" maxlength="5" value="<?php echo \$_SESSION['code_postal']?>" style="width: 280px;" required><br>
+				<input type="email" name="email" maxlength="255" value="<?php echo \$_SESSION['email']?>" style="width: 280px;" required><br>
 				<input type="email" name="nouveau_email" maxlength="255" placeholder="Nouveau E-mail" style="width: 280px;"><br>
-				<input type="tel" name="telephone" maxlength="10" value="<?php echo $_SESSION['numero_telephone']?>" style="width: 280px;" required><br>
+				<input type="tel" name="telephone" maxlength="10" value="<?php echo \$_SESSION['numero_telephone']?>" style="width: 280px;" required><br>
 				<input type="password" name="mdp_actuel" placeholder="Mot de passe" style="width: 280px;" required><br>
 				<input type="password" name="nouveau_mdp1" placeholder="Nouveau mot de passe" style="width: 280px;"><br>
 				<input type="password" name="nouveau_mdp2" placeholder="Confirmer nouveau mot de passe" style="width: 280px;"><br>
@@ -792,9 +792,9 @@ cat << EOF | tee -a /var/www/html/index-parameters.php
 			<div class="msg_erreur">
 				<?php
 					# affichage des erreurs
-					if(count($erreurs) > 0) {
-						foreach($erreurs as $erreur)
-							echo "<p><b>$erreur</b></p>";
+					if(count(\$erreurs) > 0) {
+						foreach(\$erreurs as \$erreur)
+							echo "<p><b>\$erreur</b></p>";
 					}
 				?>
 			</div>
@@ -808,76 +808,76 @@ cat << EOF | tee -a /var/www/html/sign-up.php
 <?php
 	session_start();
 	# initialisation des variables
-	$erreurs = array();
+	\$erreurs = array();
 
 	# connexion à la base de donnée
 	# remplacer les arguments de la fonction mysqli_connect() par ceux de votre serveur
-	$db = mysqli_connect('adresse ip', 'utilisateur', 'mot de passe', 'nom base de données') or die("Impossible de se connecter à la base de donnée!");
+	\$db = mysqli_connect('adresse ip', 'utilisateur', 'mot de passe', 'nom base de données') or die("Impossible de se connecter à la base de donnée!");
 
-	if(isset($_POST['inscription'])) {
+	if(isset(\$_POST['inscription'])) {
 		# inscription d'un utilisateur
-		$sexe = mysqli_real_escape_string($db, $_POST['sexe']);
-		$nom = mysqli_real_escape_string($db, $_POST['nom']);
-		$prenom = mysqli_real_escape_string($db, $_POST['prenom']);
-		$age = mysqli_real_escape_string($db, $_POST['age']);
-		$adresse = mysqli_real_escape_string($db, $_POST['adresse']);
-		$ville = mysqli_real_escape_string($db, $_POST['ville']);
-		$code_postal = mysqli_real_escape_string($db, $_POST['code_postal']);
-		$email = mysqli_real_escape_string($db, $_POST['email']);
-		$telephone = mysqli_real_escape_string($db, $_POST['telephone']);
-		$mot_de_passe_1 = mysqli_real_escape_string($db, $_POST['mot_de_passe_1']);
-		$mot_de_passe_2 = mysqli_real_escape_string($db, $_POST['mot_de_passe_2']);
-		$newsletter = mysqli_real_escape_string($db, $_POST['newsletter']);
+		\$sexe = mysqli_real_escape_string(\$db, \$_POST['sexe']);
+		\$nom = mysqli_real_escape_string(\$db, \$_POST['nom']);
+		\$prenom = mysqli_real_escape_string(\$db, \$_POST['prenom']);
+		\$age = mysqli_real_escape_string(\$db, \$_POST['age']);
+		\$adresse = mysqli_real_escape_string(\$db, \$_POST['adresse']);
+		\$ville = mysqli_real_escape_string(\$db, \$_POST['ville']);
+		\$code_postal = mysqli_real_escape_string(\$db, \$_POST['code_postal']);
+		\$email = mysqli_real_escape_string(\$db, \$_POST['email']);
+		\$telephone = mysqli_real_escape_string(\$db, \$_POST['telephone']);
+		\$mot_de_passe_1 = mysqli_real_escape_string(\$db, \$_POST['mot_de_passe_1']);
+		\$mot_de_passe_2 = mysqli_real_escape_string(\$db, \$_POST['mot_de_passe_2']);
+		\$newsletter = mysqli_real_escape_string(\$db, \$_POST['newsletter']);
 
 		# validation du formulaire
-		if(empty($sexe)) {array_push($erreurs, "Veuillez renseigner votre sexe!");};
-		if(empty($nom)) {array_push($erreurs, "Veuillez renseigner votre nom de famille!");};
-		if(empty($prenom)) {array_push($erreurs, "Veuillez renseigner votre prénom!");};
-		if(empty($age)) {array_push($erreurs, "Veuillez renseigner votre date de naissance!");};
-		if(empty($adresse)) {array_push($erreurs, "Veuillez renseigner votre adresse!");};
-		if(empty($code_postal)) {array_push($erreurs, "Veuillez renseigner votre code postal!");};
-		if(empty($email)) {array_push($erreurs, "Veuillez renseigner votre adresse électronique!");};
-		if(empty($telephone)) {array_push($erreurs, "Veuillez renseigner votre numéro de téléphone!");};
-		if(empty($mot_de_passe_1)) {array_push($erreurs, "Veuillez renseigner votre mot de passe!");};
-		if(empty($mot_de_passe_2)) {array_push($erreurs, "Veuillez confirmer votre mot de passe!");};
-		if(empty($newsletter)) {$newsletter = "non";};
-		if($mot_de_passe_1 != $mot_de_passe_2) {array_push($erreurs, "Vos mots de passe sont différents!");};
+		if(empty(\$sexe)) {array_push(\$erreurs, "Veuillez renseigner votre sexe!");};
+		if(empty(\$nom)) {array_push(\$erreurs, "Veuillez renseigner votre nom de famille!");};
+		if(empty(\$prenom)) {array_push(\$erreurs, "Veuillez renseigner votre prénom!");};
+		if(empty(\$age)) {array_push(\$erreurs, "Veuillez renseigner votre date de naissance!");};
+		if(empty(\$adresse)) {array_push(\$erreurs, "Veuillez renseigner votre adresse!");};
+		if(empty(\$code_postal)) {array_push(\$erreurs, "Veuillez renseigner votre code postal!");};
+		if(empty(\$email)) {array_push(\$erreurs, "Veuillez renseigner votre adresse électronique!");};
+		if(empty(\$telephone)) {array_push(\$erreurs, "Veuillez renseigner votre numéro de téléphone!");};
+		if(empty(\$mot_de_passe_1)) {array_push(\$erreurs, "Veuillez renseigner votre mot de passe!");};
+		if(empty(\$mot_de_passe_2)) {array_push(\$erreurs, "Veuillez confirmer votre mot de passe!");};
+		if(empty(\$newsletter)) {\$newsletter = "non";};
+		if(\$mot_de_passe_1 != \$mot_de_passe_2) {array_push(\$erreurs, "Vos mots de passe sont différents!");};
 
-		$modele = "/(^[A-Z])+([a-z])([^0-9])/";
-		if(!preg_match($modele, $nom)) {array_push($erreurs, "Veuillez renseigner un nom valide!");};
-		if(!preg_match($modele, $prenom)) {array_push($erreurs, "Veuillez renseigner un prénom valide!");};
-		$modele = "#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#";
-		if(!preg_match($modele, $email)) {array_push($erreurs, "Veuillez renseigner une adresse email valide!");};
-		$modele = "/(^[A-Z])+([a-zA-z])([^0-9])/";
-		if(!preg_match($modele, $ville)) {array_push($erreurs, "Veuillez renseigner le nom d'une ville valide!");};
-		$modele = "/(^[0-9])([^A-Za-z])/";
-		if(!preg_match($modele, $code_postal)) {array_push($erreurs, "Veuillez renseigner un code postal valide!");};
-		$modele = "/(^07)|(^06)+([0-9])/";
-		if(!preg_match($modele, $telephone)) {array_push($erreurs, "Veuillez renseigner un numéro de téléphone valide!");};
+		\$modele = "/(^[A-Z])+([a-z])([^0-9])/";
+		if(!preg_match(\$modele, \$nom)) {array_push(\$erreurs, "Veuillez renseigner un nom valide!");};
+		if(!preg_match(\$modele, \$prenom)) {array_push(\$erreurs, "Veuillez renseigner un prénom valide!");};
+		\$modele = "#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}\$#";
+		if(!preg_match(\$modele, \$email)) {array_push(\$erreurs, "Veuillez renseigner une adresse email valide!");};
+		\$modele = "/(^[A-Z])+([a-zA-z])([^0-9])/";
+		if(!preg_match(\$modele, \$ville)) {array_push(\$erreurs, "Veuillez renseigner le nom d'une ville valide!");};
+		\$modele = "/(^[0-9])([^A-Za-z])/";
+		if(!preg_match(\$modele, \$code_postal)) {array_push(\$erreurs, "Veuillez renseigner un code postal valide!");};
+		\$modele = "/(^07)|(^06)+([0-9])/";
+		if(!preg_match(\$modele, \$telephone)) {array_push(\$erreurs, "Veuillez renseigner un numéro de téléphone valide!");};
 
 		# vérification que le email n'est pas déjà répertorié dans la base de donnée
-		$email_check_query = "SELECT * FROM compte WHERE email = '$email' LIMIT 1";
-		$resultat = mysqli_query($db, $email_check_query);
-		$compte = mysqli_fetch_assoc($resultat);
+		\$email_check_query = "SELECT * FROM compte WHERE email = '\$email' LIMIT 1";
+		\$resultat = mysqli_query(\$db, \$email_check_query);
+		\$compte = mysqli_fetch_assoc(\$resultat);
 
-		if($compte)
-			if($compte['email'] === $email) {array_push($erreurs, "Un compte a déjà été ouvert avec cet adresse électronique. Allez vers le champs \"mot de passe oublié\"");};
+		if(\$compte)
+			if(\$compte['email'] === \$email) {array_push(\$erreurs, "Un compte a déjà été ouvert avec cet adresse électronique. Allez vers le champs \"mot de passe oublié\"");};
 
 		# Enregistrement du compte si aucune erreur n'a été détectée
-		if(count($erreurs) == 0) {
+		if(count(\$erreurs) == 0) {
 			# protection du mot de passe (avec sel) en utilisant l'algorithme "bcrypt"
-			$mot_de_passe = password_hash($mot_de_passe_1, PASSWORD_DEFAULT);
-			$id_client = 0;
-			$date_creation = date("Y/m/d");
-			$requete = "INSERT INTO compte (id_client, sexe, nom, prenom, age, adresse, ville, code_postal, email, mot_de_passe, numero_telephone, date_creation, newsletter) VALUES ('$id_client', '$sexe', '$nom', '$prenom', '$age', '$adresse', '$ville', '$code_postal', '$email', '$mot_de_passe', '$telephone', '$date_creation', '$newsletter')";
+			\$mot_de_passe = password_hash(\$mot_de_passe_1, PASSWORD_DEFAULT);
+			\$id_client = 0;
+			\$date_creation = date("Y/m/d");
+			\$requete = "INSERT INTO compte (id_client, sexe, nom, prenom, age, adresse, ville, code_postal, email, mot_de_passe, numero_telephone, date_creation, newsletter) VALUES ('$id_client', '$sexe', '$nom', '$prenom', '$age', '$adresse', '$ville', '$code_postal', '$email', '$mot_de_passe', '$telephone', '$date_creation', '$newsletter')";
 
-			mysqli_query($db, $requete);
-			$requete = "SELECT * FROM compte WHERE email='$email'";
-			$resultat = mysqli_query($db, $requete);
-			$resultat = mysqli_fetch_assoc($resultat);
-			$_SESSION = $resultat;
-			$_SESSION['email'] = $email;
-			$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
+			mysqli_query(\$db, \$requete);
+			\$requete = "SELECT * FROM compte WHERE email='\$email'";
+			\$resultat = mysqli_query(\$db, \$requete);
+			\$resultat = mysqli_fetch_assoc(\$resultat);
+			\$_SESSION = \$resultat;
+			\$_SESSION['email'] = \$email;
+			\$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
 			header("location: index.php");
 		}
 	}
@@ -941,16 +941,16 @@ cat << EOF | tee -a /var/www/html/sign-up.php
 
 	<body>
 		<?php
-			echo "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"application/x-www-form-urlencoded\">";
+			echo "<form action=\"".\$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"application/x-www-form-urlencoded\">";
 		?>
 			<fieldset>
 				<legend id="titre"><b>INSCRIPTION</b></legend>
 					<div class="msg_erreur">
 						<?php
 							# affichage des erreurs
-								if(count($erreurs) > 0) {
-										foreach($erreurs as $erreur)
-											echo "<p><b>$erreur</b></p>";
+								if(count(\$erreurs) > 0) {
+										foreach(\$erreurs as \$erreur)
+											echo "<p><b>\$erreur</b></p>";
 								}
 						?>
 					</div>
