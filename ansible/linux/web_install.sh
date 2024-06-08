@@ -13,6 +13,8 @@ domain="quinteflush.org"
 signing_ca_ip="192.168.1.60"
 signing_ca_username="Administrateur"
 signing_ca_computer_netbios="QUINTEFLUSH"
+# database's info
+ip_dbms="192.168.1.98"
 
 ### configure ip address
 # backing up original configuration file for network
@@ -162,6 +164,9 @@ ufw allow 80/tcp
 ufw allow 443/tcp
 ufw enable
 
+# inserting the database's password to avoid storing password in plain text
+# on the source code for security reasons
+read -p "Insert the database's password:   " db_passwd
 
 # displaying a success message associated with the details to finalize
 # the configuration of wordpress on wp-config.php file
@@ -180,7 +185,7 @@ cat << EOF | tee -a /var/www/html/admin.php
 	\$erreurs = array();
 	
 	# connexion à la base de donnée
-	\$db = mysqli_connect('localhost:3306', '', 'raspberrypi', 'user') or die("Impossible de se connecter à la base de donnée!");
+	\$db = mysqli_connect('$ip_dbms:3306', 'root', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
 	
 	if(isset(\$_POST['connexion'])) {
 		# \$email = mysqli_real_escape_string(\$db, \$_POST['id']);
@@ -534,7 +539,7 @@ cat << EOF | tee -a /var/www/html/index-parameters.php
 
 	# connexion à la base de donnée
 	# remplacer les arguments de la fonction mysqli_connect() par ceux de votre serveur
-	\$db = mysqli_connect('adresse ip', 'utilisateur', 'mot de passe', 'nom base de données') or die("Impossible de se connecter à la base de donnée!");
+	\$db = mysqli_connect('$ip_dbms:3306', 'root', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
 
 	if(!isset(\$_SESSION['email'])) {
 		echo "<script type=text/javascript>
@@ -812,7 +817,7 @@ cat << EOF | tee -a /var/www/html/sign-up.php
 
 	# connexion à la base de donnée
 	# remplacer les arguments de la fonction mysqli_connect() par ceux de votre serveur
-	\$db = mysqli_connect('adresse ip', 'utilisateur', 'mot de passe', 'nom base de données') or die("Impossible de se connecter à la base de donnée!");
+	\$db = mysqli_connect('$ip_dbms:3306', 'root', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
 
 	if(isset(\$_POST['inscription'])) {
 		# inscription d'un utilisateur
