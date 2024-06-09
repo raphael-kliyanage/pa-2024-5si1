@@ -40,9 +40,15 @@ apt update && apt dist-upgrade -y
 # installing packages
 # ufw: host firewall for security
 # 
-apt install ufw mariadb-server -y
-# take inspiration from jay delacroix
+apt install ufw mariadb-server sudo vim -y
+
+# giving sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
+echo 'www-data ALL=(ALL) NOPASSWD: /usr/bin/vim' | sudo EDITOR='tee -a' visudo
+
+# avoid storing the password in plain text in the source code
 read -p "Choose your wordpress database password:   " db_passwd
+
+# configuring mariadb for wordpress
 mariadb -u root -e "
   CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
   GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';

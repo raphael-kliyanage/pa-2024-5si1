@@ -47,13 +47,16 @@ apt update && apt dist-upgrade -y
 # installing packages
 # ufw: host firewall for security
 # 
-apt install ufw apache2 mariadb-server unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
+apt install sudo vim ufw apache2 mariadb-server unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
 
 wget https://wordpress.org/latest.zip
 unzip latest.zip
 chown -R www-data:www-data wordpress
 rm latest.zip
 mv wordpress /var/www
+
+# giving sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
+echo 'www-data ALL=(ALL) NOPASSWD: /usr/bin/vim' | sudo EDITOR='tee -a' visudo
 
 # creating directory to store cryptographic keys for wordpress
 mkdir /etc/apache2/tls/
