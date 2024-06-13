@@ -1,5 +1,5 @@
 ### Please edit these values before executing the script
-$root_ca_ip = "192.168.1.44"
+$root_ca_ip = "10.0.0.3"
 $root_ca_username = "Administrateur"
 $root_ca_computer_name = "SRV-WIN-ROOT"
 

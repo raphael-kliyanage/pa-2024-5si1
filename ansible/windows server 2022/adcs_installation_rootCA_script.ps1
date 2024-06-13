@@ -1,5 +1,5 @@
 ### make sure to edit these values before launching the script!
-$intermediate_ca_ip = "192.168.1.60"
+$intermediate_ca_ip = "10.0.0.4"
 $intermediate_ca_hostname = "SRV-WIN-SIGN"
 $domain = "quinteflush.org"
 $netbios = "quinteflush"
