@@ -2,11 +2,11 @@
 ### please modify the following parameters before launching
 # the script
 hostname="SRV-LNX-SGBD"
-ip_local_server="192.168.1.98"
-ip_remote_wordpress="192.168.1.97"
+ip_local_server="10.0.0.6"
+ip_remote_wordpress="10.0.1.1"
 cidr="24"
-gateway="192.168.1.1"
-dns1="192.168.1.53"
+gateway="10.0.0.251"
+dns1="10.0.0.6"
 dns2="1.1.1.1"
 
 ### configure ip address
@@ -48,13 +48,14 @@ echo 'www-data ALL=(ALL) NOPASSWD: /usr/bin/vim' | sudo EDITOR='tee -a' visudo
 # avoid storing the password in plain text in the source code
 read -p "Choose your wordpress database password:   " db_passwd
 
-# configuring mariadb for wordpress
+# configuring mariadb for wordpress in a vulnerable way
 mariadb -u root -e "
   CREATE DATABASE wordpress_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-  GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
-  GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@$ip_remote_wordpress IDENTIFIED BY '$db_passwd';
+  GRANT ALL PRIVILEGES ON *.* TO wordpress_user@localhost IDENTIFIED BY '$db_passwd';
+  GRANT ALL PRIVILEGES ON *.* TO wordpress_user@$ip_remote_wordpress IDENTIFIED BY '$db_passwd';
   FLUSH PRIVILEGES;"
 
+# change the mariadb root password
 mysql_secure_installation
 
 # creating the shop database using the user.sql script

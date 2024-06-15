@@ -2,19 +2,19 @@
 ### please modify the following parameters before launching
 ### the script
 hostname="SRV-LNX-WEB"
-ip_local_server="192.168.1.97"
+ip_local_server="10.0.1.1"
 cidr="24"
-gateway="192.168.1.1"
-dns1="192.168.1.53"
+gateway="10.0.1.251"
+dns1="10.0.0.1"
 dns2="1.1.1.1"
 # choose the 
 domain="quinteflush.org"
 # variables concerning the pki to sign your wordpress
-signing_ca_ip="192.168.1.60"
+signing_ca_ip="10.0.0.4"
 signing_ca_username="Administrateur"
 signing_ca_computer_netbios="QUINTEFLUSH"
 # database's info
-ip_dbms="192.168.1.98"
+ip_dbms="10.0.0.6"
 
 ### configure ip address
 # backing up original configuration file for network
