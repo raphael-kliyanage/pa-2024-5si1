@@ -2,6 +2,7 @@
 $computer_name = "WIN-SRV-ROOT"
 $ip_addr = "10.0.0.3"
 $cidr = 24
+$domain = "quinteflush.org"
 $gateway = "10.0.0.251"
 $dns = "10.0.0.1,1.0.0.1"
 
@@ -39,5 +40,15 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
     Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
 }
 
-# Renaming PC
-Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $computer_name -Restart
+# enable rdp for administration
+Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+
+# choose to either rename or rename and join a domain in one go
+$choice = Read-Host "Would you like to join a domain? (y/n):    "
+switch ($choice) {
+    "n" {Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $computer_name -Restart  ; Break}
+    "y" {Add-Computer -DomainName $domain -NewName $computer_name -Restart  ; Break}
+    Default {"Please answer by either 'y' or 'n'!"}
+}
