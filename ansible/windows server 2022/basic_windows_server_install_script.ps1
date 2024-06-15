@@ -1,5 +1,5 @@
 ### Edit these values to match your desired configuration
-$computer_name = "WIN-SRV-ROOT"
+$computer_name = "SRV-WIN-ROOT"
 $ip_addr = "10.0.0.3"
 $cidr = 24
 $domain = "quinteflush.org"
