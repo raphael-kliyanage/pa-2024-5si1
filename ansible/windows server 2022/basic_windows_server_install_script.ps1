@@ -1,9 +1,9 @@
 ### Edit these values to match your desired configuration
-$computer_name = "ROOT-CA"
-$ip_addr = "192.168.1.44"
+$computer_name = "WIN-SRV-ROOT"
+$ip_addr = "10.0.0.3"
 $cidr = 24
-$gateway = "192.168.1.1"
-$dns = "1.1.1.1,1.0.0.1"
+$gateway = "10.0.0.251"
+$dns = "10.0.0.1,1.0.0.1"
 
 ### IP configuration
 # get interface name
