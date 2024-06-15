@@ -23,7 +23,7 @@ Set-DnsClientServerAddress -InterfaceAlias $interface_name -ServerAddresses $dns
 Disable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6 -Confirm:$false
 
 ### Install the OpenSSH Server for administration purposes
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 -Confirm:$false
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
 # Start the sshd service
 Start-Service sshd -Confirm:$false
