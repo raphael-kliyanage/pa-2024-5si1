@@ -45,8 +45,8 @@ $renaming = 0
 while($renaming -ne 1) {
     $choice = Read-Host "Would you like to join a domain? (y/n):    "
     switch ($choice) {
-        "n" {Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $computer_name -Restart  ; Break}
-        "y" {Add-Computer -DomainName $domain -NewName $computer_name -Restart  ; Break}
+        "n" {Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $computer_name -Restart; Break}
+        "y" {Add-Computer -ComputerName $env:COMPUTERNAME -DomainName $domain -NewName $computer_name -Restart; Break}
         Default {"Please answer by either 'y' or 'n'!"}
     }
 }
