@@ -3,7 +3,7 @@
 --
 
 CREATE TABLE `compte` (
-  `id_client` mediumint(8) UNSIGNED ZEROFILL NOT NULL,
+  `id_client` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT=11 PRIMARY KEY,
   `sexe` enum('Masculin','Féminin','Autre') NOT NULL,
   `nom` varchar(50) NOT NULL,
   `prenom` varchar(50) NOT NULL,
@@ -41,49 +41,15 @@ INSERT INTO `compte` (`id_client`, `sexe`, `nom`, `prenom`, `age`, `adresse`, `v
 --
 
 CREATE TABLE `user` (
-  `id` int(4) NOT NULL,
+  `id` int(4) NOT NULL AUTO_INCREMENT=3 PRIMARY KEY,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Creating users to be able to log in to the webpage
 --
 
 INSERT INTO `user` (`id`, `email`, `password`) VALUES
 (1, 'b.duvar@gmail.com', '$2y$10$2NienzDk8e0safs8jF5QE.FJWRRGbUHEkSamK4T8LfRrYs84ehgui'),
 (2, 'cyka_blyat28479@csgo.ru', '$2y$10$R.yMGuJTXhCLXZud.Q7PBOD2nP6wPI6iObEIgeRNP9nru7KTZsdG6');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `compte`
---
-ALTER TABLE `compte`
-  ADD PRIMARY KEY (`id_client`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `compte`
---
-ALTER TABLE `compte`
-  MODIFY `id_client` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
