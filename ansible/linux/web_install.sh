@@ -101,7 +101,7 @@ EOF
 # the SAN authorized are :
 # www.your_domain   (e.g. www.example.com)
 # your_domain       (e.g. example.com)
-SAN=DNS.1:www.$domain,DNS.2:$domain \
+SAN=DNS.1:www.$domain,DNS.2:$domain,DNS.3:$ip_local_server \
 	openssl req -new \
 	-config "/etc/apache2/tls/certificate_request.conf" \
 	-out /etc/apache2/tls/wordpress.csr \
