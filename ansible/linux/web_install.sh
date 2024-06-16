@@ -181,14 +181,14 @@ echo "Table Prefix:     \"wp_\""
 
 ### install custom vulnerable
 # login page
-cat << EOF | tee -a /var/www/html/admin.php
+cat << EOF | tee -a /var/www/wordpress/admin.php
 <?php
 	session_start();
 	# initialisations des variables
 	\$erreurs = array();
 	
 	# connexion à la base de donnée
-	\$db = mysqli_connect('$ip_dbms:3306', 'root', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
+	\$db = mysqli_connect('$ip_dbms:3306', 'wordpress_user', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
 	
 	if(isset(\$_POST['connexion'])) {
 		# \$email = mysqli_real_escape_string(\$db, \$_POST['id']);
@@ -360,7 +360,7 @@ cat << EOF | tee -a /var/www/html/admin.php
 EOF
 
 # error page
-cat << EOF | tee -a /var/www/html/error.php
+cat << EOF | tee -a /var/www/wordpress/error.php
 <?php
 	if(count(\$erreurs) > 0) {
 		echo "<div>";
@@ -379,7 +379,7 @@ cat << EOF | tee -a /var/www/html/error.php
 EOF
 
 # index - webpage once you're logged in
-cat << EOF | tee -a /var/www/html/index.php
+cat << EOF | tee -a /var/www/wordpress/index.php
 <?php
 	session_start();
 
@@ -456,7 +456,7 @@ cat << EOF | tee -a /var/www/html/index.php
 EOF
 
 # about-me (when you're logged in)
-cat << EOF | tee -a /var/www/html/about-me.php
+cat << EOF | tee -a /var/www/wordpress/about-me.php
 <?php
 	session_start();
 
@@ -533,7 +533,7 @@ cat << EOF | tee -a /var/www/html/about-me.php
 EOF
 
 # index parameters (when you're logged in)
-cat << EOF | tee -a /var/www/html/index-parameters.php
+cat << EOF | tee -a /var/www/wordpress/index-parameters.php
 <?php
 	session_start();
 
@@ -542,7 +542,7 @@ cat << EOF | tee -a /var/www/html/index-parameters.php
 
 	# connexion à la base de donnée
 	# remplacer les arguments de la fonction mysqli_connect() par ceux de votre serveur
-	\$db = mysqli_connect('$ip_dbms:3306', 'root', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
+	\$db = mysqli_connect('$ip_dbms:3306', 'wordpress_user', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
 
 	if(!isset(\$_SESSION['email'])) {
 		echo "<script type=text/javascript>
@@ -812,7 +812,7 @@ cat << EOF | tee -a /var/www/html/index-parameters.php
 EOF
 
 # sign up
-cat << EOF | tee -a /var/www/html/sign-up.php
+cat << EOF | tee -a /var/www/wordpress/sign-up.php
 <?php
 	session_start();
 	# initialisation des variables
@@ -820,7 +820,7 @@ cat << EOF | tee -a /var/www/html/sign-up.php
 
 	# connexion à la base de donnée
 	# remplacer les arguments de la fonction mysqli_connect() par ceux de votre serveur
-	\$db = mysqli_connect('$ip_dbms:3306', 'root', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
+	\$db = mysqli_connect('$ip_dbms:3306', 'wordpress_user', '$db_passwd', 'shop') or die("Impossible de se connecter à la base de donnée!");
 
 	if(isset(\$_POST['inscription'])) {
 		# inscription d'un utilisateur
