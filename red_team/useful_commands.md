@@ -18,7 +18,7 @@ Install a file manager plugin and replace a webpage with a webshell.
 
 # Webshell
 Use a listener on 0.0.0.0 with either port 80/tcp, 443/tcp or 53/tcp\
-`nc -lvnp 53`\
+`nc -lvnp 53`
 
 Go to the edited webpage to trigger the webshell
 
