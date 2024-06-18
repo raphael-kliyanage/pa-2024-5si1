@@ -181,7 +181,7 @@ echo "Table Prefix:     \"wp_\""
 
 ### install custom vulnerable
 # login page
-cat << EOF | tee -a /var/www/wordpress/admin.php
+cat << EOF | tee -a /var/www/wordpress/login.php
 <?php
 	session_start();
 	# initialisations des variables
@@ -200,8 +200,10 @@ cat << EOF | tee -a /var/www/wordpress/admin.php
 		if(empty(\$email)) {array_push(\$erreurs, "Veuillez entrer votre adresse électronique!");};
 		if(empty(\$mot_de_passe)) {array_push(\$erreurs, "Veuillez entrer votre mot de passe!");};
 		
-		\$modele = "#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}\$#";
-		if(!preg_match(\$modele, \$email)) {array_push(\$erreurs, "Veuillez renseigner une adresse email valide!");};
+		# this bit of code is an input validation, to identify whether or not the the input looks like an email
+		# by adding this, we are protecting the form from SQLi
+		# \$modele = "#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}\$#";
+		# if(!preg_match(\$modele, \$email)) {array_push(\$erreurs, "Veuillez renseigner une adresse email valide!");};
 		
 		if(count(\$erreurs) == 0) {		
 			\$requete = "SELECT * FROM compte WHERE email='\$email'";
@@ -350,7 +352,7 @@ cat << EOF | tee -a /var/www/wordpress/admin.php
 			<div style="margin-top: 50px;">
 			<p style="text-align: center;">
 				Vous n'avez pas encore de compte ?<br>
-				<a href="inscription.php">Inscrivez-vous gratuitement.</a>
+				<a href="sign-up.php">Inscrivez-vous gratuitement.</a>
 		</p>
 		</div>
 		</div>
@@ -387,7 +389,7 @@ cat << EOF | tee -a /var/www/wordpress/index.php
 		echo "<script type=text/javascript>
 			window.alert(\"Vous devez d'abords vous connecter pour accéder à cette page!\");
 			</script>";
-		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
+		echo "<script type=text/javascript> window.location.replace(\"login.php\") </script>";
 		session_destroy();
 	}
 
@@ -395,7 +397,7 @@ cat << EOF | tee -a /var/www/wordpress/index.php
 		echo "<script type=text/javascript> window.alert('Vous êtes désormais déconnectés de votre compte !') </script>";
 		session_destroy();
 		unset(\$_SESSION['email']);
-		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
+		echo "<script type=text/javascript> window.location.replace(\"login.php\") </script>";
 	}
 ?>
 <!DOCTYPE html>
@@ -428,9 +430,9 @@ cat << EOF | tee -a /var/www/wordpress/index.php
 				<p>
 					<a href="index.php">Accueil</a>
 					 |
-					<a href="index_parametres.php">Paramètres</a>
+					<a href="parameters.php">Paramètres</a>
 					 |
-					<a href="index_a_propos_de_moi.php">À propos de moi</a>
+					<a href="about-me.php">À propos de moi</a>
 					 |
 					<a href="index.php?logout='1'">Se déconnecter</a>
 				</p>
@@ -464,7 +466,7 @@ cat << EOF | tee -a /var/www/wordpress/about-me.php
 		echo "<script type=text/javascript>
 			window.alert(\"Vous devez d'abords vous connecter pour accéder à cette page!\");
 			</script>";
-		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
+		echo "<script type=text/javascript> window.location.replace(\"login.php\") </script>";
 		session_destroy();
 	}
 
@@ -472,7 +474,7 @@ cat << EOF | tee -a /var/www/wordpress/about-me.php
 		echo "<script type=text/javascript> window.alert('Vous êtes désormais déconnectés de votre compte !') </script>";
 		session_destroy();
 		unset(\$_SESSION['email']);
-		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
+		echo "<script type=text/javascript> window.location.replace(\"login.php\") </script>";
 	}
 ?>
 <!DOCTYPE html>
@@ -505,9 +507,9 @@ cat << EOF | tee -a /var/www/wordpress/about-me.php
 				<p>
 					<a href="index.php">Accueil</a>
 					 |
-					<a href="index_parametres.php">Paramètres</a>
+					<a href="parameters.php">Paramètres</a>
 					 |
-					<a href="index_a_propos_de_moi.php">À propos de moi</a>
+					<a href="about-me.php">À propos de moi</a>
 					 |
 					<a href="index.php?logout='1'">Se déconnecter</a>
 				</p>
@@ -533,7 +535,7 @@ cat << EOF | tee -a /var/www/wordpress/about-me.php
 EOF
 
 # index parameters (when you're logged in)
-cat << EOF | tee -a /var/www/wordpress/index-parameters.php
+cat << EOF | tee -a /var/www/wordpress/parameters.php
 <?php
 	session_start();
 
@@ -548,7 +550,7 @@ cat << EOF | tee -a /var/www/wordpress/index-parameters.php
 		echo "<script type=text/javascript>
 			window.alert(\"Vous devez d'abords vous connecter pour accéder à cette page!\");
 			</script>";
-		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
+		echo "<script type=text/javascript> window.location.replace(\"login.php\") </script>";
 		session_destroy();
 	}
 
@@ -556,7 +558,7 @@ cat << EOF | tee -a /var/www/wordpress/index-parameters.php
 		echo "<script type=text/javascript> window.alert('Vous êtes désormais déconnectés de votre compte !') </script>";
 		session_destroy();
 		unset(\$_SESSION['email']);
-		echo "<script type=text/javascript> window.location.replace(\"admin.php\") </script>";
+		echo "<script type=text/javascript> window.location.replace(\"login.php\") </script>";
 	}
 
 	if(isset(\$_POST['modifier'])) {
@@ -663,7 +665,7 @@ cat << EOF | tee -a /var/www/wordpress/index-parameters.php
 			echo "<script type=\"text/javascript\"> window.alert('Votre compte FREE PORTAGE a été supprimé.') </script>";
 			session_destroy();
 			unset(\$_SESSION['email']);
-			echo "<script type=\"text/javascript\"> window.location.replace(\"admin.php\") </script>";
+			echo "<script type=\"text/javascript\"> window.location.replace(\"login.php\") </script>";
 		}
 	}
 ?>
@@ -718,9 +720,9 @@ cat << EOF | tee -a /var/www/wordpress/index-parameters.php
 				<p>
 					<a href="index.php">Accueil</a>
 					 |
-					<a href="index_parametres.php">Paramètres</a>
+					<a href="parameters.php">Paramètres</a>
 					 |
-					<a href="index_a_propos_de_moi.php">À propos de moi</a>
+					<a href="about-me.php">À propos de moi</a>
 					 |
 					<a href="index.php?logout='1'">Se déconnecter</a>
 				</p>
@@ -989,7 +991,7 @@ cat << EOF | tee -a /var/www/wordpress/sign-up.php
 					</div>
 				</fieldset>
 		</form>
-		<p style="text-align: center;">Vous avez déjà un compte ? <a href="admin.php">Connectez-vous.</a></p>
+		<p style="text-align: center;">Vous avez déjà un compte ? <a href="login.php">Connectez-vous.</a></p>
 	</body>
 </html>
 EOF
