@@ -997,5 +997,5 @@ cat << EOF | tee -a /var/www/wordpress/sign-up.php
 EOF
 
 # adding a user flag for ctf purposes
-echo "flag{`echo 'wordpwned!' | base64`}" > /root/root.txt
+echo "flag{`echo 'more like wordpwned!' | base64`}" > /root/root.txt
 chmod 600 /root/root.txt
