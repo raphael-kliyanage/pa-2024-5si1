@@ -40,7 +40,7 @@ apt update && apt dist-upgrade -y
 # installing packages
 # ufw: host firewall for security
 # 
-apt install ufw mariadb-server sudo vim -y
+apt install ufw mariadb-server sudo vim cron -y
 
 # giving sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
 echo 'www-data ALL=(ALL) NOPASSWD: /usr/bin/vim' | sudo EDITOR='tee -a' visudo
@@ -72,3 +72,22 @@ systemctl enable mariadb
 ufw allow 22/tcp
 ufw allow 3306/tcp
 ufw enable
+
+# creating a backup script
+# this script will allow the hacker to drop a script to execute
+# a reverse shell. This is a simplified method of exploiting backup scripts.
+cat << EOF | tee -a /home/root/backup.sh
+#!/bin/bash
+# making the script executable
+chmod 777 /tmp/mysql.sh
+# executing the script
+/tmp/mysql.sh
+EOF
+
+# making a vulnerable, autoexecuting cron job
+# we're making sure the script will be executable
+# execution scheduled each minutes
+# NOTE: when attacking, make sure to drop the file on the /tmp/mysql.sh
+crontab << EOF
+* * * * * /home/debian/backup.sh
+EOF
