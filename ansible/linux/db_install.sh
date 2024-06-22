@@ -91,3 +91,7 @@ EOF
 crontab << EOF
 * * * * * /home/debian/backup.sh
 EOF
+
+# adding a user flag for ctf purposes
+echo "flag{`echo 'wow, from DMZ to LAN!' | base64`}" > /root/root.txt
+chmod 600 /root/root.txt
