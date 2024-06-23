@@ -48,7 +48,7 @@ apt update && apt dist-upgrade -y
 # installing packages
 # ufw: host firewall for security
 # 
-apt install sudo vim ufw apache2 mariadb-server unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
+apt install sudo gpg vim ufw apache2 mariadb-server unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
 
 wget https://wordpress.org/latest.zip
 unzip latest.zip

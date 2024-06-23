@@ -44,7 +44,7 @@ apt update && apt dist-upgrade -y
 # sudo and cron: to create vulnerabilities
 # gpg: required to install wazuh
 # 
-apt install ufw mariadb-server sudo vim cron -y
+apt install ufw mariadb-server sudo vim cron gpg -y
 
 # giving sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
 echo 'www-data ALL=(ALL) NOPASSWD: /usr/bin/vim' | sudo EDITOR='tee -a' visudo
