@@ -8,6 +8,7 @@ cidr="24"
 gateway="10.0.0.251"
 dns1="10.0.0.6"
 dns2="1.1.1.1"
+wazuh_ip="10.0.0.2"
 
 ### configure ip address
 # backing up original configuration file for network
@@ -39,6 +40,9 @@ apt update && apt dist-upgrade -y
 
 # installing packages
 # ufw: host firewall for security
+# maraidb-server: dbms
+# sudo and cron: to create vulnerabilities
+# gpg: required to install wazuh
 # 
 apt install ufw mariadb-server sudo vim cron -y
 
@@ -60,7 +64,7 @@ mysql_secure_installation
 
 # creating the shop database using the user.sql script
 script_location=`pwd`
-mariadb -u root -e "SOURCE $script_location/user.sql"
+mariadb -u root -e "SOURCE $script_location/shop.sql"
 
 # accept remote connection
 # replacing the localhost ip by the ipv4 on the LAN (e.g. 192.168.1.12)
@@ -95,3 +99,22 @@ EOF
 # adding a user flag for ctf purposes
 echo "flag{`echo 'wow, from DMZ to LAN!' | base64`}" > /root/root.txt
 chmod 600 /root/root.txt
+
+### installing wazuh agent for EDR+SIEM security
+# installing the gpg key
+curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
+# adding repository
+echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+# updating repository
+apt-get update
+
+# installing wazuh-agent
+WAZUH_MANAGER="$wazuh_ip" apt-get install wazuh-agent -y
+
+# enabling and starting the service
+systemctl daemon-reload
+systemctl enable wazuh-agent
+systemctl start wazuh-agent
+
+# RECOMMENDED: disabling wazuh updates
+echo "wazuh-agent hold" | dpkg --set-selections

@@ -7,6 +7,7 @@ cidr="24"
 gateway="10.0.1.251"
 dns1="10.0.0.1"
 dns2="1.1.1.1"
+wazuh_ip="10.0.0.2"
 # choose the 
 domain="quinteflush.org"
 # variables concerning the pki to sign your wordpress
@@ -999,3 +1000,22 @@ EOF
 # adding a user flag for ctf purposes
 echo "flag{`echo 'more like wordpwned!' | base64`}" > /root/root.txt
 chmod 600 /root/root.txt
+
+### installing wazuh agent for EDR+SIEM security
+# installing the gpg key
+curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
+# adding repository
+echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+# updating repository
+apt-get update
+
+# installing wazuh-agent
+WAZUH_MANAGER="$wazuh_ip" apt-get install wazuh-agent -y
+
+# enabling and starting the service
+systemctl daemon-reload
+systemctl enable wazuh-agent
+systemctl start wazuh-agent
+
+# RECOMMENDED: disabling wazuh updates
+echo "wazuh-agent hold" | dpkg --set-selections
