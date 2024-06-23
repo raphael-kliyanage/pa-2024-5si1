@@ -1,9 +1,15 @@
+-- replacing the shop database to start from scratch
+DROP DATABASE IF EXISTS shop;
+CREATE DATABASE shop;
+
+-- selecting the shop database created
+USE shop;
+
 --
 -- Table structure for table `compte`
 --
-
 CREATE TABLE `compte` (
-  `id_client` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT=11 PRIMARY KEY,
+  `id_client` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `sexe` enum('Masculin','Féminin','Autre') NOT NULL,
   `nom` varchar(50) NOT NULL,
   `prenom` varchar(50) NOT NULL,
@@ -23,7 +29,7 @@ CREATE TABLE `compte` (
 --
 
 INSERT INTO `compte` (`id_client`, `sexe`, `nom`, `prenom`, `age`, `adresse`, `ville`, `code_postal`, `email`, `mot_de_passe`, `numero_telephone`, `date_creation`, `newsletter`) VALUES
-(00000001, 'Masculin', 'Duvar', 'Baptiste', '1976-08-15', '87 avenue Foch', 'Paris', 75116, 'b.duvar@gmail.com', '$2y$10$b78M3nV/pMvu2mqJS55Yp.4.RCx/JR.qbvfEMCiX65OgJMM4MFmBi', '0612345678', '2020-10-06', 'non'),
+(00000001, 'Masculin', 'Duvar', 'Baptiste', '1976-08-15', '87 avenue Foch', 'Paris', 75116, 'admin', '$2y$10$lb/fZnuj0UX8fiV7cpDkCefTr0Zh2nCLhU12uFur8Z28OcJFmQ9Ve', '0612345678', '2020-10-06', 'non'),
 (00000002, 'Féminin', 'Bergère', 'Manon', '1990-04-19', '159 allée des Vandres', 'Rouen', 76100, 'm.bergere@gmail.com', '$2y$10$NAp4hYujvT7muTyGaR7MOOFKZvo3ML7jJV00bSUehX2Od6y75oLMq', '0649849449', '2020-10-06', 'oui'),
 (00000003, 'Masculin', 'Clodo', 'Bastien', '2020-10-05', 'ça dépend', 'ça dpend', 0, 'societe.generale@scg.fr', '$2y$10$2Aio8ae7P84l0vVyepP84u5maJ9jqMpc8LQghaH.G/qZXjfASYbHG', '0000000000', '2020-10-07', 'oui'),
 (00000004, 'Autre', 'Mike', 'Hunt', '0069-04-20', 'huto live', 'khuntland', 66666, '2stupid2haveanemail@stupid.com', '$2y$10$fJ8frUa79pkHJDoAb1UFqOsrfbRprVn87yyP/l1s.JTT0DtyGyj5W', '6666666666', '2020-10-07', 'oui'),
@@ -41,7 +47,7 @@ INSERT INTO `compte` (`id_client`, `sexe`, `nom`, `prenom`, `age`, `adresse`, `v
 --
 
 CREATE TABLE `user` (
-  `id` int(4) NOT NULL AUTO_INCREMENT=3 PRIMARY KEY,
+  `id` int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -49,7 +55,6 @@ CREATE TABLE `user` (
 --
 -- Creating users to be able to log in to the webpage
 --
-
 INSERT INTO `user` (`id`, `email`, `password`) VALUES
 (1, 'admin', '$2y$10$lb/fZnuj0UX8fiV7cpDkCefTr0Zh2nCLhU12uFur8Z28OcJFmQ9Ve'),
 (2, 'b.duvar@gmail.com', '$2y$10$R.yMGuJTXhCLXZud.Q7PBOD2nP6wPI6iObEIgeRNP9nru7KTZsdG6');
