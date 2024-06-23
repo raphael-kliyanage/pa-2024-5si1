@@ -51,5 +51,5 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`) VALUES
-(1, 'b.duvar@gmail.com', '$2y$10$2NienzDk8e0safs8jF5QE.FJWRRGbUHEkSamK4T8LfRrYs84ehgui'),
-(2, 'cyka_blyat28479@csgo.ru', '$2y$10$R.yMGuJTXhCLXZud.Q7PBOD2nP6wPI6iObEIgeRNP9nru7KTZsdG6');
+(1, 'admin', '$2y$10$lb/fZnuj0UX8fiV7cpDkCefTr0Zh2nCLhU12uFur8Z28OcJFmQ9Ve'),
+(2, 'b.duvar@gmail.com', '$2y$10$R.yMGuJTXhCLXZud.Q7PBOD2nP6wPI6iObEIgeRNP9nru7KTZsdG6');

@@ -335,13 +335,13 @@ cat << EOF | tee -a /var/www/wordpress/login.php
 						<div style="text-align: center;">
 							<!--
 							<table class="formulaire">
-								<tr><td style="text-align: right;">E-mail :</td><td><input type="email" name="id" maxlength="255" placeholder="b.duvar@gmail.com"></td></tr>
+								<tr><td style="text-align: right;">E-mail :</td><td><input type="text" name="id" maxlength="255" placeholder="b.duvar@gmail.com"></td></tr>
 								<tr><td style="text-align: right;">Mot de passe :</td><td><input type="password" name="mdp"></td></tr>
 							
 								<tr><td><input type="submit" name="connexion" value="Se connecter"></td></tr>
 							</table>
 							-->
-							<input type="email" name="id" maxlength="255" autofocus placeholder="E-mail" required><br><br>
+							<input type="text" name="id" maxlength="255" autofocus placeholder="E-mail" required><br><br>
 							<input type="password" name="mdp" placeholder="Mot de passe" required>
 							<br>
 							<br>
