@@ -58,3 +58,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `email`, `password`) VALUES
 (1, 'admin', '$2y$10$lb/fZnuj0UX8fiV7cpDkCefTr0Zh2nCLhU12uFur8Z28OcJFmQ9Ve'),
 (2, 'b.duvar@gmail.com', '$2y$10$R.yMGuJTXhCLXZud.Q7PBOD2nP6wPI6iObEIgeRNP9nru7KTZsdG6');
+
+ALTER TABLE `compte`
+  MODIFY `id_client` mediumint(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+ALTER TABLE `user`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
