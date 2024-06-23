@@ -223,7 +223,7 @@ cat << EOF | tee -a /var/www/wordpress/login.php
 					\$_SESSION = \$resultat;
 					\$_SESSION['email'] = \$email;
 					\$_SESSION['success'] = "Vous vous êtes connectés à votre compte!";
-					header("location: accueil.php");	
+					header("location: index.php");	
 				} else {
 					array_push(\$erreurs, "Mot de passe incorrect. Veuillez réessayez!");
 					#echo "<script type=text/javascript> window.alert('Mauvais email/mot de passe. Veuillez réessayez!')</script>";
@@ -381,7 +381,7 @@ cat << EOF | tee -a /var/www/wordpress/error.php
 EOF
 
 # index - webpage once you're logged in
-cat << EOF | tee -a /var/www/wordpress/accueil.php
+cat << EOF | tee -a /var/www/wordpress/index.php
 <?php
 	session_start();
 
@@ -428,13 +428,13 @@ cat << EOF | tee -a /var/www/wordpress/accueil.php
 		<header>
 			<tr>
 				<p>
-					<a href="accueil.php">Accueil</a>
+					<a href="index.php">Accueil</a>
 					 |
 					<a href="parameters.php">Paramètres</a>
 					 |
 					<a href="about-me.php">À propos de moi</a>
 					 |
-					<a href="accueil.php?logout='1'">Se déconnecter</a>
+					<a href="index.php?logout='1'">Se déconnecter</a>
 				</p>
 			</tr>
 		</header>
@@ -505,13 +505,13 @@ cat << EOF | tee -a /var/www/wordpress/about-me.php
 		<header>
 			<tr>
 				<p>
-					<a href="accueil.php">Accueil</a>
+					<a href="index.php">Accueil</a>
 					 |
 					<a href="parameters.php">Paramètres</a>
 					 |
 					<a href="about-me.php">À propos de moi</a>
 					 |
-					<a href="accueil.php?logout='1'">Se déconnecter</a>
+					<a href="index.php?logout='1'">Se déconnecter</a>
 				</p>
 			</tr>
 		</header>
@@ -628,7 +628,7 @@ cat << EOF | tee -a /var/www/wordpress/parameters.php
 			\$_SESSION = \$resultat;
 			\$_SESSION['email'] = \$email;
 			\$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
-			header("location: accueil.php");
+			header("location: index.php");
 		} elseif(count(\$erreurs) == 0 && !empty(\$nouveau_email) && !empty(\$nouveau_mdp1) && !empty(\$nouveau_mdp2)) {
 			\$email = \$nouveau_email;
 			# protection du mot de passe (avec sel) en utilisant l'algorithme "bcrypt"
@@ -641,7 +641,7 @@ cat << EOF | tee -a /var/www/wordpress/parameters.php
 			\$_SESSION = \$resultat;
 			\$_SESSION['email'] = \$email;
 			\$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
-			header("location: accueil.php");
+			header("location: index.php");
 		}
 	}
 
@@ -718,13 +718,13 @@ cat << EOF | tee -a /var/www/wordpress/parameters.php
 		<header>
 			<tr>
 				<p>
-					<a href="accueil.php">Accueil</a>
+					<a href="index.php">Accueil</a>
 					 |
 					<a href="parameters.php">Paramètres</a>
 					 |
 					<a href="about-me.php">À propos de moi</a>
 					 |
-					<a href="accueil.php?logout='1'">Se déconnecter</a>
+					<a href="index.php?logout='1'">Se déconnecter</a>
 				</p>
 			</tr>
 		</header>
@@ -888,7 +888,7 @@ cat << EOF | tee -a /var/www/wordpress/sign-up.php
 			\$_SESSION = \$resultat;
 			\$_SESSION['email'] = \$email;
 			\$_SESSION['success'] = "Vous êtes désormais inscrit et connecté à votre compte!";
-			header("location: accueil.php");
+			header("location: index.php");
 		}
 	}
 ?>
