@@ -11,6 +11,8 @@ Credits:
 - Lyronn LEVY
 - Mathis THOUVENIN
 - Raphaël KATHALUWA-LIYANAGE
+- chvancooten, A1vinSmith, Pal1Sec for the AV bypass (OSEP-Code-Snippets)
+- ProcessusT for the AV bypass (Bypass-AV-DirectSyscalls)
 
 # Directories
 
