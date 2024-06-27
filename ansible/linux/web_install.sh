@@ -7,7 +7,7 @@ cidr="24"
 gateway="10.0.1.251"
 dns1="10.0.0.1"
 dns2="1.1.1.1"
-wazuh_ip="10.0.0.2"
+wazuh_ip="10.0.0.5"
 # choose the 
 domain="quinteflush.org"
 # variables concerning the pki to sign your wordpress
