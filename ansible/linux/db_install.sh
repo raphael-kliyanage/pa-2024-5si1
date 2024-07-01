@@ -8,7 +8,7 @@ cidr="24"
 gateway="10.0.0.251"
 dns1="10.0.0.6"
 dns2="1.1.1.1"
-wazuh_ip="10.0.0.5"
+wazuh_ip="10.0.0.2"
 
 ### configure ip address
 # backing up original configuration file for network
@@ -44,7 +44,7 @@ apt update && apt dist-upgrade -y
 # sudo and cron: to create vulnerabilities
 # gpg: required to install wazuh
 # 
-apt install ufw mariadb-server sudo vim cron gpg -y
+apt install ufw mariadb-server sudo vim cron gpg curl -y
 
 # giving sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
 echo 'www-data ALL=(ALL) NOPASSWD: /usr/bin/vim' | sudo EDITOR='tee -a' visudo
