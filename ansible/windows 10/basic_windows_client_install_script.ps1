@@ -26,4 +26,4 @@ Disable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6 -Confirm:$false
 
 # joining a domain and rename in one go
 Write-Host "Joining $domain..."
-Add-Computer -DomainName $domain -NewName $computer_name -Restart
+Add-Computer -ComputerName $env:COMPUTERNAME -DomainName $domain -NewName $computer_name -Restart
