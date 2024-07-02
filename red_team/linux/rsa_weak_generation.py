@@ -2,6 +2,8 @@ from Crypto.PublicKey import RSA
 from Crypto.Math.Numbers import Integer
 from Crypto.Util import number
 
+# function to generate a rsa key pair by chosing the key lenght, p and q
+# CAUTION: it's not recommended to generate from the constructor
 def generate_rsa_key(bits, p, q):
     n = p * q
     e = 65537
@@ -25,6 +27,7 @@ rsa_key = generate_rsa_key(bits, p, q)
 with open("id_rsa", "wb") as f:
     f.write(rsa_key.export_key())
 
-# save in a file the public key
+# save in a file the public key in OpenSSH format
+# make sure to add the content on authorized_keys followed by 'username@hostname'
 with open("id_rsa.pub", "wb") as f:
     f.write(rsa_key.publickey().export_key(format="OpenSSH"))
