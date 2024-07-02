@@ -24,10 +24,10 @@ q = 3098941397922118644087553796214358827907918065727678577348316308484078743175
 rsa_key = generate_rsa_key(bits, p, q)
 
 # save in a file the private key
-with open("id_rsa", "wb") as f:
+with open("id_rsa_ssh_private.pem", "wb") as f:
     f.write(rsa_key.export_key())
 
 # save in a file the public key in OpenSSH format
 # make sure to add the content on authorized_keys followed by 'username@hostname'
-with open("id_rsa.pub", "wb") as f:
+with open("id_rsa_ssh_public.pub", "wb") as f:
     f.write(rsa_key.publickey().export_key(format="OpenSSH"))
