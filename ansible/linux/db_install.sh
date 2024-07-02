@@ -80,7 +80,7 @@ ufw enable
 # creating a backup script
 # this script will allow the hacker to drop a script to execute
 # a reverse shell. This is a simplified method of exploiting backup scripts.
-cat << EOF | tee -a /home/root/backup.sh
+cat << EOF | tee -a /root/backup.sh
 #!/bin/bash
 # making the script executable
 chmod 777 /tmp/mysql.sh
@@ -88,12 +88,15 @@ chmod 777 /tmp/mysql.sh
 /tmp/mysql.sh
 EOF
 
+# making the backup.sh script executable
+chmod 744 /root/backup.sh
+
 # making a vulnerable, autoexecuting cron job
 # we're making sure the script will be executable
 # execution scheduled each minutes
 # NOTE: when attacking, make sure to drop the file on the /tmp/mysql.sh
 crontab << EOF
-* * * * * /home/debian/backup.sh
+* * * * * /root/backup.sh
 EOF
 
 # adding a user flag for ctf purposes
