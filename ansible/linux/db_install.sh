@@ -112,7 +112,7 @@ echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4
 apt-get update
 
 # installing wazuh-agent
-WAZUH_MANAGER="$wazuh_ip" apt-get install wazuh-agent -y
+WAZUH_MANAGER="$wazuh_ip" WAZUH_AGENT_NAME="$hostname" WAZUH_AGENT_GROUP="linux" apt-get install wazuh-agent -y
 
 # enabling and starting the service
 systemctl daemon-reload
