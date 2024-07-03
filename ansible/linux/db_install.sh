@@ -103,6 +103,23 @@ EOF
 echo "flag{`echo 'wow, from DMZ to LAN!' | base64`}" > /root/root.txt
 chmod 600 /root/root.txt
 
+### storing the weak rsa 4096 keys (crackable with fermat's algorithm)
+# creating a repository to store the public keys only
+mkdir ssh_public_keys
+# writing the public key for root@10.0.0.2
+cat << EOF | tee -a /root/ssh_public_keys/id_rsa_ssh_root_wazuh.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCQZtO2hKs4mavC70VXcDfEN/E2fcSdI73gz35AgveomOMgyHfTGsB2trlmxeOEmtECkjRf6oCu9NBW/r+f1ioSgA+YXufjrInVO1gRMXMYKOqTWwNnytUSerhvE8eTQRBwWJAifqLBM86N6J0PZYpQ0hV4lYj/ZfwyzchN234/iNXQNV4Dqt1HfUKUb4caizU51MD7yczAMh3SMD8q/ww48UEt/bin04Hx/Nc/ZSejQJJKtkuS0kKi45w/MaAEHmxlkUfGmyt/vq4k1QsGuML09vHHeiCkZXLUvkIL2/yqTcvjipCmLiD88L3BY2wr40+v+2Krj5Le4Hfr1h7Wf7TL
+EOF
+# making only readable for root
+chmod 600 /root/ssh_public_keys/id_rsa_ssh_root_wazuh.pub
+
+# writing the public key for QUINTEFLUSH\Administrateur@10.0.0.1
+cat << EOF | tee -a /root/ssh_public_keys/id_rsa_ssh_administrateur_ad.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDrZh8oe8Q8j6kt26IZ906kZ7XyJ3sFCVczs1Gqe8w7ZgU+XGL2vpSD100andPQMwDi3wMX98EvEUbTtcoM4p863C3h23iUOpmZ3Mw8z51b9DEXjPLunPnwAYxhIxdP7czKlfgUCe2n49QHuTqtGE/Gs+avjPcPrZc3VrGAuhFM4P+e4CCbd9NzMtBXrO5HoSV6PEw7NSR7sWDcAQ47cd287U8h9hIf9Paj6hXJ8oters0CkgfbuG99SVVykoVkMfiRXIpu+Ir8Fu1103Nt/cv5nJX5h/KpdQ8iXVopmQNFzNFJjU2De9lohLlUZpM81fP1cDwwGF3X52FzgZ7Y67Je56Rz/fc8JMhqqR+N5P5IyBcSJlfyCSGTfDf+DNiioRGcPFIwH+8cIv9XUe9QFKo9tVI8ElE6U80sXxUYvSg5CPcggKJy68DET2TSxO/AGczxBjSft/BHQ+vwcbGtEnWgvZqyZ49usMAfgz0t6qFp4g1hKFCutdMMvPoHb1xGw9b1FhbLEw6j9s7lMrobaRu5eRiAcIrJtv+5hqX6r6loOXpd0Ip1hH/Ykle2fFfiUfNWCcFfre2AIQ1px9pL0tg8x1NHd55edAdNY3mbk3I66nthA5a0FrKrnEgDXLVLJKPEUMwY8JhAOizdOCpb2swPwvpzO32OjjNus7tKSRe87w==
+EOF
+# making only readable for root
+chmod 600 /root/ssh_public_keys/id_rsa_ssh_administrateur_ad.pub
+
 ### installing wazuh agent for EDR+SIEM security
 # installing the gpg key
 curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
