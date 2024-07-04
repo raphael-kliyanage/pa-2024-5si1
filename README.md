@@ -7,12 +7,14 @@ We host a **vulnerable environnement** and conduct an **APT attack** on it. The 
 
 At the end of the attack, a report will be made from both perspective (i.e Blue Team and Red Team). The goal is to compare the TTPs identified, and find remediation action to be applied to avoid similar attacks.
 
-Credits:
+# Credits:
 - Lyronn LEVY
 - Mathis THOUVENIN
 - Raphaël KATHALUWA-LIYANAGE
 - chvancooten, A1vinSmith, Pal1Sec for the AV bypass (OSEP-Code-Snippets)
 - ProcessusT for the AV bypass (Bypass-AV-DirectSyscalls)
+- pentest monkey (webshell)
+- faan ross (evasion techniques)
 
 # Directories
 
