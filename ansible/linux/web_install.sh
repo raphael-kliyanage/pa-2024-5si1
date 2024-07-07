@@ -8,13 +8,13 @@ gateway="10.0.1.251"
 dns1="10.0.0.1"
 dns2="1.1.1.1"
 wazuh_ip="10.0.0.2"
-# choose the 
+# choose the domain of your website
 domain="quinteflush.org"
 # variables concerning the pki to sign your wordpress
 signing_ca_ip="10.0.0.4"
 signing_ca_username="Administrateur"
 signing_ca_computer_netbios="QUINTEFLUSH"
-# database's info
+# database's info to connect to wordpress
 ip_dbms="10.0.0.6"
 
 ### configure ip address
@@ -45,9 +45,8 @@ sleep 5
 # updating system packages
 apt update && apt dist-upgrade -y
 
-# installing packages
-# ufw: host firewall for security
-# 
+# installing packages necessary to install wordpress, secure the system, 
+# to connect to mariadb server, and wazuh-agent
 apt install curl sudo gpg vim ufw apache2 mariadb-server unzip libapache2-mod-php php-curl php-gd php-intl php-mbstring php-mysql php-soap php-xml php-xmlrpc php-zip -y
 
 wget https://wordpress.org/latest.zip
@@ -62,7 +61,8 @@ echo 'www-data ALL=(ALL) NOPASSWD: /usr/bin/vim' | sudo EDITOR='tee -a' visudo
 # creating directory to store cryptographic keys for wordpress
 mkdir /etc/apache2/tls/
 
-# creating 
+# creating a certificate request configuration
+# SAN is included otherwise certificate error will appear
 cat << EOF | tee -a /etc/apache2/tls/certificate_request.conf
 # TLS server certificate request
 
@@ -158,6 +158,29 @@ a2enmod ssl
 # enabling the apache2 service at startup
 systemctl restart apache2
 systemctl enable apache2
+
+# adding a user flag for ctf purposes
+echo "flag{`echo 'more like wordpwned!' | base64`}" > /root/root.txt
+chmod 600 /root/root.txt
+
+### installing wazuh agent for EDR+SIEM security
+# installing the gpg key
+curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
+# adding repository
+echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+# updating repository
+apt-get update
+
+# installing wazuh-agent
+WAZUH_MANAGER="$wazuh_ip" WAZUH_AGENT_NAME="$hostname" WAZUH_AGENT_GROUP="linux" apt-get install wazuh-agent -y
+
+# enabling and starting the service
+systemctl daemon-reload
+systemctl enable wazuh-agent
+systemctl start wazuh-agent
+
+# RECOMMENDED: disabling wazuh updates
+echo "wazuh-agent hold" | dpkg --set-selections
 
 # configure ufw and enabling
 # 22/tcp = ssh to securely login to the server
@@ -362,7 +385,7 @@ cat << EOF | tee -a /var/www/wordpress/login.php
 </html>
 EOF
 
-# error page
+# custom error page
 cat << EOF | tee -a /var/www/wordpress/error.php
 <?php
 	if(count(\$erreurs) > 0) {
@@ -814,7 +837,7 @@ cat << EOF | tee -a /var/www/wordpress/parameters.php
 </html>
 EOF
 
-# sign up
+# sign up webpage to create an account
 cat << EOF | tee -a /var/www/wordpress/sign-up.php
 <?php
 	session_start();
@@ -996,26 +1019,3 @@ cat << EOF | tee -a /var/www/wordpress/sign-up.php
 	</body>
 </html>
 EOF
-
-# adding a user flag for ctf purposes
-echo "flag{`echo 'more like wordpwned!' | base64`}" > /root/root.txt
-chmod 600 /root/root.txt
-
-### installing wazuh agent for EDR+SIEM security
-# installing the gpg key
-curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
-# adding repository
-echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
-# updating repository
-apt-get update
-
-# installing wazuh-agent
-WAZUH_MANAGER="$wazuh_ip" WAZUH_AGENT_NAME="$hostname" WAZUH_AGENT_GROUP="linux" apt-get install wazuh-agent -y
-
-# enabling and starting the service
-systemctl daemon-reload
-systemctl enable wazuh-agent
-systemctl start wazuh-agent
-
-# RECOMMENDED: disabling wazuh updates
-echo "wazuh-agent hold" | dpkg --set-selections
