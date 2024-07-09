@@ -47,8 +47,9 @@ n = 1822902180049938917981099998414729431669448115225999917878007439142982911177
 p_q = factorize(n)
 
 # printing the different values
-print("[+] p = ", int(p_q[0]))
-print("[+] q = ", int(p_q[1]))
+print("[i] n =", n)
+print("[+] p =", int(p_q[0]))
+print("[+] q =", int(p_q[1]))
 print("[+] p - q =", int(p_q[0]) - int(p_q[1]))
 
 # rsa key size
