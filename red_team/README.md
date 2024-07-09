@@ -58,7 +58,7 @@ Wait 1 to 2 minutes, so that the backup script executes our payload.
 You will find 2 rsa 4096bits public keys. These keys are vulnerable to Fermat's algorithm. Generate the `n` module to factorize it, and obtain `p` and `q`, so you can generate the private key.
 ```
 ssh-keygen -e -m PKCS8 -f <public_key> | openssl rsa -pubin -noout -modulus
-echo "ibase=16; <result_of_the_previous_command> | BC_LINE_LENGTH=0 bc"
+echo "ibase=16; <result_of_the_previous_command>" | BC_LINE_LENGTH=0 bc
 ```
 
 Paste the result in your python `fermat.py` as the argument of the `factorize()` function. You will obtain `p` and `q`.
