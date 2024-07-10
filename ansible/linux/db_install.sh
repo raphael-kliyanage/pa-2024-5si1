@@ -62,7 +62,7 @@ mariadb -u root -e "
 # change the mariadb root password
 mysql_secure_installation
 
-# creating the shop database using the user.sql script
+# creating the shop database using the shop.sql script
 script_location=`pwd`
 mariadb -u root -e "SOURCE $script_location/shop.sql"
 
