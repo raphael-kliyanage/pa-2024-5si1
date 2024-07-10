@@ -2,6 +2,10 @@
 $root_ca_ip = "10.0.0.3"
 $root_ca_username = "Administrateur"
 $root_ca_computer_name = "SRV-WIN-ROOT"
+# wazuh manager installation
+$ip_manager = "10.0.0.2" 
+$agent_name = "$env:computername"
+$agent_group = "windows"
 
 ### Installing AD CS for the PKI
 # adding windows' features
@@ -63,6 +67,10 @@ certutil.exe -installCert "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b
 ### activating service
 Write-Host "Starting Certificate ..."
 Start-Service -Name "CertSvc"
+
+Write-Host "Installing Wazuh agent.."
+# Install Agent Wazuh (Need to download agent msi if you want to execute this script)
+.\wazuh-agent-4.8.0-1.msi /q WAZUH_MANAGER=$ip_manager WAZUH_AGENT_NAME=$agent_name WAZUH_AGENT_GROUP=$agent_group
 
 Write-Host "Installation Done! Press any keys to continue..." -ForegroundColor Black -BackgroundColor White
 $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
