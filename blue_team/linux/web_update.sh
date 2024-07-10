@@ -8,8 +8,8 @@ ip_dbms="10.0.0.6"
 # updating system packages
 apt update && apt dist-upgrade -y
 
-# giving sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
-echo 'www-data ALL=(ALL) NOPASSWD: /usr/bin/vim' | sudo EDITOR='tee -a' visudo
+# removing sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
+sed -i '/www-data ALL=(ALL) NOPASSWD: \/usr\/bin\/vim/d' /etc/sudoers
 
 # inserting the database's password to avoid storing password in plain text
 # on the source code for security reasons
