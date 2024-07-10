@@ -7,7 +7,7 @@
 #
 # Author        : Mathis THOUVENIN, Raphaël KATHALUWA-LIYANAGE, Lyronn LEVY
 # Changelog     :
-# Version       : 0.7
+# Version       : 0.8
 #
 #
 
@@ -23,7 +23,7 @@ Install-WindowsFeature -Name AD-Domain-Services,DNS -IncludeManagementTools
 Install-ADDSForest -DomainName $domainName -DomainNetBIOSName $domainNetBIOSName -ForestMode $mode -DomainMode $mode -Force:$true -CreateDnsDelegation:$false -DatabasePath "C:\Windows\NTDS" -LogPath "C:\Windows\NTDS" -SysvolPath "C:\Windows\SYSVOL" -NoRebootOnCompletion:$false
 
 # Configuring DNS parameters
-$dnsServerAddress = "127.0.0.1"
+$dnsServerAddress = "127.0.0.1, 1.1.1.1"
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses $dnsServerAddress
 
 # Restart the server to apply the changes
