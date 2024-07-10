@@ -6,7 +6,7 @@ ip_local_server="10.0.0.6"
 ip_remote_wordpress="10.0.1.1"
 cidr="24"
 gateway="10.0.0.251"
-dns1="10.0.0.6"
+dns1="10.0.0.1"
 dns2="1.1.1.1"
 wazuh_ip="10.0.0.2"
 
