@@ -1,9 +1,10 @@
 ### Edit these values to match your desired configuration
-$computer_name = "ROOT-CA"
-$ip_addr = "192.168.1.44"
+$computer_name = "SRV-WIN-ROOT"
+$ip_addr = "10.0.0.3"
 $cidr = 24
-$gateway = "192.168.1.1"
-$dns = "1.1.1.1,1.0.0.1"
+$domain = "quinteflush.org"
+$gateway = "10.0.0.251"
+$dns = "10.0.0.1,1.0.0.1"
 
 ### IP configuration
 # get interface name
@@ -23,7 +24,7 @@ Set-DnsClientServerAddress -InterfaceAlias $interface_name -ServerAddresses $dns
 Disable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6 -Confirm:$false
 
 ### Install the OpenSSH Server for administration purposes
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 -Confirm:$false
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
 # Start the sshd service
 Start-Service sshd -Confirm:$false
@@ -39,5 +40,13 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
     Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
 }
 
-# Renaming PC
-Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $computer_name -Restart
+# choose to either rename or rename and join a domain in one go
+$renaming = 0
+while($renaming -ne 1) {
+    $choice = Read-Host "Would you like to join a domain? (y/n):    "
+    switch ($choice) {
+        "n" {Rename-Computer -ComputerName $env:COMPUTERNAME -NewName $computer_name -Restart; Break}
+        "y" {Add-Computer -ComputerName $env:COMPUTERNAME -DomainName $domain -NewName $computer_name -Restart; Break}
+        Default {"Please answer by either 'y' or 'n'!"}
+    }
+}

@@ -1,5 +1,5 @@
 ### Please edit these values before executing the script
-$root_ca_ip = "192.168.1.44"
+$root_ca_ip = "10.0.0.3"
 $root_ca_username = "Administrateur"
 $root_ca_computer_name = "SRV-WIN-ROOT"
 
@@ -44,7 +44,7 @@ Import-Certificate @params -Confirm:$false
 ### sending .req file to RootCA for approval (to generate .p7b)
 # storing into variables the .req file to adapt to your context
 $domain = "$env:USERDNSDOMAIN".ToLower()
-$netbios = (Get-WmiObject Win32_NTDomain).DomainName.ToLower()
+$netbios = "$env:USERDOMAIN".ToLower()
 
 # copy remotely to the root CA via scp
 Write-Host "Sending Certificate Request to ROOT-CA..."

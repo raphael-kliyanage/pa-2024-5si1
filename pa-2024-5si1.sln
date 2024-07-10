@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "red_team", "red_team", "{5F686A92-447B-47FC-9FDE-9A60D9A4696E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{B1E6A8D7-BF3A-4B6A-BA17-AA9F3DFD414B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "meterpreter", "meterpreter", "{14411A37-0020-4EC6-8123-C8B4A5AC74E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "payload", "red_team\windows\meterpreter\payload\payload.csproj", "{5BB9A208-353F-4C61-8A70-6F69632C4B39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xor_payload", "red_team\windows\meterpreter\xor_payload\xor_payload.csproj", "{59686F7B-1132-496C-A56C-EA889CC91066}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "payload (1)", "payload", "{38F27530-7038-4F12-BF6A-FA17CAAD29D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DInvoke", "red_team\windows\meterpreter\payload\DInvoke\DInvoke.csproj", "{D33860BC-C5E2-40BB-B971-60ED790F0E0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BB9A208-353F-4C61-8A70-6F69632C4B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB9A208-353F-4C61-8A70-6F69632C4B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB9A208-353F-4C61-8A70-6F69632C4B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB9A208-353F-4C61-8A70-6F69632C4B39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59686F7B-1132-496C-A56C-EA889CC91066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59686F7B-1132-496C-A56C-EA889CC91066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59686F7B-1132-496C-A56C-EA889CC91066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59686F7B-1132-496C-A56C-EA889CC91066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D33860BC-C5E2-40BB-B971-60ED790F0E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D33860BC-C5E2-40BB-B971-60ED790F0E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D33860BC-C5E2-40BB-B971-60ED790F0E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D33860BC-C5E2-40BB-B971-60ED790F0E0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1E6A8D7-BF3A-4B6A-BA17-AA9F3DFD414B} = {5F686A92-447B-47FC-9FDE-9A60D9A4696E}
+		{14411A37-0020-4EC6-8123-C8B4A5AC74E4} = {B1E6A8D7-BF3A-4B6A-BA17-AA9F3DFD414B}
+		{5BB9A208-353F-4C61-8A70-6F69632C4B39} = {14411A37-0020-4EC6-8123-C8B4A5AC74E4}
+		{59686F7B-1132-496C-A56C-EA889CC91066} = {14411A37-0020-4EC6-8123-C8B4A5AC74E4}
+		{38F27530-7038-4F12-BF6A-FA17CAAD29D7} = {14411A37-0020-4EC6-8123-C8B4A5AC74E4}
+		{D33860BC-C5E2-40BB-B971-60ED790F0E0C} = {38F27530-7038-4F12-BF6A-FA17CAAD29D7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5223DAA9-6DBE-450D-9758-50E78A0FE697}
+	EndGlobalSection
+EndGlobal
