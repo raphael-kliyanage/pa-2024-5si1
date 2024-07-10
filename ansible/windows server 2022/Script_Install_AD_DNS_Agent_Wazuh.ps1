@@ -1,9 +1,9 @@
 # Name          : Script_Install_AD_DNS.ps1
-# Description   : Install AD & DNS
+# Description   : Install AD, DNS & Agent Wazuh
 # Param 1       :
 # Param 2       :
 #
-# Exemple       : ./Script_Install_AD_DNS.ps1
+# Exemple       : ./Script_Install_AD_DNS_Agent_Wazuh.ps1
 #
 # Author        : Mathis THOUVENIN, Raphaël KATHALUWA-LIYANAGE, Lyronn LEVY
 # Changelog     :
@@ -15,6 +15,12 @@
 $domainName = "quinteflush.org"
 $domainNetBIOSName = "QUINTEFLUSH"
 $mode = "WinThreshold"
+$ipmanager = "10.0.0.2" 
+$agentname = "AD-Bruh2"
+$agentgroup = "windows"
+
+# Install Agent Wazuh (Need to download agent msi if you want to execute this script)
+.\wazuh-agent-4.8.0-1.msi /q WAZUH_MANAGER=$ipmanager WAZUH_AGENT_NAME=$agentname WAZUH_AGENT_GROUP=$agentgroup
 
 # Install AD DS and DNS roles
 Install-WindowsFeature -Name AD-Domain-Services,DNS -IncludeManagementTools
