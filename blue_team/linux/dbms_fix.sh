@@ -15,6 +15,7 @@ cp /etc/network/interfaces /etc/network/interfaces.bak
 # replace dhcp to static
 echo "Configuring new static ip address..."
 sed -i "s/address 10.0.0.6\/24/address $ip_local_server\/$cidr/g" /etc/network/interfaces
+sed -i "s/gateway 10.0.0.251/gateway $gateway/g" /etc/network/interfaces
 
 # applying network changes by restarting service
 systemctl restart networking
