@@ -1,11 +1,11 @@
 ### make sure to edit these values before launching the script!
-$intermediate_ca_ip = "192.168.1.60"
-$intermediate_ca_hostname = "INTER-CA"
-$domain = "thisisanerror.org"
-$netbios = "thisisanerror"
+$intermediate_ca_ip = "10.0.0.4"
+$intermediate_ca_hostname = "SRV-WIN-SIGN"
+$domain = "quinteflush.org"
+$netbios = "quinteflush"
 
 # get current path
-$current_path = $pwd | Select -ExpandProperty Path
+$current_path = $pwd | Select-Object -ExpandProperty Path
 
 ### Installing AD CS for the PKI
 # adding windows' features
@@ -32,6 +32,12 @@ Add-CAAuthorityInformationAccess -AddToCertificateAia -Uri "http://$intermediate
 # add CRL
 Add-CACRLDistributionPoint -AddToCertificateCdp -AddToFreshestCrl -Uri "http://$intermediate_ca_ip/certdata/<CaName><CRLNameSuffix><DeltaCRLAllowed>.crl" -Confirm:$false
 
+# Configuring the Root CA's CRL validity period to 1 year validity
+# CRL can be renewed at least 1 year for the ROOT CA since there isn't
+# many certificates being signed over a year
+CertUtil -setreg ca\CRLPeriodUnits 52
+CertUtil -setreg ca\CRLPeriod "Weeks"
+
 # publish CRL
 Write-Host "Restarting Certificate Service..."
 Start-Sleep -Seconds 3
@@ -44,10 +50,10 @@ CertUtil -CRL
 
 ### Export ROOT-CA with the public key (will be exported to the Subordinate CA via scp)
 Write-Host "Generating ROOT CA's certificate w/ public key only..."
-Get-ChildItem -Path "Cert:\LocalMachine\My" | Where{$_.Subject -match "$env:computername-CA"} | Export-Certificate -Type cer -FilePath "$current_path\root-ca_public_key.cer"
+Get-ChildItem -Path "Cert:\LocalMachine\My" | Where-Object{$_.Subject -match "$env:computername-CA"} | Export-Certificate -Type cer -FilePath "$current_path\root-ca_public_key.cer"
 
 Write-Host "Wait until the subordinate send its request certificate to the Root CA. Press any keys to continue..." -ForegroundColor Black -BackgroundColor White
-$key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+$host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 ### issuing subCA's certificate request
 Write-Host "Restarting Certificate Service..."
@@ -69,4 +75,4 @@ certutil -resubmit $request_id
 certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id certchainfileout "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
 
 Write-Host "Installation Done! Press any keys to continue..." -ForegroundColor Black -BackgroundColor White
-$key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+$host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
