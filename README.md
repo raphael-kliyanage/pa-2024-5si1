@@ -18,7 +18,7 @@ At the end of the attack, a report will be made from both perspective (i.e Blue 
 
 # Directories
 
-- `ansible`: scripts to automate the deployment of the vulnerable environnement
+- `infrastructure`: scripts to automate the deployment of the vulnerable environnement
 - `blue_team`: tools and scripts used to defend the environnement
 - `red_team`: tools and scripts used to attack the environnement
 
