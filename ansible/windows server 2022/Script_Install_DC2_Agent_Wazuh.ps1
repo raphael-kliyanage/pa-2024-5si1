@@ -26,7 +26,7 @@ $agentgroup = "windows"
 $existingDC = "AD-BRUH2.quinteflush.org" 
 
 # IP address or DNS name of the existing domain controller
-$dnsServerAddress = "10.0.0.1" 
+$dnsServerAddress = "10.0.0.1,1.1.1.1" 
 
 # Install the Active Directory Domain Services role
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
