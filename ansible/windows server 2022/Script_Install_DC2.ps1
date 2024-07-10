@@ -7,7 +7,7 @@
 #
 # Author        : Mathis THOUVENIN, Raphaël KATHALUWA-LIYANAGE, Lyronn LEVY
 # Changelog     :
-# Version       : 0.5
+# Version       : 0.6
 #
 #
 
@@ -20,7 +20,7 @@ $adminPassword = Read-Host -Prompt "Entrez le mot de passe de l'administrateur d
 $existingDC = "AD-BRUH2.quinteflush.org" 
 
 # IP address or DNS name of the existing domain controller
-$dnsServerAddress = "192.168.1.67" 
+$dnsServerAddress = "10.0.0.1" 
 
 # Install the Active Directory Domain Services role
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
