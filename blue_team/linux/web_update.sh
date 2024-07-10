@@ -3,7 +3,7 @@
 ### the script
 
 # database's info to connect to wordpress
-ip_dbms="10.0.0.6"
+ip_dbms="10.0.2.1"
 
 # updating system packages
 apt update && apt dist-upgrade -y
