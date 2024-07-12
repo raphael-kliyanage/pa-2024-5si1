@@ -5,6 +5,11 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
     Exit
 }
 
+# wazuh manager installation
+$ip_manager = "10.0.0.2" 
+$agent_name = "$env:computername"
+$agent_group = "windows"
+
 ### Edit these values to match your desired configuration
 $computer_name = "CLT-WIN-000"
 $domain = "quinteflush.org"
