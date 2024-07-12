@@ -3,6 +3,10 @@ $intermediate_ca_ip = "10.0.0.4"
 $intermediate_ca_hostname = "SRV-WIN-SIGN"
 $domain = "quinteflush.org"
 $netbios = "quinteflush"
+# wazuh manager installation
+$ip_manager = "10.0.0.2" 
+$agent_name = "$env:computername"
+$agent_group = "windows"
 
 # get current path
 $current_path = $pwd | Select-Object -ExpandProperty Path
@@ -73,6 +77,10 @@ certutil -resubmit $request_id
 
 ### generate and transfer .p7b
 certreq -config "$env:computername\$env:computername-CA" -retrieve $request_id certchainfileout "C:\Users\$env:username\Downloads\RootCAwithIssuer.p7b"
+
+Write-Host "Installing Wazuh agent.."
+# Install Agent Wazuh (Need to download agent msi if you want to execute this script)
+.\wazuh-agent-4.8.0-1.msi /q WAZUH_MANAGER=$ip_manager WAZUH_AGENT_NAME=$agent_name WAZUH_AGENT_GROUP=$agent_group
 
 Write-Host "Installation Done! Press any keys to continue..." -ForegroundColor Black -BackgroundColor White
 $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

