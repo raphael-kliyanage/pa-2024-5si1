@@ -26,7 +26,24 @@ rm /var/www/wordpress/about-me.php
 rm /var/www/wordpress/parameters.php
 rm /var/www/wordpress/sign-up.php
 
+# removing persistance
+crontab -u root -r
 
+### Configuring OpenSSH server to only accept identity file authenticaiton
+# Allowing identify file authentication for ssh by removing the comment
+sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g" /etc/ssh/sshd_config
+
+# Forbidding ssh password authentication
+sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
+
+# Setting the location of authorized_keys for ssh
+sed -i "s/#AuthorizedKeysFile/#AuthorizedKeysFile/g" /etc/ssh/sshd_config
+
+# RECOMMENDED by ANSSI (R21)! Forbidding root login
+sed -i "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
+
+# Restarting sshd service
+systemctl restart ssh
 
 ### updating the custom vulnerable
 # login page
