@@ -8,6 +8,9 @@ ip_dbms="10.0.2.1"
 # updating system packages
 apt update && apt dist-upgrade -y
 
+# removing package installed by the attacker
+apt purge netcat-* -y && apt autopurge -y
+
 # removing sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
 sed -i '/www-data ALL=(ALL) NOPASSWD: \/usr\/bin\/vim/d' /etc/sudoers
 
@@ -22,6 +25,8 @@ rm /var/www/wordpress/index.php
 rm /var/www/wordpress/about-me.php
 rm /var/www/wordpress/parameters.php
 rm /var/www/wordpress/sign-up.php
+
+
 
 ### updating the custom vulnerable
 # login page
