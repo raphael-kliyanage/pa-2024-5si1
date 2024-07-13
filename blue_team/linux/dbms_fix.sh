@@ -29,6 +29,13 @@ apt purge netcat-* nmap* -y && apt autopurge -y
 # removing sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
 sed -i '/www-data ALL=(ALL) NOPASSWD: \/usr\/bin\/vim/d' /etc/sudoers
 
+# change the mariadb root password
+# disable root login
+mysql_secure_installation
+
+# restarting mariadb-server to apply the configuartion
+systemctl restart mariadb
+
 # avoid storing the password in plain text in the source code
 read -p "Choose your wordpress database password:   " db_passwd
 
@@ -40,12 +47,9 @@ mariadb -u root -e "
   GRANT ALL PRIVILEGES ON wordpress_db.* TO wordpress_user@$ip_remote_wordpress IDENTIFIED BY '$db_passwd';
   FLUSH PRIVILEGES;"
 
-# change the mariadb root password
-# disable root login
-mysql_secure_installation
-
-# restarting mariadb-server to apply the configuartion
-systemctl restart mariadb
+# updating the shop database using the shop.sql script
+script_location=`pwd`
+mariadb -u root -e "SOURCE $script_location/shop.sql"
 
 # making the backup.sh script executable
 rm /root/backup.sh
