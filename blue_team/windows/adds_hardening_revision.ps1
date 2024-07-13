@@ -2,6 +2,13 @@
 Import-Module ActiveDirectory
 $ad_domain = "quinteflush.org"
 
+### Adding vulnerable ssh-rsa public key in authorized_keys folder
+# remove vulnerable ssh key
+Remove-Item -Path C:\Users\Administrateur.QUINTEFLUSH\.ssh\authorized_keys
+
+# Restarting sshd service
+Restart-Service sshd -Confirm:$false
+
 # add privileged users in the Protected Users
 Get-ADGroupMember "Administrateurs clés" | ForEach-Object {Add-ADGroupMember "Protected Users" $_ -Confirm:$false}
 Get-ADGroupMember "Administrateurs clés Enterprise" | ForEach-Object {Add-ADGroupMember "Protected Users" $_ -Confirm:$false}
