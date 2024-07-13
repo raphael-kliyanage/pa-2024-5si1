@@ -15,6 +15,8 @@ At the end of the attack, a report will be made from both perspective (i.e Blue 
 - ProcessusT for the AV bypass (Bypass-AV-DirectSyscalls)
 - pentest monkey (webshell)
 - faan ross (evasion techniques)
+- SocFortress (Wazuh rules)
+- Sysmon (logging)
 
 # Directories
 
