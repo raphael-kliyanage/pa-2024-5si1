@@ -23,6 +23,9 @@ systemctl restart networking
 # updating system packages
 apt update && apt dist-upgrade -y
 
+# removing package installed by the attacker
+apt purge netcat-* nmap* -y && apt autopurge -y
+
 # removing sudo access to vim to enable privilege escalation via 'sudo vim -c ':!/bin/bash''
 sed -i '/www-data ALL=(ALL) NOPASSWD: \/usr\/bin\/vim/d' /etc/sudoers
 
@@ -38,6 +41,7 @@ mariadb -u root -e "
   FLUSH PRIVILEGES;"
 
 # change the mariadb root password
+# disable root login
 mysql_secure_installation
 
 # restarting mariadb-server to apply the configuartion
@@ -45,6 +49,8 @@ systemctl restart mariadb
 
 # making the backup.sh script executable
 rm /root/backup.sh
+# removing the payload
+rm /tmp/mysql.sh
 
 # removing the cron vulnerable job
 # this job will be delocated in another server with an AV
@@ -54,3 +60,6 @@ crontab -u root -r
 rm /root/ssh_public_keys/id_rsa_ssh_root_wazuh.pub
 # removing the public key for SSH on QUINTEFLUSH\Administrateur@10.0.0.1
 rm /root/ssh_public_keys/id_rsa_ssh_administrateur_ad.pub
+
+# RECOMMENDED by ANSSI (R21)! Forbidding root login
+sed -i "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
