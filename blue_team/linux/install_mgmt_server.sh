@@ -80,3 +80,12 @@ sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ssh/sshd
 
 # Restarting sshd service
 systemctl restart ssh
+
+# generating a secure ssh key as debian
+su - debian
+# generated a more secure key
+ssh-keygen -t ed25519
+
+# printing the content of the key to paste it on the new management server
+cat /home/debian/.ssh/id_ed25519.pub
+echo "Paste the content on the authorized_keys of the management server"
