@@ -1,10 +1,4 @@
-/* serv.cpp  -  Minimal ssleay server for Unix
-   30.9.1996, Sampo Kellomaki <sampo@iki.fi> */
-
-
-/* mangled to work with OpenSSL 0.9.2b
-   Simplified to be even more minimal
-   12/98 - 4/99 Wade Scholine <wades@mail.cybg.com> */
+/* Minimal ssleay server for Unix */
 
 #include <stdio.h>
 #include <unistd.h>
@@ -84,7 +78,7 @@ int main (void)
   memset(&sa_serv, 0, sizeof(sa_serv));
   sa_serv.sin_family      = AF_INET;
   sa_serv.sin_addr.s_addr = INADDR_ANY;
-  sa_serv.sin_port        = htons (1111);          /* Server Port number */
+  sa_serv.sin_port        = htons (80);          /* Server Port number */
   
   err = bind(listen_sd, (struct sockaddr*) &sa_serv,
 	     sizeof (sa_serv));                   CHK_ERR(err, "bind");
@@ -149,4 +143,3 @@ int main (void)
   SSL_free (ssl);
   SSL_CTX_free (ctx);
 }
-/* EOF - serv.cpp */
