@@ -1,0 +1,57 @@
+
+<nat>
+	<outbound>
+		<mode>automatic</mode>
+	</outbound>
+	<separator></separator>
+	<rule>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<network>wanip</network>
+			<port>80</port>
+		</destination>
+		<ipprotocol>inet</ipprotocol>
+		<protocol>tcp</protocol>
+		<target>10.0.1.1</target>
+		<local-port>80</local-port>
+		<interface>wan</interface>
+		<descr><![CDATA[Port forwarding to DMZ SRV-LNX-WEB]]></descr>
+		<associated-rule-id>nat_666f59e0dddbc9.41815835</associated-rule-id>
+		<natreflection>enable</natreflection>
+		<created>
+			<time>1718573536</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1718918683</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<network>wanip</network>
+			<port>443</port>
+		</destination>
+		<ipprotocol>inet</ipprotocol>
+		<protocol>tcp</protocol>
+		<target>10.0.1.1</target>
+		<local-port>443</local-port>
+		<interface>wan</interface>
+		<descr><![CDATA[Port forwarding to DMZ SRV-LNX-WEB]]></descr>
+		<associated-rule-id>nat_66749e2d0e9ef9.40761468</associated-rule-id>
+		<natreflection>enable</natreflection>
+		<updated>
+			<time>1718918701</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718918701</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+	</rule>
+</nat>
