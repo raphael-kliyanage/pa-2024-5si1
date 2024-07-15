@@ -1,0 +1,934 @@
+
+<filter>
+	<rule>
+		<id></id>
+		<tracker>1718653148</tracker>
+		<type>pass</type>
+		<interface>wan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<address>10.0.1.1</address>
+			<port>443</port>
+		</destination>
+		<descr><![CDATA[Allow HTTPS to webserver]]></descr>
+		<updated>
+			<time>1718653148</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718653148</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1717883926</tracker>
+		<type>pass</type>
+		<interface>wan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>udp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<network>wanip</network>
+			<port>51823</port>
+		</destination>
+		<descr><![CDATA[Allow remote access OpenVPN]]></descr>
+		<created>
+			<time>1717883926</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1718042073</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<source>
+			<any></any>
+		</source>
+		<interface>wan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<protocol>tcp</protocol>
+		<destination>
+			<address>10.0.1.1</address>
+			<port>80</port>
+		</destination>
+		<descr><![CDATA[NAT Port forwarding to DMZ SRV-LNX-WEB]]></descr>
+		<associated-rule-id>nat_666f59e0dddbc9.41815835</associated-rule-id>
+		<tracker>1718573536</tracker>
+		<created>
+			<time>1718573536</time>
+			<username><![CDATA[NAT Port Forward]]></username>
+		</created>
+	</rule>
+	<rule>
+		<source>
+			<any></any>
+		</source>
+		<interface>wan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<protocol>tcp</protocol>
+		<destination>
+			<address>10.0.1.1</address>
+			<port>443</port>
+		</destination>
+		<descr><![CDATA[NAT Port forwarding to DMZ SRV-LNX-WEB]]></descr>
+		<associated-rule-id>nat_66749e2d0e9ef9.40761468</associated-rule-id>
+		<tracker>1718918701</tracker>
+		<created>
+			<time>1718918701</time>
+			<username><![CDATA[NAT Port Forward]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718140428</tracker>
+		<type>block</type>
+		<interface>wan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+		</destination>
+		<log></log>
+		<descr><![CDATA[Deny all]]></descr>
+		<updated>
+			<time>1718140428</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718140428</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1719050857</tracker>
+		<type>pass</type>
+		<interface>lan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<network>opt2</network>
+		</source>
+		<destination>
+			<network>lan</network>
+			<port>3306</port>
+		</destination>
+		<descr><![CDATA[Allow mariadb]]></descr>
+		<updated>
+			<time>1719050857</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1719050857</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718313915</tracker>
+		<type>pass</type>
+		<interface>lan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<network>lan</network>
+		</source>
+		<destination>
+			<network>lan</network>
+			<port>22</port>
+		</destination>
+		<descr><![CDATA[Allow SSH on LAN]]></descr>
+		<updated>
+			<time>1718313915</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718313915</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718269160</tracker>
+		<type>pass</type>
+		<interface>lan</interface>
+		<ipprotocol>inet46</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp/udp</protocol>
+		<source>
+			<network>lan</network>
+		</source>
+		<destination>
+			<any></any>
+			<port>53</port>
+		</destination>
+		<descr><![CDATA[Allow DNS on LAN]]></descr>
+		<created>
+			<time>1718269160</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1718269191</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718269233</tracker>
+		<type>pass</type>
+		<interface>lan</interface>
+		<ipprotocol>inet46</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<network>lan</network>
+		</source>
+		<destination>
+			<any></any>
+			<port>80</port>
+		</destination>
+		<descr><![CDATA[Allow HTTP on LAN]]></descr>
+		<updated>
+			<time>1718269233</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718269233</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718269259</tracker>
+		<type>pass</type>
+		<interface>lan</interface>
+		<ipprotocol>inet46</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<network>lan</network>
+		</source>
+		<destination>
+			<any></any>
+			<port>443</port>
+		</destination>
+		<descr><![CDATA[Allow HTTPS on LAN]]></descr>
+		<updated>
+			<time>1718269259</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718269259</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1720795453</tracker>
+		<type>pass</type>
+		<interface>lan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp/udp</protocol>
+		<source>
+			<network>lan</network>
+		</source>
+		<destination>
+			<address>10.0.0.2</address>
+			<port>1515</port>
+		</destination>
+		<descr><![CDATA[Allow wazuh agent enrollment via automatic agent request]]></descr>
+		<created>
+			<time>1718459401</time>
+			<username><![CDATA[admin@10.0.3.4 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1720973976</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1720795454</tracker>
+		<type>pass</type>
+		<interface>lan</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp/udp</protocol>
+		<source>
+			<network>lan</network>
+		</source>
+		<destination>
+			<address>10.0.0.2</address>
+			<port>1514</port>
+		</destination>
+		<log></log>
+		<descr><![CDATA[Allow wazuh agent communication]]></descr>
+		<created>
+			<time>1719830063</time>
+			<username><![CDATA[admin@10.0.3.3 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1720973998</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1719054643</tracker>
+		<type>block</type>
+		<interface>lan</interface>
+		<ipprotocol>inet46</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+		</destination>
+		<descr><![CDATA[Deny any]]></descr>
+		<updated>
+			<time>1719054643</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1719054643</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1717245459</tracker>
+		<type>pass</type>
+		<interface>WireGuard</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>udp</protocol>
+		<source>
+			<address>10.0.3.0/29</address>
+		</source>
+		<destination>
+			<any></any>
+			<port>51820</port>
+		</destination>
+		<descr><![CDATA[Allow UDP to Firewall for WireGuard]]></descr>
+		<updated>
+			<time>1717245459</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1717245459</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1717253283</tracker>
+		<type>pass</type>
+		<interface>openvpn</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+			<port>3389</port>
+		</destination>
+		<descr><![CDATA[Allow RDP to LAN]]></descr>
+		<created>
+			<time>1717253283</time>
+			<username><![CDATA[admin@10.0.0.128 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1718040748</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718306013</tracker>
+		<type>pass</type>
+		<interface>openvpn</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+			<port>22</port>
+		</destination>
+		<descr><![CDATA[Allow SSH to LAN]]></descr>
+		<updated>
+			<time>1718306013</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718306013</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718439157</tracker>
+		<type>pass</type>
+		<interface>openvpn</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+			<port>80</port>
+		</destination>
+		<descr><![CDATA[Allow HTTP to LAN]]></descr>
+		<updated>
+			<time>1718439157</time>
+			<username><![CDATA[admin@10.0.0.1 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718439157</time>
+			<username><![CDATA[admin@10.0.0.1 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718439168</tracker>
+		<type>pass</type>
+		<interface>openvpn</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+			<port>443</port>
+		</destination>
+		<descr><![CDATA[Allow HTTPS to LAN]]></descr>
+		<updated>
+			<time>1718439168</time>
+			<username><![CDATA[admin@10.0.0.1 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1718439168</time>
+			<username><![CDATA[admin@10.0.0.1 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718040857</tracker>
+		<type>block</type>
+		<interface>openvpn</interface>
+		<ipprotocol>inet46</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+		</destination>
+		<log></log>
+		<descr><![CDATA[Deny all]]></descr>
+		<created>
+			<time>1718040857</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1718041013</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1717187659</tracker>
+		<type>pass</type>
+		<interface>opt1</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>pfsync</protocol>
+		<source>
+			<network>opt1</network>
+		</source>
+		<destination>
+			<any></any>
+		</destination>
+		<descr><![CDATA[Allow pfsync traffic]]></descr>
+		<updated>
+			<time>1717187659</time>
+			<username><![CDATA[admin@10.0.0.10 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1717187659</time>
+			<username><![CDATA[admin@10.0.0.10 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718040819</tracker>
+		<type>block</type>
+		<interface>opt1</interface>
+		<ipprotocol>inet46</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+		</destination>
+		<log></log>
+		<descr><![CDATA[Deny all]]></descr>
+		<created>
+			<time>1718040819</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1718040995</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718457883</tracker>
+		<type>pass</type>
+		<interface>opt2</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<network>opt2</network>
+		</source>
+		<destination>
+			<network>lan</network>
+			<port>22</port>
+		</destination>
+		<descr><![CDATA[Allow SSH from DMZ to LAN]]></descr>
+		<created>
+			<time>1718457883</time>
+			<username><![CDATA[admin@10.0.3.4 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1718552486</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718448018</tracker>
+		<type>pass</type>
+		<interface>opt2</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp/udp</protocol>
+		<source>
+			<address>10.0.1.1</address>
+		</source>
+		<destination>
+			<address>10.0.0.6</address>
+			<port>3306</port>
+		</destination>
+		<descr><![CDATA[Allow SQL from DMZ to LAN]]></descr>
+		<created>
+			<time>1718448018</time>
+			<username><![CDATA[admin@10.0.3.4 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1719065761</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718530727</tracker>
+		<type>pass</type>
+		<interface>opt2</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>udp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<address>10.0.0.1</address>
+			<port>53</port>
+		</destination>
+		<descr><![CDATA[Allow DNS (SRV-WIN-AD) to DMZ]]></descr>
+		<created>
+			<time>1718530727</time>
+			<username><![CDATA[admin@10.0.3.2 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1720454478</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718228028</tracker>
+		<type>pass</type>
+		<interface>opt2</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+			<port>80</port>
+		</destination>
+		<descr><![CDATA[Allow HTTP to DMZ]]></descr>
+		<created>
+			<time>1718228028</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1720454716</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718228053</tracker>
+		<type>pass</type>
+		<interface>opt2</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+			<port>443</port>
+		</destination>
+		<descr><![CDATA[Allow HTTPS to DMZ]]></descr>
+		<created>
+			<time>1718228053</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1720454438</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718459401</tracker>
+		<type>pass</type>
+		<interface>opt2</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<network>opt2</network>
+		</source>
+		<destination>
+			<address>10.0.0.2</address>
+			<port>1515</port>
+		</destination>
+		<descr><![CDATA[Allow wazuh agent enrollment via automatic agent request]]></descr>
+		<created>
+			<time>1718459401</time>
+			<username><![CDATA[admin@10.0.3.4 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1719830038</time>
+			<username><![CDATA[admin@10.0.3.3 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1719830063</tracker>
+		<type>pass</type>
+		<interface>opt2</interface>
+		<ipprotocol>inet</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<protocol>tcp</protocol>
+		<source>
+			<network>opt2</network>
+		</source>
+		<destination>
+			<address>10.0.0.2</address>
+			<port>1514</port>
+		</destination>
+		<log></log>
+		<descr><![CDATA[Allow wazuh agent communication]]></descr>
+		<updated>
+			<time>1719830063</time>
+			<username><![CDATA[admin@10.0.3.3 (Local Database)]]></username>
+		</updated>
+		<created>
+			<time>1719830063</time>
+			<username><![CDATA[admin@10.0.3.3 (Local Database)]]></username>
+		</created>
+	</rule>
+	<rule>
+		<id></id>
+		<tracker>1718228127</tracker>
+		<type>block</type>
+		<interface>opt2</interface>
+		<ipprotocol>inet46</ipprotocol>
+		<tag></tag>
+		<tagged></tagged>
+		<max></max>
+		<max-src-nodes></max-src-nodes>
+		<max-src-conn></max-src-conn>
+		<max-src-states></max-src-states>
+		<statetimeout></statetimeout>
+		<statetype><![CDATA[keep state]]></statetype>
+		<os></os>
+		<source>
+			<any></any>
+		</source>
+		<destination>
+			<any></any>
+		</destination>
+		<descr><![CDATA[Deny all]]></descr>
+		<created>
+			<time>1718228127</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</created>
+		<updated>
+			<time>1720454581</time>
+			<username><![CDATA[admin@10.0.0.127 (Local Database)]]></username>
+		</updated>
+	</rule>
+	<separator>
+		<wan></wan>
+		<opt1></opt1>
+		<lan></lan>
+		<opt3></opt3>
+		<openvpn></openvpn>
+		<opt2></opt2>
+	</separator>
+</filter>

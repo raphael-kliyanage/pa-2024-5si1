@@ -11,10 +11,14 @@ At the end of the attack, a report will be made from both perspective (i.e Blue 
 - Lyronn LEVY
 - Mathis THOUVENIN
 - Raphaël KATHALUWA-LIYANAGE
+- Florian GILOTTE (supervisor)
 - chvancooten, A1vinSmith, Pal1Sec for the AV bypass (OSEP-Code-Snippets)
 - ProcessusT for the AV bypass (Bypass-AV-DirectSyscalls)
 - pentest monkey (webshell)
 - faan ross (evasion techniques)
+- SocFortress (Wazuh rules)
+- Sysmon (logging)
+- rsyslog (logging)
 
 # Directories
 

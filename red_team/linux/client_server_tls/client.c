@@ -1,9 +1,4 @@
-/* cli.cpp  -  Minimal ssleay client for Unix
-   30.9.1996, Sampo Kellomaki <sampo@iki.fi> */
-
-/* mangled to work with OpenSSL 0.9.2b
-   Simplified to be even more minimal
-   12/98 - 4/99 Wade Scholine <wades@mail.cybg.com> */
+/* Minimal ssleay client for Unix */
 
 #include <stdio.h>
 #include <memory.h>
@@ -50,14 +45,14 @@ int main (void)
  
   memset(&sa, 0, sizeof(sa));
   sa.sin_family      = AF_INET;
-  sa.sin_addr.s_addr = inet_addr ("127.0.0.1");   /* Server IP */
-  sa.sin_port        = htons     (1111);          /* Server Port number */
+  sa.sin_addr.s_addr = inet_addr ("192.168.1.82");   /* Server IP */
+  sa.sin_port        = htons     (80);          /* Server Port number */
   
   err = connect(sd, (struct sockaddr*) &sa,
 		sizeof(sa));                   CHK_ERR(err, "connect");
 
   /* ----------------------------------------------- */
-  /* Now we have TCP conncetion. Start SSL negotiation. */
+  /* Now we have TCP connection. Start SSL negotiation. */
   
   ssl = SSL_new (ctx);                         CHK_NULL(ssl);    
   SSL_set_fd (ssl, sd);
@@ -106,4 +101,3 @@ int main (void)
   SSL_free (ssl);
   SSL_CTX_free (ctx);
 }
-/* EOF - cli.cpp */
